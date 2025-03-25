@@ -352,11 +352,10 @@ export function TarotReading({
           </MotionDiv>
 
           <MotionDiv
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-purple-100 text-purple-800 font-medium hover:bg-purple-200 transition-colors shadow-md"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={copyToClipboard}
-            disabled={copied}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg ${copied ? 'bg-gray-100 text-gray-700' : 'bg-purple-100 text-purple-800'} font-medium hover:bg-purple-200 transition-colors shadow-md`}
+            whileHover={{ scale: copied ? 1 : 1.03 }}
+            whileTap={{ scale: copied ? 1 : 0.97 }}
+            onClick={!copied ? copyToClipboard : undefined}
           >
             {copied ? (
               <>

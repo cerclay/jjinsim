@@ -1,10 +1,10 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 
-export default function ErrorPage() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const [errorMessage, setErrorMessage] = useState('');
   const error = searchParams.get('error');
@@ -18,27 +18,39 @@ export default function ErrorPage() {
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-xl font-semibold text-red-600 mb-2">로그인 오류</h1>
-        <p className="text-gray-700 mb-4">{errorMessage}</p>
+    <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
+      <h1 className="text-xl font-semibold text-red-600 mb-2">로그인 오류</h1>
+      <p className="text-gray-700 mb-4">{errorMessage}</p>
+      
+      <div className="mt-6 flex flex-col space-y-3">
+        <Link 
+          href="/auth/signin"
+          className="w-full px-4 py-2 bg-blue-600 text-white rounded-md text-center hover:bg-blue-700 transition duration-200"
+        >
+          로그인 페이지로 돌아가기
+        </Link>
         
-        <div className="mt-6 flex flex-col space-y-3">
-          <Link 
-            href="/auth/signin"
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md text-center hover:bg-blue-700 transition duration-200"
-          >
-            로그인 페이지로 돌아가기
-          </Link>
-          
-          <Link 
-            href="/"
-            className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md text-center hover:bg-gray-300 transition duration-200"
-          >
-            홈페이지로 돌아가기
-          </Link>
-        </div>
+        <Link 
+          href="/"
+          className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md text-center hover:bg-gray-300 transition duration-200"
+        >
+          홈페이지로 돌아가기
+        </Link>
       </div>
+    </div>
+  );
+}
+
+export default function ErrorPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <Suspense fallback={
+        <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
+          <p className="text-gray-700">로딩 중...</p>
+        </div>
+      }>
+        <ErrorContent />
+      </Suspense>
     </div>
   );
 } 
