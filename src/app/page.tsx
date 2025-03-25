@@ -31,14 +31,14 @@ const popularTests = [
   {
     id: 't-power',
     title: '나의 T발력 수치는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEh7QIFua8BsWGH6TugirBk5mPH9dFJ8mc8zLwGze9A8rhHhmYziqZU_vcsyZLLbcslbqNX4UlEHHn8x3GqIMFe-T9pO49Kza39vD3agjqMBlz8N8xrG6Mj_jbUjPPWcnGSVv-Fx2XfWvdjFvziNerHndLx0Pcs8OiC-uxj9QMAAG-cxXK7QjMDB2wsxi0k',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
     participants: 132589,
     isPopular: true,
   },
   {
     id: 'tarot-consultation',
     title: '타로상담가',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj_hF5utgruPeM3jXtQ_g4rT3adEXQLLP89T8NuV7OSZdpONbuMmfrcr_1RKEgKThk3E5R2QoVl8M3crn9k-IER-AKntLOG3Yiz-UdsKzHmOX89HY0h589ifmbTAs36uR4KGSRWAAXbzeSdwdJpOji0bYiBwEU5g0oCb_676HFug_rn3_6v7RlwmE3uIUM',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
     participants: 119872,
     isPopular: true,
   },
@@ -103,6 +103,14 @@ const popularTests = [
 // 신규 테스트 데이터
 const newTests = [
   {
+    id: 'dog-compatibility',
+    title: '나랑 잘 맞는 강아지는?',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    participants: 12456,
+    isNew: true,
+    description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'
+  },
+  {
     id: 'personal-color',
     title: '퍼스널컬러 테스트',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
@@ -119,14 +127,14 @@ const newTests = [
   {
     id: 't-power',
     title: '나의 T발력 수치는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEh7QIFua8BsWGH6TugirBk5mPH9dFJ8mc8zLwGze9A8rhHhmYziqZU_vcsyZLLbcslbqNX4UlEHHn8x3GqIMFe-T9pO49Kza39vD3agjqMBlz8N8xrG6Mj_jbUjPPWcnGSVv-Fx2XfWvdjFvziNerHndLx0Pcs8OiC-uxj9QMAAG-cxXK7QjMDB2wsxi0k',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
     participants: 22589,
     isNew: true,
   },
   {
     id: 'tarot-consultation',
     title: '타로상담가',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj_hF5utgruPeM3jXtQ_g4rT3adEXQLLP89T8NuV7OSZdpONbuMmfrcr_1RKEgKThk3E5R2QoVl8M3crn9k-IER-AKntLOG3Yiz-UdsKzHmOX89HY0h589ifmbTAs36uR4KGSRWAAXbzeSdwdJpOji0bYiBwEU5g0oCb_676HFug_rn3_6v7RlwmE3uIUM',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
     participants: 19872,
     isNew: true,
   },

@@ -3,147 +3,564 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Heart, Sparkles, Users, Brain } from 'lucide-react';
+import { ArrowRight, Heart, Sparkles, Users, Brain, Star, Clock, Share2, Lightbulb, Shield, Coffee } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+// 서비스 특징 데이터
+const features = [
+  {
+    icon: <Brain className="h-5 w-5 text-purple-500" />,
+    title: "심층적인 심리 분석",
+    description: "최신 심리학 연구와 빅데이터를 기반으로 한 정확하고 심층적인 분석 결과를 제공합니다."
+  },
+  {
+    icon: <Star className="h-5 w-5 text-yellow-500" />,
+    title: "다양한 테스트 콘텐츠",
+    description: "MBTI, 퍼스널컬러, 성격유형 등 40여 가지의 다양한 테스트 콘텐츠를 무료로 즐길 수 있습니다."
+  },
+  {
+    icon: <Clock className="h-5 w-5 text-blue-500" />,
+    title: "빠르고 간편한 진행",
+    description: "평균 3-5분 내에 완료할 수 있는 최적화된 테스트로 부담 없이 참여할 수 있습니다."
+  },
+  {
+    icon: <Share2 className="h-5 w-5 text-green-500" />,
+    title: "소셜 공유 기능",
+    description: "나의 결과를 친구들과 쉽게 공유하고 비교하며 더 깊은 관계를 만들어 보세요."
+  }
+];
+
+// 서비스 장점 데이터
+const benefits = [
+  {
+    title: "자기 이해",
+    description: "나 자신의 내면을 더 깊이 이해하고 강점과 약점을 파악할 수 있습니다."
+  },
+  {
+    title: "관계 향상",
+    description: "타인의 성격을 이해하며 더 원활한 의사소통과 관계 형성에 도움을 줍니다."
+  },
+  {
+    title: "성장 기회",
+    description: "자신의 잠재력을 발견하고 개인적 성장을 위한 인사이트를 얻을 수 있습니다."
+  },
+  {
+    title: "재미와 휴식",
+    description: "가볍게 즐기며 스트레스를 해소하고 일상에 활력을 더할 수 있습니다."
+  }
+];
+
+// 테스트 항목 데이터 - 가시성 향상을 위해 추가
+const tests = [
+  { 
+    name: "MBTI 심층분석", 
+    description: "16가지 성격 유형을 통해 당신의 진정한 내면을 발견해 보세요."
+  },
+  { 
+    name: "퍼스널컬러", 
+    description: "당신에게 가장 잘 어울리는 색상 팔레트를 찾아드립니다."
+  },
+  { 
+    name: "애착유형", 
+    description: "관계에서 당신이 보이는 고유한 패턴을 이해해 보세요."
+  },
+  { 
+    name: "연애스타일", 
+    description: "사랑에 빠질 때 당신만의 특별한 방식을 알아보세요."
+  },
+  { 
+    name: "직업적성", 
+    description: "당신의 강점을 살릴 수 있는 최적의 직업군을 탐색해 보세요."
+  },
+  { 
+    name: "성격강점", 
+    description: "당신만의 특별한 강점과 장점을 발견해 보세요."
+  },
+  { 
+    name: "스트레스 지수", 
+    description: "스트레스에 대처하는 당신만의 방식을 알아보세요."
+  },
+  { 
+    name: "결혼관", 
+    description: "결혼과 가족에 대한 당신의 가치관을 탐색해 보세요."
+  }
+];
+
+// 팀 가치관 - 가치 중심으로 변경
+const teamValues = [
+  {
+    title: "진정성",
+    description: "우리는 모든 테스트와 결과 분석에 과학적 근거와 진정성을 담습니다. 과장되거나 왜곡된 결과가 아닌, 정확하고 유의미한 인사이트를 제공하기 위해 끊임없이 연구하고 검증합니다.",
+    icon: <Heart className="h-8 w-8 text-white" />,
+    color: "bg-rose-600",
+    titleColor: "text-white font-extrabold"
+  },
+  {
+    title: "창의성",
+    description: "복잡한 심리학적 개념을 누구나 쉽게 이해하고 즐길 수 있도록 창의적인 방법을 고민합니다. 우리는 사용자 경험을 최우선으로 생각하며, 항상 새롭고 몰입감 있는 테스트 여정을 디자인합니다.",
+    icon: <Lightbulb className="h-8 w-8 text-white" />,
+    color: "bg-yellow-600",
+    titleColor: "text-white font-extrabold"
+  },
+  {
+    title: "성장 지향",
+    description: "찐심은 단순한 테스트를 넘어 사용자의 자기 성장을 돕는 플랫폼이 되고자 합니다. 우리는 테스트 결과가 자기 성찰의 시작점이 되어, 더 나은 삶으로 나아가는 여정에 도움이 되길 바랍니다.",
+    icon: <Sparkles className="h-8 w-8 text-white" />,
+    color: "bg-blue-600",
+    titleColor: "text-white font-extrabold"
+  }
+];
+
+// 애니메이션 설정
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white pt-6">
-      <div className="max-w-md mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-6"
-        >
-          {/* 헤더 섹션 */}
-          <div className="text-center space-y-3">
-            <h1 className="text-2xl font-bold gradient-text">찐심 소개</h1>
-            <p className="text-sm text-gray-600">당신의 내면을 비추는 심리테스트 플랫폼</p>
-          </div>
-
-          {/* 메인 이미지 */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="rounded-xl overflow-hidden shadow-lg"
-          >
-            <img 
-              src="https://picsum.photos/id/1065/600/400" 
-              alt="찐심 서비스 이미지" 
-              className="w-full h-48 object-cover"
-            />
-          </motion.div>
-
-          {/* 서비스 소개 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="bg-white rounded-lg p-5 shadow-sm space-y-5"
-          >
-            <div className="space-y-3">
-              <h2 className="text-lg font-bold text-gray-800 flex items-center">
-                <Sparkles className="mr-2 h-5 w-5 text-indigo-500" />
-                찐심이란?
-              </h2>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                찐심은 '진정한 마음'을 뜻하는 이름처럼 여러분의 진짜 내면을 발견할 수 있는 심리테스트 플랫폼입니다. 
-                다양한 심리 테스트를 통해 자신을 더 깊이 이해하고, 다른 사람들과의 관계에서도 더 나은 소통을 할 수 있는 
-                통찰력을 제공합니다.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <h2 className="text-lg font-bold text-gray-800 flex items-center">
-                <Brain className="mr-2 h-5 w-5 text-indigo-500" />
-                주요 서비스
-              </h2>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li className="flex items-start">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-xs font-bold text-indigo-600">1</span>
-                  </span>
-                  <span>
-                    <span className="font-medium">다양한 심리 테스트:</span> 퍼스널 컬러, MBTI, 색맹, 애착 유형 등 다양한 심리 테스트를 제공합니다.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-xs font-bold text-indigo-600">2</span>
-                  </span>
-                  <span>
-                    <span className="font-medium">상세한 결과 분석:</span> 테스트 결과에 대한 심층적인 분석과 해석을 제공합니다.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-xs font-bold text-indigo-600">3</span>
-                  </span>
-                  <span>
-                    <span className="font-medium">결과 공유 기능:</span> 테스트 결과를 친구들과 쉽게 공유할 수 있습니다.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-xs font-bold text-indigo-600">4</span>
-                  </span>
-                  <span>
-                    <span className="font-medium">맞춤형 추천:</span> 사용자의 성향에 맞는 테스트를 추천해 드립니다.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <h2 className="text-lg font-bold text-gray-800 flex items-center">
-                <Users className="mr-2 h-5 w-5 text-indigo-500" />
-                찐심의 비전
-              </h2>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                찐심은 단순한 심리 테스트를 넘어 자기 성장과 더 나은 인간관계를 위한 통찰력을 제공하고자 합니다. 
-                우리는 모든 사람이 자신의 내면을 이해하고 더 나은 삶을 살아갈 수 있도록 돕는 것을 목표로 합니다.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* 테스트 시작하기 버튼 */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-indigo-50">
+      {/* 헤더 섹션 */}
+      <header className="py-12 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 opacity-40 z-0" />
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-400/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-10 -left-10 w-56 h-56 bg-pink-400/20 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="text-center"
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto text-center"
           >
-            <Link href="/" className="inline-flex items-center justify-center px-5 py-3 bg-indigo-600 text-white rounded-lg font-medium shadow-md hover:bg-indigo-700 transition-all">
-              테스트 시작하기
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </motion.div>
-
-          {/* 팀 소개 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="bg-white rounded-lg p-5 shadow-sm space-y-3"
-          >
-            <h2 className="text-lg font-bold text-gray-800 flex items-center">
-              <Heart className="mr-2 h-5 w-5 text-indigo-500" />
-              만든 사람들
-            </h2>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              찐심은 심리학, 디자인, 개발 등 다양한 분야의 전문가들이 모여 만든 서비스입니다.
-              우리는 사용자들이 자신의 내면을 더 깊이 이해하고 성장할 수 있도록 지속적으로 
-              새로운 테스트와 기능을 개발하고 있습니다.
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mb-6 inline-block"
+            >
+              <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full mx-auto shadow-lg">
+                <Heart className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
+              </span>
+            </motion.div>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+              찐심, 당신의 내면을 비추는 거울
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
+              나 자신을 더 깊이 이해하고, 타인과의 관계를 개선하며, 
+              진정한 내면의 성장을 경험할 수 있는 지혜의 여정을 시작하세요.
             </p>
           </motion.div>
+        </div>
+      </header>
 
-          {/* 푸터 */}
-          <div className="text-center text-xs text-gray-500 py-4">
-            © 2024 찐심(JJinSim). All rights reserved.
+      {/* 메인 콘텐츠 */}
+      <main className="container mx-auto px-4 py-12 sm:py-16">
+        {/* 찐심 소개 섹션 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-24"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <motion.span 
+              variants={itemVariants} 
+              className="inline-block px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4"
+            >
+              찐심이란?
+            </motion.span>
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
+            >
+              진정한 마음을 찾아가는 여정
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-lg leading-relaxed"
+            >
+              찐심은 '진정한 마음(眞心)'을 뜻하는 이름처럼 여러분의 진짜 내면을 발견할 수 있는 심리 테스트 플랫폼입니다. 
+              최신 심리학적 이론과 빅데이터 분석을 바탕으로 다양한 테스트를 제공하여 자기 이해와 성장의 기회를 제공합니다. 
+              나를 알아가는 과정은 때로는 도전적이지만, 항상 의미 있고 보람찬 여정입니다.
+            </motion.p>
           </div>
-        </motion.div>
-      </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            <motion.div 
+              variants={itemVariants}
+              className="relative"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur opacity-30" />
+              <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?q=80&w=2069&auto=format&fit=crop" 
+                  alt="자기 성찰" 
+                  className="w-full h-56 object-cover object-center" 
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white flex items-center">
+                    <Lightbulb className="mr-2 h-5 w-5 text-yellow-500" />
+                    자기 성찰의 여정
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    찐심은 단순한 테스트 이상의 의미를 가집니다. 자신의 내면을 탐색하고, 
+                    잠재된 강점을 발견하며, 성장 가능성을 열어가는 자기 성찰의 여정에 
+                    동행자가 되어 드립니다.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants}
+              className="relative"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-orange-600 rounded-2xl blur opacity-30" />
+              <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2068&auto=format&fit=crop" 
+                  alt="관계 개선" 
+                  className="w-full h-56 object-cover object-center" 
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white flex items-center">
+                    <Users className="mr-2 h-5 w-5 text-pink-500" />
+                    관계의 지혜
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    자신을 이해하는 것은 타인을 이해하는 첫걸음입니다. 찐심의 테스트를 통해 
+                    나와 타인의 다양성을 인정하고 존중하며, 더 건강하고 풍요로운 인간관계를 
+                    형성할 수 있습니다.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* 서비스 특징 섹션 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-24 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 py-16 rounded-3xl"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <motion.span 
+              variants={itemVariants} 
+              className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-4"
+            >
+              서비스 특징
+            </motion.span>
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
+            >
+              찐심만의 특별한 경험
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-lg leading-relaxed"
+            >
+              찐심은 단순한 심리 테스트를 넘어 몰입감 있는 자기 탐색의 여정을 선사합니다.
+              편안하면서도 통찰력 있는 경험을 통해 자신의 내면을 새롭게 발견해보세요.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* 테스트 항목 섹션 - 가시성 강화 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-16 sm:mb-24"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 px-4">
+            <motion.span 
+              variants={itemVariants} 
+              className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4"
+            >
+              다양한 테스트
+            </motion.span>
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-900"
+            >
+              나를 발견하는 다양한 방법
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8"
+            >
+              찐심은 40여 가지의 다양한 테스트를 통해 나의 성격, 관계 스타일, 강점, 
+              커리어 적성 등 다양한 측면에서 자신을 이해할 수 있는 기회를 제공합니다.
+              각 테스트는 심리학적 연구와 데이터를 기반으로 설계되어 재미있으면서도
+              의미 있는 결과를 얻을 수 있습니다. 당신의 내면에 숨겨진 보석을 찾아보세요.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto px-4">
+            {tests.map((test, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-all border border-purple-100 dark:border-purple-900/20"
+              >
+                <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">
+                  {test.name}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  {test.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            variants={itemVariants}
+            className="text-center mt-8 sm:mt-10"
+          >
+            <Link href="/tests">
+              <Button variant="outline" className="rounded-full px-6 py-3 border-purple-200 text-purple-700 hover:bg-purple-50 text-sm sm:text-base">
+                모든 테스트 보기
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.section>
+
+        {/* 팀 소개 섹션 - 가치관 중심으로 변경 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-16 sm:mb-24"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 px-4">
+            <motion.span 
+              variants={itemVariants} 
+              className="inline-block px-4 py-1.5 bg-pink-100 text-pink-700 rounded-full text-sm font-medium mb-4"
+            >
+              찐심 팀의 가치
+            </motion.span>
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-900"
+            >
+              우리가 소중히 여기는 가치
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-base sm:text-lg leading-relaxed"
+            >
+              찐심은 심리학, 디자인, 개발 분야의 전문가들이 모여 다음과 같은 가치를 바탕으로
+              여러분에게 최고의 자기 발견 경험을 제공하기 위해 노력하고 있습니다.
+              이러한 가치는 우리가 만드는 모든 콘텐츠와 서비스에 깊이 반영되어 있습니다.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto px-4">
+            {teamValues.map((value, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className={`${value.color} rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all`}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/20 flex items-center justify-center mb-5 sm:mb-6 mx-auto shadow-lg">
+                  {value.icon}
+                </div>
+                <h3 className={`${value.titleColor} text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4 text-center`}>
+                  {value.title}
+                </h3>
+                <p className="text-white text-base sm:text-lg text-center leading-relaxed font-medium">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+        
+        {/* 서비스 비전 섹션 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-20"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <motion.span 
+              variants={itemVariants} 
+              className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4"
+            >
+              찐심의 비전
+            </motion.span>
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
+            >
+              더 나은 자기 이해와 성장의 미래
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-lg leading-relaxed"
+            >
+              우리는 찐심이 단순한 심리 테스트를 넘어 개인의 성장과 사회적 연결을 증진하는 
+              플랫폼으로 발전해 나가길 바랍니다. 사람들이 자신을 이해하고, 타인을 존중하며, 
+              더 나은 세상을 만들어가는 데 기여하는 것이 찐심의 궁극적인 목표입니다.
+            </motion.p>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-3xl overflow-hidden relative max-w-5xl mx-auto">
+            <div className="absolute inset-0 bg-grid-white/10 opacity-20" />
+            <div className="relative p-10 md:p-16 text-white">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 flex items-center">
+                    <Shield className="mr-3 h-6 w-6" />
+                    우리의 약속
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>과학적 근거에 기반한 신뢰할 수 있는 테스트 제공</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>개인정보 보호와 안전한 사용자 경험 보장</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>지속적인 연구와 혁신을 통한 서비스 개선</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>다양성을 존중하고 포용하는 플랫폼 구축</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 flex items-center">
+                    <Coffee className="mr-3 h-6 w-6" />
+                    함께 성장하는 방법
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>정기적인 테스트 참여로 자기 이해 깊이기</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>결과를 친구들과 공유하며 서로 이해하기</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>피드백을 통해 더 나은 찐심 만들기에 동참</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="flex-shrink-0 mt-1 mr-3">✦</span>
+                      <span>지속적인 자기 성찰과 성장을 위한 여정 함께하기</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* CTA 섹션 - 모바일 최적화 개선 */}
+        <motion.section 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden shadow-sm mx-4 sm:mx-auto">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-400/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-indigo-400/10 rounded-full blur-2xl" />
+            
+            <motion.h2 
+              variants={itemVariants} 
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-900"
+            >
+              지금 찐심과 함께 진정한 자아를 발견하세요
+            </motion.h2>
+            <motion.p 
+              variants={itemVariants} 
+              className="text-gray-600 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto"
+            >
+              다양한 심리 테스트를 통해 자신을 더 깊이 이해하고, 
+              더 나은 관계를 만들며, 더 풍요로운 삶을 살아갈 수 있습니다.
+              지금 바로 첫 테스트를 시작해 보세요.
+            </motion.p>
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link href="/" className="w-full sm:w-auto">
+                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full px-5 sm:px-6 py-4 sm:py-5 text-sm sm:text-base md:text-lg hover:from-purple-700 hover:to-indigo-700 shadow-md w-full sm:w-auto">
+                  테스트 시작하기
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+              </Link>
+              <Link href="/tests" className="w-full sm:w-auto">
+                <Button variant="outline" className="rounded-full px-5 sm:px-6 py-4 sm:py-5 text-sm sm:text-base md:text-lg border-purple-200 text-purple-700 hover:bg-purple-50 w-full sm:w-auto">
+                  모든 테스트 보기
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </motion.section>
+      </main>
+
+      {/* 푸터 - 모바일 최적화 */}
+      <footer className="py-6 sm:py-8 md:py-10 border-t border-gray-200 mt-12 sm:mt-16 md:mt-20 px-4">
+        <div className="container mx-auto text-center">
+          <p className="text-xs sm:text-sm text-gray-500">
+            © 2024 찐심(JJinSim). 모든 권리 보유. 
+            <br className="sm:hidden" />
+            <span className="hidden sm:inline"> | </span>
+            함께 더 나은 자기 이해와 성장을 위한 여정을 만들어갑니다.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 } 

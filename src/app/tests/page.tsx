@@ -19,6 +19,16 @@ const categories = [
 // 테스트 데이터
 const tests = [
   {
+    id: 'dog-compatibility',
+    title: '나랑 잘 맞는 강아지는?',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    category: 'fun',
+    participants: 12456,
+    isPopular: false,
+    isNew: true,
+    description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'
+  },
+  {
     id: 'color-blindness',
     title: '색맹테스트',
     imageUrl: 'https://picsum.photos/id/1054/400/400',
@@ -133,7 +143,7 @@ const categoryTests = {
     {
       id: 't-power',
       title: '나의 T발력 수치는?',
-      imageUrl: 'https://picsum.photos/id/1009/400/400',
+      imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
       participants: 132589,
       description: '당신의 T발력 수치를 알아보는 신개념 심리 테스트입니다.',
       isPopular: true,
@@ -159,7 +169,7 @@ const categoryTests = {
     {
       id: 'tarot-consultation',
       title: '타로상담 상담가',
-      imageUrl: 'https://picsum.photos/id/1070/400/400',
+      imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
       participants: 119872,
       description: '타로 카드를 통해 당신의 현재와 미래를 상담해드립니다.',
       isPopular: true,
@@ -226,8 +236,8 @@ const TestCard = ({ test, className = '', itemVariants, formatParticipants }: Te
     variants={itemVariants}
     className={`bg-white rounded-xl overflow-hidden shadow-sharp hover:shadow-lg transition-shadow duration-300 ${className}`}
   >
-    <div className="flex">
-      <div className="w-32 h-32 flex-shrink-0 relative">
+    <div className="flex flex-col sm:flex-row">
+      <div className="w-full sm:w-32 h-40 sm:h-32 flex-shrink-0 relative">
         <img 
           src={test.imageUrl} 
           alt={test.title}
@@ -270,7 +280,7 @@ const TestCard = ({ test, className = '', itemVariants, formatParticipants }: Te
         </div>
         <Link 
           href={`/tests/${test.id}`}
-          className="mt-3 inline-flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm font-medium"
+          className="mt-3 inline-flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-orange-500 transition-colors duration-200 text-sm font-medium"
         >
           테스트 하기
           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,7 +341,14 @@ export default function Tests() {
     .slice(0, 5);
 
   // 새로운 테스트 목록
-  const newTests = tests.filter(test => test.isNew);
+  const newTests = tests.filter(test => test.isNew)
+    .sort((a, b) => {
+      // dog-compatibility를 가장 먼저 표시
+      if (a.id === 'dog-compatibility') return -1;
+      if (b.id === 'dog-compatibility') return 1;
+      // 그 다음 참여자 수로 정렬
+      return b.participants - a.participants;
+    });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 p-4">

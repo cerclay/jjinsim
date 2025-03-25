@@ -1,0 +1,186 @@
+{
+  "title": "나랑 잘 맞는 강아지는?",
+  "description": "당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요. 몇 가지 질문에 답하면 당신과 찰떡궁합인 견종을 알려드립니다!",
+  "questions": [
+    {
+      "id": 1,
+      "text": "주말에 가장 가고 싶은 곳은?",
+      "options": [
+        { "id": 1, "text": "집콕하면서 간식+OTT 각", "score": 0 },
+        { "id": 2, "text": "가볍게 산책하고 카페 가기", "score": 1 },
+        { "id": 3, "text": "바다나 산으로 당일치기 여행!", "score": 2 }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "친구가 내 생일파티를 깜빡 잊었다면?",
+      "options": [
+        { "id": 1, "text": "가슴 깊이 삭힘... 나중에 은근히 섭섭 티 냄", "score": 1 },
+        { "id": 2, "text": "무심한 듯 쿨하게 넘어가지만 혼자 약간 울적", "score": 0 },
+        { "id": 3, "text": "직접 말한다. '내 생일인데 어디 갔어?!'", "score": 2 }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "동네 마트에서 내가 가장 먼저 살 물건은?",
+      "options": [
+        { "id": 1, "text": "빵이나 과자류 (간식이 진리!)", "score": 0 },
+        { "id": 2, "text": "필요한 생필품 먼저. 우선순위 확실!", "score": 2 },
+        { "id": 3, "text": "귀여운 간단 식물이나 소소한 잡화", "score": 1 }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "처음 보는 사람과 대화할 때 나는?",
+      "options": [
+        { "id": 1, "text": "어색하지만 천천히 적응함", "score": 1 },
+        { "id": 2, "text": "먼저 장난치고 친근하게 다가감", "score": 2 },
+        { "id": 3, "text": "대체로 조용히 관찰하는 편", "score": 0 }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "갑자기 예고 없이 비가 쏟아진다면?",
+      "options": [
+        { "id": 1, "text": "우산? 없어도 뛸 수 있다!", "score": 2 },
+        { "id": 2, "text": "근처 가게에 숨어있으며 기다림", "score": 0 },
+        { "id": 3, "text": "짐작하고 우산을 챙겨다닌 타입", "score": 1 }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "친구가 갑자기 여행 가자고 꼬신다면?",
+      "options": [
+        { "id": 1, "text": "놀라지만 일단 '오케이'하고 가방 챙김", "score": 2 },
+        { "id": 2, "text": "일정, 예산 등 꼼꼼히 따져보고 결정", "score": 1 },
+        { "id": 3, "text": "귀찮아서 아마도 '다음에 가자'고 할 듯", "score": 0 }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "힘든 일이 있을 때 내 스트레스 해소법은?",
+      "options": [
+        { "id": 1, "text": "달리거나 운동으로 땀 빼기", "score": 2 },
+        { "id": 2, "text": "조용히 방에 틀어박혀 잠수", "score": 0 },
+        { "id": 3, "text": "친구나 가족에게 하소연", "score": 1 }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "나는 어떤 분위기의 집을 선호할까?",
+      "options": [
+        { "id": 1, "text": "조용하고 아늑한, 루틴이 확실한 공간", "score": 0 },
+        { "id": 2, "text": "가구가 심플하고 깔끔, 필요 기능만 있으면 됨", "score": 1 },
+        { "id": 3, "text": "넓고 신나게 뛰놀 수 있는 활동적인 공간", "score": 2 }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "친구 생일선물을 고를 때 나는?",
+      "options": [
+        { "id": 1, "text": "친구가 힌트 준 적 있었나, 고민하며 아이디어 찾음", "score": 1 },
+        { "id": 2, "text": "즉흥적으로 '이거다!' 싶은 걸 사버림", "score": 2 },
+        { "id": 3, "text": "그냥 돈 봉투나 상품권이 편하지 않나?", "score": 0 }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "갑자기 운동하자는 친구의 말에 내가 할 대답은?",
+      "options": [
+        { "id": 1, "text": "'좋아! 언제 할까?' 바로 약속 잡음", "score": 2 },
+        { "id": 2, "text": "'혹시 살살 할 수 있어...?' 속으로 긴장", "score": 1 },
+        { "id": 3, "text": "'으으... 귀찮지만 생각 좀 해볼게.'", "score": 0 }
+      ]
+    }
+  ],
+  "dogs": [
+    {
+      "breed": "치와와",
+      "range": "1 ~ 5",
+      "description": "치와와는 작지만 용감하고 충성심이 강한 강아지입니다. 당신처럼 에너지가 넘치며 활발한 성격을 가지고 있어요. 함께 있으면 언제나 즐거운 순간을 보낼 수 있을 거예요.",
+      "imageUrl": "https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc",
+      "best_compatibility": "푸들",
+      "worst_compatibility": "불독"
+    },
+    {
+      "range": "2 ~ 3",
+      "breed": "불독 (Bulldog)",
+      "description": "묵직한 매력의 장인. 행동은 느긋하지만, 한 번 친해지면 끈끈한 정을 나누는 타입! 느긋함을 좋아하고 편안함을 추구한다면 불독이 딱. 극도로 활발한 에너지를 원한다면 조금 지루할 수도?",
+      "best_compatibility": "불독",
+      "worst_compatibility": "포메라니안",
+      "imageUrl": "https://images.unsplash.com/photo-1523567830207-96731740fa71?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "4 ~ 5",
+      "breed": "닥스훈트 (Dachshund)",
+      "description": "길쭉한 몸만큼 호기심이 쭉쭉 뻗는, 재치 있는 친구! 적당히 장난스럽고, 적당히 집돌이/집순이. 당신이 소소한 재미와 아이디어를 즐긴다면 최고의 짝꿍!",
+      "best_compatibility": "닥스훈트",
+      "worst_compatibility": "시바 이누",
+      "imageUrl": "https://images.unsplash.com/photo-1612176646088-b66e75a7b18a?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "6 ~ 7",
+      "breed": "코기 (Corgi)",
+      "description": "짧은 다리지만 무궁무진한 에너지의 댕댕이! 웃음과 장난으로 가득 찬 하루를 보낼 수 있어요. 단, 코기와는 움직임이 잦은 생활이 필요. 너무 느긋한 걸 좋아한다면 탈진할 수도...",
+      "best_compatibility": "코기",
+      "worst_compatibility": "불독",
+      "imageUrl": "https://images.unsplash.com/photo-1612536057832-2ff7ead58194?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "8 ~ 9",
+      "breed": "포메라니안 (Pomeranian)",
+      "description": "솜사탕 같은 외모에 반비례하는 똑 부러진 성격! 애교도 많고, 호기심도 많아서 함께하면 집이 떠들썩할 걸? 조용함을 선호한다면 정신없다고 느낄 수도 있으니 주의!",
+      "best_compatibility": "포메라니안",
+      "worst_compatibility": "불독",
+      "imageUrl": "https://images.unsplash.com/photo-1577175889968-f551f5944251?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "10 ~ 11",
+      "breed": "푸들 (Poodle)",
+      "description": "똑똑함과 귀여움을 동시에 장착! 새로운 것 배우는 걸 좋아하고, 애교도 풍부해요. 당신이 호기심 많고, 가볍게 똑똑함을 추구한다면 찰떡궁합. 너무 여유로운 성향이면 조금은 귀찮을 수도?",
+      "best_compatibility": "푸들",
+      "worst_compatibility": "치와와",
+      "imageUrl": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "12 ~ 13",
+      "breed": "시바 이누 (Shiba Inu)",
+      "description": "독립심 강하고 자존심도 쎄지만, 한 번 마음 열면 절친이 되는 멋쟁이! 당신이 쿨하고 마이페이스를 즐긴다면 시바 이누가 잘 맞아. 반면, 애교 폭발을 기대한다면 살짝 실망할 수도!",
+      "best_compatibility": "시바 이누",
+      "worst_compatibility": "닥스훈트",
+      "imageUrl": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "14 ~ 15",
+      "breed": "시베리안 허스키 (Siberian Husky)",
+      "description": "'에너지'와 '엉뚱함'이 휘몰아치는 폭풍 캐릭터! 집이 시끌벅적해져도 좋아요. 강렬한 액티비티를 즐기지 않으면 체력이 버거울 수 있으니 주의!",
+      "best_compatibility": "시베리안 허스키",
+      "worst_compatibility": "치와와",
+      "imageUrl": "https://images.unsplash.com/photo-1605568427561-40dd23c2acea?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "16 ~ 17",
+      "breed": "래브라도 리트리버 (Labrador Retriever)",
+      "description": "천사 같은 다정함으로 주변을 행복하게 만드는 타입. 운동, 사람 만나는 거 모두 좋아해요. 당신이 사람들과 어울리길 좋아한다면 최강 시너지! 다만 지나친 독립성을 원하면 살짝 부담스러울 수도.",
+      "best_compatibility": "래브라도 리트리버",
+      "worst_compatibility": "푸들",
+      "imageUrl": "https://images.unsplash.com/photo-1620189507187-1ecc7e2e9cff?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "range": "18 ~ 20",
+      "breed": "골든 리트리버 (Golden Retriever)",
+      "description": "친화력 100, 바람직함 200의 대표 견종! 밝고 긍정적이며, 주인에 대한 충성심도 최고. 늘 사람 곁에서 웃고 장난치며 힐링을 선사해요. 당신이 애정이 많다면 완벽 궁합, 무관심하면 서운해할 수도!",
+      "best_compatibility": "골든 리트리버",
+      "worst_compatibility": "시바 이누",
+      "imageUrl": "https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?q=80&w=1000&auto=format&fit=crop"
+    }
+  ],
+  "algorithm": {
+    "description": "각 질문의 선택지에는 0, 1, 2점이 부여됩니다. 총 10개 질문에서 선택한 점수를 모두 합산하여, 그 합계 범위에 해당하는 강아지를 추천합니다. 예: 총점이 9점이면 포메라니안과 가장 잘 맞는 타입!",
+    "steps": [
+      "10개 질문 중 매 질문의 'score' 값을 모두 합산합니다 (최소 0~최대 20).",
+      "합산 점수가 속하는 'range' 구간을 찾아 해당 강아지 정보를 결과로 제공합니다.",
+      "결과 카드에는 추천 강아지, 대표 성격 특징, 주의할 점, 잘 안 맞을 수 있는 강아지도 표시합니다."
+    ]
+  }
+}
