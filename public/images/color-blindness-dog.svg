@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect width="400" height="400" fill="#f5f5ff" />
+  
+  <!-- 강아지 얼굴 -->
+  <ellipse cx="200" cy="200" rx="150" ry="140" fill="#FFD699" />
+  <ellipse cx="130" cy="160" rx="50" ry="50" fill="#FFB366" />
+  <ellipse cx="270" cy="160" rx="50" ry="50" fill="#FFB366" />
+  
+  <!-- 코와 입 -->
+  <ellipse cx="200" cy="220" rx="35" ry="25" fill="#333" />
+  <path d="M165 240 Q 200 270, 235 240" stroke="#333" stroke-width="3" fill="none" />
+  
+  <!-- 눈 -->
+  <ellipse cx="150" cy="180" rx="20" ry="20" fill="#333" />
+  <ellipse cx="250" cy="180" rx="20" ry="20" fill="#333" />
+  
+  <!-- 왼쪽 눈 하이라이트 -->
+  <ellipse cx="155" cy="175" rx="5" ry="5" fill="white" />
+  
+  <!-- 오른쪽 눈 하이라이트 -->
+  <ellipse cx="255" cy="175" rx="5" ry="5" fill="white" />
+  
+  <!-- 색각 검사 안경 - 빨강/파랑 렌즈 -->
+  <ellipse cx="150" cy="180" rx="33" ry="33" fill="none" stroke="#555" stroke-width="5" />
+  <ellipse cx="250" cy="180" rx="33" ry="33" fill="none" stroke="#555" stroke-width="5" />
+  <rect x="183" y="180" width="34" height="8" fill="#555" />
+  
+  <!-- 빨간색/파란색 필터 효과 -->
+  <ellipse cx="150" cy="180" rx="30" ry="30" fill="rgba(255,0,0,0.2)" />
+  <ellipse cx="250" cy="180" rx="30" ry="30" fill="rgba(0,0,255,0.2)" />
+  
+  <!-- 안경 다리 -->
+  <path d="M117 180 Q 100 200, 90 220" stroke="#555" stroke-width="5" fill="none" />
+  <path d="M283 180 Q 300 200, 310 220" stroke="#555" stroke-width="5" fill="none" />
+</svg> 

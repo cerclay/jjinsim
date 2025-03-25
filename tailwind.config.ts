@@ -22,10 +22,13 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          100: '#ebd6ff',
+          500: '#7700ff',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          500: '#00ffc8',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -38,6 +41,7 @@ const config = {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          500: '#ff9900',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
@@ -47,6 +51,12 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        neutral: {
+          100: '#f9f9f9',
+          900: '#1e1e1e',
+        },
+        'glass-bg': 'rgba(255,255,255,0.2)',
+        'shadow-glow': 'rgba(119,0,255,0.25)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -66,6 +76,13 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      boxShadow: {
+        'neumorphism': '5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.05)',
+        'glow': '0 0 15px rgba(119, 0, 255, 0.25)',
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to right, #7700ff, #ebd6ff)',
       },
     },
   },

@@ -90,3 +90,73 @@ easynext sentry
 # Google Adsense
 easynext adsense
 ```
+
+# Next.js 인증 시스템
+
+Next.js와 Supabase를 이용한 인증 시스템입니다.
+
+## 기능
+
+- 아이디/비밀번호 로그인
+- 카카오 소셜 로그인
+- 회원가입
+- Supabase 데이터베이스 연동
+
+## 설치 및 실행
+
+1. 패키지 설치
+```bash
+npm install
+```
+
+2. 환경 변수 설정
+`.env.local` 파일을 프로젝트 루트에 생성하고 다음 내용을 추가합니다.
+
+```
+# Next Auth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Kakao OAuth
+KAKAO_CLIENT_ID=your-kakao-client-id
+KAKAO_CLIENT_SECRET=your-kakao-client-secret
+```
+
+3. 개발 서버 실행
+```bash
+npm run dev
+```
+
+## 카카오 로그인 설정 방법
+
+1. [Kakao Developers](https://developers.kakao.com/)에 접속하여 애플리케이션을 등록합니다.
+2. 앱 설정 > 일반 > 플랫폼 > Web > 사이트 도메인에 `http://localhost:3000`을 추가합니다.
+3. 제품 설정 > 카카오 로그인 > 활성화 설정을 ON으로 변경합니다.
+4. 제품 설정 > 카카오 로그인 > Redirect URI에 `http://localhost:3000/api/auth/callback/kakao`를 추가합니다.
+5. 앱 키 > REST API 키를 환경 변수 `KAKAO_CLIENT_ID`에 설정합니다.
+6. 앱 키 > Client Secret을 생성하고 환경 변수 `KAKAO_CLIENT_SECRET`에 설정합니다.
+
+## Supabase 데이터베이스 설정
+
+1. [Supabase](https://supabase.com/)에서 새 프로젝트를 생성합니다.
+2. SQL 에디터에서 `supabase/migrations` 폴더의 마이그레이션 파일을 순서대로 실행합니다.
+3. 프로젝트 설정 > API에서 URL과 anon key, service_role key를 환경 변수에 설정합니다.
+
+## 파일 구조
+
+- `/src/app/auth`: 인증 관련 페이지 (로그인, 회원가입 등)
+- `/src/lib/auth.ts`: NextAuth 설정
+- `/src/lib/supabase`: Supabase 클라이언트
+- `/supabase/migrations`: 데이터베이스 마이그레이션 파일
+
+## 인증 흐름
+
+1. 사용자가 로그인 페이지에 접근
+2. 아이디/비밀번호 또는 카카오 소셜 로그인 선택
+3. 인증 완료 후 JWT 토큰 발급 및 세션 생성
+4. 인증된 사용자는 보호된 페이지에 접근 가능
