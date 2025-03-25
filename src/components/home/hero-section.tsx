@@ -7,95 +7,128 @@ import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 
 export function HeroSection() {
-  // 애니메이션 효과를 위한 변수 설정
-  const imageVariants = {
-    initial: { scale: 1.05, filter: "blur(2px)" },
-    animate: { 
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { 
-        duration: 1.5,
-        ease: "easeOut" 
-      } 
-    }
-  };
+  const [currentIndex, setCurrentIndex] = React.useState(0);
   
-  const textVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.8, 
-        delay: 0.5,
-        ease: "easeOut"
-      } 
+  // 히어로 카드 데이터 - 타로상담가가 첫 번째로 나오도록 순서 변경
+  const heroCards = [
+    {
+      id: 'tarot-consultation',
+      title: '타로 상담가',
+      description: '과거, 현재, 미래를 알려주는 타로 상담',
+      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj_hF5utgruPeM3jXtQ_g4rT3adEXQLLP89T8NuV7OSZdpONbuMmfrcr_1RKEgKThk3E5R2QoVl8M3crn9k-IER-AKntLOG3Yiz-UdsKzHmOX89HY0h589ifmbTAs36uR4KGSRWAAXbzeSdwdJpOji0bYiBwEU5g0oCb_676HFug_rn3_6v7RlwmE3uIUM',
+      color: 'from-purple-500/30 via-purple-500/20 to-black/70'
+    },
+    {
+      id: 'personal-color',
+      title: '퍼스널컬러 테스트',
+      description: '당신에게 어울리는 컬러를 찾아보세요',
+      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
+      color: 'from-pink-500/30 via-pink-500/20 to-black/70'
+    },
+    {
+      id: 'color-blindness',
+      title: '색맹 테스트',
+      description: '당신의 색각 능력을 테스트해보세요',
+      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
+      color: 'from-blue-500/30 via-blue-500/20 to-black/70'
     }
-  };
+  ];
+
+  // 자동 회전 효과
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % heroCards.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [heroCards.length]);
 
   return (
     <motion.div 
-      className="px-4 py-3"
+      className="py-3"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Link href="/tests/love-test">
-        <motion.div 
-          className="relative w-full rounded-xl overflow-hidden aspect-[5/3] shadow-xl"
-          whileHover={{ scale: 1.03, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 15
-          }}
-        >
-          {/* 배경 이미지 */}
-          <motion.div
-            className="absolute inset-0"
-            variants={imageVariants}
-            initial="initial"
-            animate="animate"
-          >
-            <Image 
-              src="/images/pug-dog.jpg"
-              alt="연애 스타일 테스트" 
-              fill 
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 400px"
-              priority
+      {/* 카드 슬라이더 */}
+      <div className="relative h-[250px] w-full overflow-hidden rounded-xl shadow-xl">
+        {heroCards.map((card, index) => {
+          const isActive = index === currentIndex;
+          const isPrev = (index === currentIndex - 1) || (currentIndex === 0 && index === heroCards.length - 1);
+          const isNext = (index === currentIndex + 1) || (currentIndex === heroCards.length - 1 && index === 0);
+          
+          return (
+            <motion.div
+              key={card.id}
+              className="absolute inset-0 w-full h-full"
+              initial={false}
+              animate={{
+                x: isActive ? 0 : isPrev ? '-100%' : isNext ? '100%' : (index < currentIndex ? '-100%' : '100%'),
+                opacity: isActive ? 1 : 0.5,
+                scale: isActive ? 1 : 0.9,
+                zIndex: isActive ? 10 : 0
+              }}
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.5 },
+                scale: { duration: 0.5 }
+              }}
+            >
+              <Link href={`/tests/${card.id}`}>
+                <div className="relative w-full h-full cursor-pointer">
+                  <div className="absolute inset-0">
+                    <Image 
+                      src={card.imageUrl} 
+                      alt={card.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      priority={index === currentIndex}
+                    />
+                  </div>
+                  
+                  <div className={`absolute inset-0 bg-gradient-to-b ${card.color}`} />
+                  
+                  <div className="absolute inset-0 flex flex-col justify-end p-5">
+                    <h2 className="text-white font-extrabold text-2xl drop-shadow-lg">{card.title}</h2>
+                    <p className="text-white/90 text-sm mt-1 drop-shadow-md">{card.description}</p>
+                    
+                    <div className="mt-3">
+                      <motion.span 
+                        className="inline-block bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-bold backdrop-blur-sm border border-white/20 shadow-lg"
+                        whileHover={{ 
+                          scale: 1.1, 
+                          backgroundColor: "rgba(255, 255, 255, 0.5)",
+                          textShadow: "0 0 8px rgba(0,0,0,0.3)",
+                          boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        테스트 시작하기
+                      </motion.span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          );
+        })}
+        
+        {/* 페이지네이션 인디케이터 */}
+        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+          {heroCards.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'bg-white w-6' : 'bg-white/50'
+              }`}
+              aria-label={`카드 ${index + 1}로 이동`}
             />
-          </motion.div>
-          
-          {/* 그라데이션 오버레이 효과 */}
-          <div className="absolute inset-0 bg-gradient-to-b from-red-500/30 via-red-500/20 to-black/70" />
-          
-          {/* 텍스트 콘텐츠 */}
-          <motion.div 
-            className="absolute inset-0 flex flex-col justify-end p-5"
-            variants={textVariants}
-            initial="initial"
-            animate="animate"
-          >
-            <h2 className="text-white font-extrabold text-3xl drop-shadow-lg">당신의 연애 스타일은?</h2>
-            <p className="text-white/90 text-sm mt-1 drop-shadow-md">당신의 사랑 방식을 알아보세요</p>
-            
-            <div className="mt-3">
-              <motion.span 
-                className="inline-block bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-bold backdrop-blur-sm border border-white/20 shadow-lg"
-                whileHover={{ 
-                  scale: 1.05, 
-                  backgroundColor: "rgba(255, 255, 255, 0.4)" 
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                테스트 시작하기
-              </motion.span>
-            </div>
-          </motion.div>
-        </motion.div>
-      </Link>
+          ))}
+        </div>
+      </div>
       
       {/* 검색창 */}
       <motion.div 

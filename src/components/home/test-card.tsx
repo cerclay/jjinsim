@@ -32,8 +32,8 @@ export function TestCard({
       <motion.div 
         className="relative w-full rounded-xl overflow-hidden shadow-md"
         whileHover={{ 
-          scale: 1.07, 
-          y: -5,
+          scale: 1.05, 
+          y: -3,
           boxShadow: '0 15px 30px -5px rgba(0, 0, 0, 0.3)' 
         }}
         whileTap={{ scale: 0.97 }}
@@ -43,7 +43,7 @@ export function TestCard({
           src={imageUrl} 
           alt={title} 
           fill 
-          className="object-cover"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 400px"
           priority={false}
           loading="lazy"
@@ -91,9 +91,15 @@ export function TestCard({
           </p>
           
           <motion.span 
-            className="mt-3 inline-block bg-white/30 text-white px-4 py-1.5 rounded-md text-sm font-medium backdrop-blur-sm border border-transparent hover:border-orange-500 transition-colors"
-            whileHover={{ scale: 1.15, backgroundColor: 'rgba(255, 255, 255, 0.4)' }}
+            className="mt-3 inline-block bg-white/30 text-white px-4 py-1.5 rounded-md text-sm font-medium backdrop-blur-sm border border-white/20 shadow-md"
+            whileHover={{ 
+              scale: 1.12, 
+              backgroundColor: 'rgba(255, 255, 255, 0.5)',
+              boxShadow: '0 5px 15px rgba(0, 0, 0, 0.2)',
+              textShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+            }}
             whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
           >
             테스트 시작하기
           </motion.span>

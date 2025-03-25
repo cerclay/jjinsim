@@ -1,13 +1,15 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TestSection } from '@/components/home/test-section';
 import { CategorySection } from '@/components/home/category-section';
 import { FeaturedColorBlindness } from '@/components/home/featured-color-blindness';
 import { FeaturedPersonalColor } from '@/components/home/featured-personal-color';
+import { HeroSection } from '@/components/home/hero-section';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Star } from 'lucide-react';
+import { Star, ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // 인기 테스트 데이터
 const popularTests = [
@@ -35,14 +37,14 @@ const popularTests = [
   },
   {
     id: 'tarot-consultation',
-    title: '타로상담 상담가',
+    title: '타로상담가',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj_hF5utgruPeM3jXtQ_g4rT3adEXQLLP89T8NuV7OSZdpONbuMmfrcr_1RKEgKThk3E5R2QoVl8M3crn9k-IER-AKntLOG3Yiz-UdsKzHmOX89HY0h589ifmbTAs36uR4KGSRWAAXbzeSdwdJpOji0bYiBwEU5g0oCb_676HFug_rn3_6v7RlwmE3uIUM',
     participants: 119872,
     isPopular: true,
   },
   {
     id: 'fortune-telling',
-    title: '사주팔자 점보기',
+    title: '운세 상담',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhYgICMS6gufZPjde9juTx81iKJbsqbm-AwwlzY4DhUwnwxoXlVzGlbv7Y2OaJ2GBFlPyc5KomVGPhI4r21g_7UjObO4sGdRgFTNVzmxvy-cX5SMuRZVPkOGCjMQMy3-waf7KhVjJyBzyqHQstrPmxAp3MbXXx05krKP9ZGBm8LFe4JqWB-AZW-sP4OJo8',
     participants: 107456,
     isPopular: true,
@@ -123,14 +125,14 @@ const newTests = [
   },
   {
     id: 'tarot-consultation',
-    title: '타로상담 상담가',
+    title: '타로상담가',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj_hF5utgruPeM3jXtQ_g4rT3adEXQLLP89T8NuV7OSZdpONbuMmfrcr_1RKEgKThk3E5R2QoVl8M3crn9k-IER-AKntLOG3Yiz-UdsKzHmOX89HY0h589ifmbTAs36uR4KGSRWAAXbzeSdwdJpOji0bYiBwEU5g0oCb_676HFug_rn3_6v7RlwmE3uIUM',
     participants: 19872,
     isNew: true,
   },
   {
     id: 'fortune-telling',
-    title: '사주팔자 점보기',
+    title: '운세 상담',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhYgICMS6gufZPjde9juTx81iKJbsqbm-AwwlzY4DhUwnwxoXlVzGlbv7Y2OaJ2GBFlPyc5KomVGPhI4r21g_7UjObO4sGdRgFTNVzmxvy-cX5SMuRZVPkOGCjMQMy3-waf7KhVjJyBzyqHQstrPmxAp3MbXXx05krKP9ZGBm8LFe4JqWB-AZW-sP4OJo8',
     participants: 17456,
     isNew: true,
@@ -185,6 +187,41 @@ const newTests = [
     isNew: true,
   }
 ];
+
+// MBTI 유형 데이터
+const mbtiTypes = [
+  // 분석가 그룹
+  { type: 'INTJ', color: 'bg-blue-600', lightColor: 'from-blue-50 to-indigo-100', name: '전략가', category: '분석가' },
+  { type: 'INTP', color: 'bg-blue-500', lightColor: 'from-blue-50 to-indigo-100', name: '논리술사', category: '분석가' },
+  { type: 'ENTJ', color: 'bg-blue-700', lightColor: 'from-blue-50 to-indigo-100', name: '통솔자', category: '분석가' },
+  { type: 'ENTP', color: 'bg-blue-400', lightColor: 'from-blue-50 to-indigo-100', name: '변론가', category: '분석가' },
+  
+  // 외교관 그룹
+  { type: 'INFJ', color: 'bg-green-600', lightColor: 'from-green-50 to-teal-100', name: '옹호자', category: '외교관' },
+  { type: 'INFP', color: 'bg-green-500', lightColor: 'from-green-50 to-teal-100', name: '중재자', category: '외교관' },
+  { type: 'ENFJ', color: 'bg-green-700', lightColor: 'from-green-50 to-teal-100', name: '선도자', category: '외교관' },
+  { type: 'ENFP', color: 'bg-green-400', lightColor: 'from-green-50 to-teal-100', name: '활동가', category: '외교관' },
+  
+  // 관리자 그룹
+  { type: 'ISTJ', color: 'bg-purple-600', lightColor: 'from-purple-50 to-indigo-100', name: '현실주의자', category: '관리자' },
+  { type: 'ISFJ', color: 'bg-purple-500', lightColor: 'from-purple-50 to-indigo-100', name: '수호자', category: '관리자' },
+  { type: 'ESTJ', color: 'bg-purple-700', lightColor: 'from-purple-50 to-indigo-100', name: '경영자', category: '관리자' },
+  { type: 'ESFJ', color: 'bg-purple-400', lightColor: 'from-purple-50 to-indigo-100', name: '집정관', category: '관리자' },
+  
+  // 탐험가 그룹
+  { type: 'ISTP', color: 'bg-amber-600', lightColor: 'from-amber-50 to-yellow-100', name: '장인', category: '탐험가' },
+  { type: 'ISFP', color: 'bg-amber-500', lightColor: 'from-amber-50 to-yellow-100', name: '예술가', category: '탐험가' },
+  { type: 'ESTP', color: 'bg-amber-700', lightColor: 'from-amber-50 to-yellow-100', name: '사업가', category: '탐험가' },
+  { type: 'ESFP', color: 'bg-amber-400', lightColor: 'from-amber-50 to-yellow-100', name: '연예인', category: '탐험가' },
+];
+
+// MBTI 카테고리별로 그룹화
+const mbtiGroups = {
+  '분석가': mbtiTypes.filter(mbti => mbti.category === '분석가'),
+  '외교관': mbtiTypes.filter(mbti => mbti.category === '외교관'),
+  '관리자': mbtiTypes.filter(mbti => mbti.category === '관리자'),
+  '탐험가': mbtiTypes.filter(mbti => mbti.category === '탐험가'),
+};
 
 // 애니메이션 효과를 위한 변수 설정
 const containerVariants = {
@@ -527,62 +564,66 @@ const RecommendedTestCard = () => (
 
 // MBTI 유형 카드 컴포넌트
 const MBTITypeCard = () => {
-  const mbtiTypes = [
-    { type: 'INTJ', color: 'bg-indigo-500', name: '용의주도한 전략가' },
-    { type: 'INFJ', color: 'bg-teal-500', name: '선의의 옹호자' },
-    { type: 'ISTJ', color: 'bg-blue-500', name: '청렴결백한 논리주의자' },
-    { type: 'ISTP', color: 'bg-cyan-500', name: '만능 재주꾼' },
-    { type: 'ENFP', color: 'bg-orange-500', name: '재기발랄한 활동가' },
-    { type: 'ENTP', color: 'bg-amber-500', name: '논쟁을 즐기는 변론가' },
-    { type: 'ENFJ', color: 'bg-pink-500', name: '정의로운 사회운동가' },
-    { type: 'ENTJ', color: 'bg-purple-500', name: '대담한 통솔자' },
-  ];
-
   return (
-    <div className="rounded-xl overflow-hidden shadow-md bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-lg text-gray-800">MBTI 심층 테스트</h3>
-          <Link href="/tests/mbti-deep" className="text-purple-600 hover:text-purple-700 text-sm font-medium flex items-center">
-            전체보기
-            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-        
-        <div className="grid grid-cols-4 gap-2">
-          {mbtiTypes.map((mbti) => (
-            <Link href={`/tests/mbti-deep?type=${mbti.type}`} key={mbti.type}>
-              <motion.div 
-                className={`${mbti.color} rounded-lg p-2 text-center text-white shadow-sm cursor-pointer`}
-                whileHover={{ y: -3, scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="font-bold">{mbti.type}</div>
-                <div className="text-xs mt-1 font-medium opacity-90 line-clamp-1">{mbti.name}</div>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-        
-        <div className="mt-4 bg-white p-3 rounded-lg">
-          <div className="flex justify-between items-center">
-            <div>
-              <div className="text-sm font-medium text-gray-800">당신의 MBTI 유형을 정확히 알아보세요</div>
-              <div className="text-xs text-gray-500 mt-1">전문적인 심리테스트로 성격 유형 분석</div>
+    <motion.div 
+      className="rounded-xl overflow-hidden shadow-md"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* 메인 링크 */}
+      <Link href="/tests/mbti-deep">
+        <div className="relative overflow-hidden">
+          <div className="h-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-500 relative">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-96 h-96 rounded-full bg-white opacity-5 absolute -top-48 -right-16"></div>
+              <div className="w-64 h-64 rounded-full bg-white opacity-5 absolute -bottom-32 -left-16"></div>
             </div>
-            <motion.button
-              className="bg-purple-600 text-white rounded-full px-3 py-1 text-sm font-medium"
-              whileHover={{ scale: 1.05, backgroundColor: "#7c3aed" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              테스트 시작
-            </motion.button>
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+              <h3 className="text-2xl font-bold mb-2 text-center">나의 MBTI는?</h3>
+              <p className="text-sm text-center text-white/90 max-w-xs">
+                16가지 성격 유형 중 당신은 어디에 속하는지 알아보세요
+              </p>
+              
+              <motion.button
+                className="mt-4 bg-white text-indigo-700 rounded-full px-4 py-1.5 text-sm font-medium shadow-lg flex items-center"
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                테스트 시작하기
+                <ChevronRight size={16} className="ml-1" />
+              </motion.button>
+            </div>
           </div>
         </div>
+      </Link>
+      
+      {/* MBTI 그룹 */}
+      <div className="bg-white p-4">
+        {Object.entries(mbtiGroups).map(([groupName, groupMbtis]) => (
+          <div key={groupName} className="mb-4 last:mb-0">
+            <div className="mb-2 flex items-center">
+              <div className={`w-2 h-2 rounded-full ${groupMbtis[0].color} mr-2`}></div>
+              <h4 className="text-sm font-semibold text-gray-700">{groupName} 유형</h4>
+            </div>
+            <div className="grid grid-cols-4 gap-2">
+              {groupMbtis.map((mbti) => (
+                <Link href={`/tests/mbti-deep?type=${mbti.type}`} key={mbti.type}>
+                  <motion.div 
+                    className={`${mbti.color} rounded-lg p-2 text-center text-white shadow-sm cursor-pointer`}
+                    whileHover={{ y: -3, scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="font-bold">{mbti.type}</div>
+                    <div className="text-xs mt-1 font-medium opacity-90 line-clamp-1">{mbti.name}</div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -590,96 +631,128 @@ export default function Home() {
   const [activeTab, setActiveTab] = React.useState('popular');
   
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-b from-purple-50 to-white"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="w-[520px] mx-auto px-4">
-        {/* 회전 히어로 섹션 */}
-        <div className="pt-4">
-          <RotatingHeroCards />
-        </div>
+    <main className="w-full bg-gray-50">
+      <div className="container max-w-md mx-auto pb-6">
+        <HeroSection />
+        <TestSection 
+          title="인기 테스트" 
+          tests={popularTests.filter(test => test.isPopular)} 
+          viewAllLink="/tests/popular"
+        />
+        <CategorySection />
+        <TestSection 
+          title="새로운 테스트" 
+          tests={newTests.filter(test => test.isNew)} 
+          viewAllLink="/tests/new"
+        />
         
-        <motion.div 
-          className="space-y-12 my-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* 추천 테스트 - 퍼스널 컬러 */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-gray-800 flex items-center">
-                  <span className="mr-2">✨</span>
-                  추천 테스트
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">당신에게 어울리는 컬러를 찾아보세요!</p>
-              </div>
-            </div>
-            <RecommendedTestCard />
-          </motion.div>
-
-          {/* 인기 & 신규 테스트 통합 섹션 */}
-          <motion.div variants={itemVariants}>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-800">테스트 컬렉션</h2>
-              <Link 
-                href="/tests" 
-                className="text-purple-600 hover:text-purple-700 text-sm font-medium flex items-center"
+        {/* MBTI 유형별 테스트 섹션 추가 */}
+        <div className="px-4 py-4">
+          <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
+            <h2 className="text-lg font-bold text-gray-800">MBTI 유형별 테스트</h2>
+            <Link href="/tests/mbti-deep" className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+              더보기
+              <ChevronRight size={14} className="ml-0.5" />
+            </Link>
+          </div>
+          
+          <div className="space-y-4">
+            {/* MBTI 분석하기 카드 */}
+            <Link href="/tests/mbti-deep">
+              <motion.div 
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                whileHover={{ y: -3, scale: 1.01, boxShadow: "0 12px 25px -5px rgba(0, 0, 0, 0.1)" }}
               >
-                전체보기
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* 탭 버튼 */}
-            <div className="flex space-x-2 mb-6">
-              <motion.button
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === 'popular' ? 'bg-purple-600 text-white' : 'bg-white text-purple-600 border border-purple-200'}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveTab('popular')}
-              >
-                인기 테스트
-              </motion.button>
-              <motion.button
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === 'new' ? 'bg-purple-600 text-white' : 'bg-white text-purple-600 border border-purple-200'}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveTab('new')}
-              >
-                새로운 테스트
-              </motion.button>
-            </div>
-
-            {/* 유튜브 스타일 테스트 그리드 */}
-            <div className="space-y-4">
-              {(activeTab === 'popular' ? popularTests : newTests).slice(0, 6).map((test) => (
-                <YoutubeStyleCard key={test.id} test={test} />
+                <div className="relative">
+                  <div className="h-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-500 relative">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-96 h-96 rounded-full bg-white opacity-5 absolute -top-48 -right-16"></div>
+                      <div className="w-64 h-64 rounded-full bg-white opacity-5 absolute -bottom-32 -left-16"></div>
+                    </div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                      <h3 className="text-2xl font-bold mb-2 text-center">나의 MBTI는?</h3>
+                      <p className="text-sm text-center text-white/90 max-w-xs">
+                        16가지 성격 유형 중 당신은 어디에 속하는지 알아보세요
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 flex justify-between items-center">
+                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                    <span className="flex items-center">
+                      <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      5분
+                    </span>
+                    <span className="flex items-center">
+                      <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                      8.5만명
+                    </span>
+                  </div>
+                  <motion.button
+                    className="bg-indigo-600 text-white rounded-full px-4 py-1.5 text-sm font-medium shadow flex items-center"
+                    whileHover={{ scale: 1.05, backgroundColor: "#4f46e5" }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    테스트 시작
+                    <ChevronRight size={16} className="ml-1" />
+                  </motion.button>
+                </div>
+              </motion.div>
+            </Link>
+            
+            {/* MBTI 유형 그룹 */}
+            <div className="grid grid-cols-2 gap-3">
+              {Object.entries(mbtiGroups).map(([groupName, groupMbtis]) => (
+                <Link href={`/tests/mbti-deep?category=${groupName}`} key={groupName}>
+                  <motion.div 
+                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md p-3"
+                    style={{ 
+                      backgroundImage: `linear-gradient(120deg, ${groupName === '분석가' ? '#eef2ff' : groupName === '외교관' ? '#ecfdf5' : groupName === '관리자' ? '#f5f3ff' : '#fffbeb'} 0%, white 100%)` 
+                    }}
+                    whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center mb-2">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${groupMbtis[0].color} mr-2 text-white text-xs font-bold`}>
+                        {groupName.charAt(0)}
+                      </div>
+                      <h4 className="font-bold text-gray-800">{groupName} 유형</h4>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1 mt-2">
+                      {groupMbtis.slice(0, 4).map((mbti) => (
+                        <div key={mbti.type} className="text-xs flex items-center">
+                          <div className={`w-2 h-2 rounded-full ${mbti.color} mr-1`}></div>
+                          <span className="font-medium">{mbti.type}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
-          </motion.div>
-
-          {/* MBTI 테스트 섹션 */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-gray-800 flex items-center">
-                  <span className="mr-2">🧠</span>
-                  MBTI 테스트
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">당신의 성격 유형을 알아보세요</p>
-              </div>
-            </div>
-            <MBTITypeCard />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
+        
+        <div className="mt-6 px-4">
+          <Link href="/tests">
+            <motion.div 
+              className="w-full rounded-lg py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center font-medium shadow-md flex items-center justify-center"
+              whileHover={{ 
+                scale: 1.02, 
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)'
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              모든 테스트 보러가기
+              <ChevronRight size={18} className="ml-1" />
+            </motion.div>
+          </Link>
+        </div>
       </div>
-    </motion.div>
+    </main>
   );
 }
