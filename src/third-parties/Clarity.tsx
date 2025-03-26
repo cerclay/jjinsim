@@ -25,6 +25,6 @@ export default function Clarity() {
 // Microsoft Clarity 초기화 함수
 export const initClarity = () => {
   if (typeof window !== 'undefined' && typeof window.clarity === 'undefined') {
-    window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments) };
+    window.clarity = window.clarity || function (...args: any[]) { (window.clarity.q = window.clarity.q || []).push(args) };
   }
 };

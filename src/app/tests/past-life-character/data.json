@@ -1,0 +1,436 @@
+{
+  "id": "past-life-character",
+  "title": "나의 전생 케릭터는?",
+  "description": "12문제로 알아보는 당신의 전생 케릭터",
+  "thumbnail": "/images/tests/past-life.jpg",
+  "category": "심리",
+  "tags": ["역사", "심리", "조선시대", "판타지"],
+  "questions": [
+    {
+      "id": 1,
+      "text": "갑자기 한양 거리에서 사람들이 당신을 알아보기 시작했습니다. 이유가 뭘까요?",
+      "choices": [
+        {
+          "text": "나는 왕의 측근으로 많은 사람들에게 영향력을 가졌다",
+          "traits": ["ambition", "loyalty"]
+        },
+        {
+          "text": "나는 시나 노래로 유명해져서 사람들이 나를 알아본다",
+          "traits": ["wit", "freedom"]
+        },
+        {
+          "text": "나는 백성들을 도와주는 의원이라 많은 사람들이 고마워한다",
+          "traits": ["intellect", "loyalty"]
+        },
+        {
+          "text": "나는 뒷골목의 소문을 퍼뜨리는 역할로 유명해졌다",
+          "traits": ["clown", "escapism"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "위기 상황이 발생했을 때 당신은 어떻게 대처하나요?",
+      "choices": [
+        {
+          "text": "문제를 해결하기 위한 계획을 신중하게 세운다",
+          "traits": ["intellect", "loyalty"]
+        },
+        {
+          "text": "즉흥적으로 상황에 맞춰 대처한다",
+          "traits": ["wit", "freedom"]
+        },
+        {
+          "text": "주변 사람들을 모아 함께 해결한다",
+          "traits": ["ambition", "loyalty"]
+        },
+        {
+          "text": "상황이 해결될 때까지 최대한 피한다",
+          "traits": ["escapism", "clown"]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "당신이 가장 가치있게 여기는 것은 무엇인가요?",
+      "choices": [
+        {
+          "text": "지식과 지혜",
+          "traits": ["intellect"]
+        },
+        {
+          "text": "자유와 모험",
+          "traits": ["freedom"]
+        },
+        {
+          "text": "권력과 명예",
+          "traits": ["ambition", "narcissism"]
+        },
+        {
+          "text": "평화로운 일상",
+          "traits": ["escapism", "loyalty"]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "당신이 가장 좋아하는 여가 활동은 무엇인가요?",
+      "choices": [
+        {
+          "text": "서책을 읽으며 지식을 쌓는 것",
+          "traits": ["intellect"]
+        },
+        {
+          "text": "친구들과 함께 술자리를 즐기는 것",
+          "traits": ["clown", "wit"]
+        },
+        {
+          "text": "정치나 사회적 문제에 대해 토론하는 것",
+          "traits": ["ambition", "intellect"]
+        },
+        {
+          "text": "산과 강을 거닐며 자연을 즐기는 것",
+          "traits": ["freedom", "escapism"]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "임금이 당신에게 벼슬을 제안했습니다. 어떻게 반응할 것인가요?",
+      "choices": [
+        {
+          "text": "영광스럽게 받아들이고 성심껏 일한다",
+          "traits": ["loyalty", "ambition"]
+        },
+        {
+          "text": "본인의 능력을 발휘할 수 있는 자리인지 신중히 고민한다",
+          "traits": ["intellect", "wit"]
+        },
+        {
+          "text": "거절하고 자유로운 삶을 살기로 한다",
+          "traits": ["freedom", "escapism"]
+        },
+        {
+          "text": "겉으로는 받아들이지만 실제로는 큰 노력은 하지 않는다",
+          "traits": ["clown", "narcissism"]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "백성들이 굶주리고 있다는 소식을 들었습니다. 당신은 어떻게 행동할 것인가요?",
+      "choices": [
+        {
+          "text": "해결책을 찾기 위해 직접 현장에 가서 상황을 파악한다",
+          "traits": ["loyalty", "intellect"]
+        },
+        {
+          "text": "지인들에게 도움을 요청하고 기부를 모은다",
+          "traits": ["wit", "ambition"]
+        },
+        {
+          "text": "내가 가진 것을 나눠주며 개인적으로 돕는다",
+          "traits": ["freedom", "loyalty"]
+        },
+        {
+          "text": "안타깝지만 내가 할 수 있는 일은 없다고 생각한다",
+          "traits": ["escapism", "narcissism"]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "왕이 부당한 정책을 펼치려 할 때, 당신은 어떻게 행동할 것인가요?",
+      "choices": [
+        {
+          "text": "용기를 내어 정면으로 반대 의견을 제시한다",
+          "traits": ["loyalty", "intellect"]
+        },
+        {
+          "text": "우회적인 방법으로 왕의 마음을 돌리려 한다",
+          "traits": ["wit", "ambition"]
+        },
+        {
+          "text": "다른 사람들과 함께 반대 의견을 모아 저항한다",
+          "traits": ["freedom", "loyalty"]
+        },
+        {
+          "text": "정치적 상황에 개입하지 않고 자신의 삶에만 집중한다",
+          "traits": ["escapism", "narcissism"]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "당신의 친구가 억울한 누명을 쓰고 감옥에 갇혔습니다. 어떻게 할 건가요?",
+      "choices": [
+        {
+          "text": "증거를 수집하여 합법적으로 구해내려 한다",
+          "traits": ["intellect", "loyalty"]
+        },
+        {
+          "text": "감옥에서 친구를 탈출시킬 계획을 세운다",
+          "traits": ["freedom", "wit"]
+        },
+        {
+          "text": "높은 지위의 지인들에게 부탁하여 친구를 구한다",
+          "traits": ["ambition", "loyalty"]
+        },
+        {
+          "text": "친구를 위해 안타깝지만 직접 나서기는 위험하다고 생각한다",
+          "traits": ["escapism", "narcissism"]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "갑자기 큰 부를 얻게 된다면 어떻게 사용할 것인가요?",
+      "choices": [
+        {
+          "text": "학문을 발전시키거나 서원을 짓는 데 기부한다",
+          "traits": ["intellect", "ambition"]
+        },
+        {
+          "text": "세상을 여행하며 다양한 경험을 쌓는다",
+          "traits": ["freedom", "wit"]
+        },
+        {
+          "text": "사회적 지위를 높이기 위해 인맥과 영향력을 키운다",
+          "traits": ["ambition", "narcissism"]
+        },
+        {
+          "text": "안전하게 저축하고 평화로운 삶을 영위한다",
+          "traits": ["escapism", "loyalty"]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "당신의 주변 사람들이 당신을 어떻게 기억했으면 좋겠나요?",
+      "choices": [
+        {
+          "text": "지혜롭고 현명한 조언자로",
+          "traits": ["intellect", "loyalty"]
+        },
+        {
+          "text": "재미있고 유쾌한 친구로",
+          "traits": ["clown", "wit"]
+        },
+        {
+          "text": "성공적이고 영향력 있는 인물로",
+          "traits": ["ambition", "narcissism"]
+        },
+        {
+          "text": "따뜻하고 배려심 많은 사람으로",
+          "traits": ["loyalty", "freedom"]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "text": "전쟁이 발발했습니다. 당신은 어떤 역할을 맡고 싶나요?",
+      "choices": [
+        {
+          "text": "전략가로서 작전을 세우고 군대를 지휘한다",
+          "traits": ["intellect", "ambition"]
+        },
+        {
+          "text": "전선에서 직접 싸우며 병사들을 이끈다",
+          "traits": ["loyalty", "freedom"]
+        },
+        {
+          "text": "외교관으로서 평화적 해결책을 모색한다",
+          "traits": ["wit", "ambition"]
+        },
+        {
+          "text": "민간인을 보호하고 피해자들을 돌본다",
+          "traits": ["loyalty", "escapism"]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "text": "오랜 친구가 당신을 배신했습니다. 어떻게 대응할 것인가요?",
+      "choices": [
+        {
+          "text": "이유를 이해하고 화해할 방법을 찾는다",
+          "traits": ["intellect", "loyalty"]
+        },
+        {
+          "text": "똑같이 복수하거나 응징한다",
+          "traits": ["ambition", "narcissism"]
+        },
+        {
+          "text": "새로운 친구를 찾고 앞으로 나아간다",
+          "traits": ["freedom", "wit"]
+        },
+        {
+          "text": "상처받지만 특별한 행동 없이 거리를 둔다",
+          "traits": ["escapism", "clown"]
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "scholar",
+      "title": "조선의 학자",
+      "traits": ["intellect", "loyalty"],
+      "description": "당신은 학문을 사랑하고 지식을 추구했던 성실한 학자였습니다.",
+      "fullDescription": "당신은 조선시대의 유명한 학자로, 끊임없는 지식 탐구와 학문적 열정을 가진 지식인이었습니다. 책을 읽고 연구하는 것을 가장 즐겼으며, 왕이나 고관대작들도 당신의 의견을 존중했습니다. 현실에서도 당신은 지적 호기심이 많고 분석적인 사고를 가지고 있으며, 진실과 원칙을 중요시합니다.",
+      "tags": ["지식인", "학구파", "충직함", "원칙주의자"],
+      "fortune": "당신은 지식을 추구하는 과정에서 새로운 기회를 발견할 것입니다. 호기심을 잃지 말고 배움의 자세를 유지하세요.",
+      "similarCharacters": [
+        {
+          "name": "율곡 이이",
+          "description": "조선의 대표적 성리학자"
+        },
+        {
+          "name": "다산 정약용",
+          "description": "실학의 대가"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/20/600/400"
+    },
+    {
+      "id": "general",
+      "title": "충신 장군",
+      "traits": ["loyalty", "ambition"],
+      "description": "당신은 나라를 위해 헌신하고 백성을 보호했던 충직한 장군이었습니다.",
+      "fullDescription": "당신은 나라를 위해 목숨을 바칠 준비가 되어 있던 충성스러운 장군이었습니다. 전투에서의 용맹함과 전략적 사고로 많은 전투에서 승리를 이끌었으며, 부하들의 신뢰와 존경을 받았습니다. 현대에서도 당신은 책임감이 강하고 목표를 향해 끊임없이 노력하는 성격을 가지고 있습니다.",
+      "tags": ["용맹", "충성심", "책임감", "리더십"],
+      "fortune": "어려운 상황에서도 당신의 리더십이 빛을 발할 것입니다. 주변 사람들을 믿고 함께 나아가면 큰 성취를 이룰 수 있습니다.",
+      "similarCharacters": [
+        {
+          "name": "이순신 장군",
+          "description": "임진왜란의 영웅"
+        },
+        {
+          "name": "을지문덕",
+          "description": "살수대첩의 승리자"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/27/600/400"
+    },
+    {
+      "id": "artist",
+      "title": "방랑 예술가",
+      "traits": ["freedom", "wit"],
+      "description": "당신은 자유롭게 예술을 추구하며 삶을 즐겼던 방랑 예술가였습니다.",
+      "fullDescription": "당신은 규범과 제약에서 벗어나 자유롭게 살았던 예술가였습니다. 시, 그림, 음악 등 다양한 예술 분야에서 재능을 발휘했으며, 사회적 지위보다는 자신의 예술적 열정을 좇았습니다. 현대에서도 당신은 창의적이고 자유로운 영혼을 가졌으며, 관습에 얽매이지 않고 자신만의 길을 개척합니다.",
+      "tags": ["창의성", "자유로움", "독창성", "예술적 감각"],
+      "fortune": "당신의 창의성이 빛을 발할 시기입니다. 상상력을 자유롭게 발휘하고 새로운 시도를 두려워하지 마세요. 예상치 못한 성과가 있을 것입니다.",
+      "similarCharacters": [
+        {
+          "name": "김홍도",
+          "description": "조선의 천재 화가"
+        },
+        {
+          "name": "황진이",
+          "description": "조선의 유명한 기생"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/64/600/400"
+    },
+    {
+      "id": "merchant",
+      "title": "상인",
+      "traits": ["wit", "ambition"],
+      "description": "당신은 뛰어난 상술과 재치로 성공을 거둔 상인이었습니다.",
+      "fullDescription": "당신은 조선시대 상업이 천시되던 시대에도 뛰어난 두뇌와 판단력으로 성공을 거둔 상인이었습니다. 빠른 상황 판단과 유연한 적응력으로 위기를 기회로 바꾸는 능력이 있었습니다. 현대에서도 당신은 기회를 잘 포착하고 실용적인 결정을 내리는 능력이 있으며, 변화에 대처하는 능력이 뛰어납니다.",
+      "tags": ["재치", "사업가 기질", "적응력", "실용주의"],
+      "fortune": "새로운 기회가 당신 앞에 펼쳐질 것입니다. 직관을 믿고 과감하게 결정을 내려보세요. 당신의 판단력이 좋은 결과를 가져올 것입니다.",
+      "similarCharacters": [
+        {
+          "name": "임상옥",
+          "description": "조선 후기의 거상"
+        },
+        {
+          "name": "김만덕",
+          "description": "제주의 여성 상인"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/26/600/400"
+    },
+    {
+      "id": "noble",
+      "title": "양반",
+      "traits": ["narcissism", "ambition"],
+      "description": "당신은 권력과 명예를 추구했던 양반이었습니다.",
+      "fullDescription": "당신은 조선시대 높은 신분과 권력을 가진 양반이었습니다. 사회적 지위와 명예를 중요시했으며, 자신의 가문과 이름을 빛내기 위해 노력했습니다. 현대에서도 당신은 성공과 인정받는 것을 중요하게 생각하며, 자신의 가치를 높이기 위해 노력합니다.",
+      "tags": ["지위", "명예", "자존감", "체면"],
+      "fortune": "당신의 노력이 주변 사람들에게 인정받을 것입니다. 단, 겸손함을 잃지 않도록 주의하세요. 진정한 리더십은 배려에서 시작됩니다.",
+      "similarCharacters": [
+        {
+          "name": "황희 정승",
+          "description": "명재상으로 알려진 정치가"
+        },
+        {
+          "name": "허균",
+          "description": "홍길동전의 작가"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/28/600/400"
+    },
+    {
+      "id": "clown",
+      "title": "광대",
+      "traits": ["clown", "wit"],
+      "description": "당신은 재치 있는 말과 행동으로 사람들을 즐겁게 했던 광대였습니다.",
+      "fullDescription": "당신은 조선시대 재치 있는 말과 행동으로 사람들에게 웃음을 선사하던 광대였습니다. 표면적으로는 익살스러웠지만, 사회의 부조리를 꼬집는 날카로운 통찰력도 가지고 있었습니다. 현대에서도 당신은 유머 감각이 뛰어나고 사람들을 즐겁게 하는 재주가 있으며, 상황을 가볍게 만드는 능력이 있습니다.",
+      "tags": ["유머", "재치", "통찰력", "사교성"],
+      "fortune": "당신의 유머와 재치가 어려운 상황을 해결하는 열쇠가 될 것입니다. 긍정적인 태도를 유지하면 많은 사람들이 당신의 편이 되어줄 것입니다.",
+      "similarCharacters": [
+        {
+          "name": "방학중",
+          "description": "조선의 유명한 광대"
+        },
+        {
+          "name": "홍길동",
+          "description": "사회 부조리를 풍자한 의적"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/65/600/400"
+    },
+    {
+      "id": "hermit",
+      "title": "은둔자",
+      "traits": ["escapism", "freedom"],
+      "description": "당신은 세상의 욕심을 버리고 자연 속에서 살았던 은둔자였습니다.",
+      "fullDescription": "당신은 복잡한 세상사와 정치적 혼란을 피해 자연 속에서 소박하게 살았던 은둔자였습니다. 명예나 부보다는 정신적 자유와 평화를 중요시했으며, 자연과 조화를 이루며 살았습니다. 현대에서도 당신은 물질적인 것보다 내면의 평화와 자유를 추구하며, 단순한 삶의 가치를 알고 있습니다.",
+      "tags": ["평화주의", "자연친화적", "명상가", "독립적"],
+      "fortune": "복잡한 상황에서 잠시 벗어나 자신을 돌아볼 시간이 필요합니다. 내면의 목소리에 귀 기울이면 당신이 진정으로 원하는 방향을 발견할 수 있을 것입니다.",
+      "similarCharacters": [
+        {
+          "name": "김삿갓",
+          "description": "방랑 시인"
+        },
+        {
+          "name": "허유",
+          "description": "은둔한 현자"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/76/600/400"
+    },
+    {
+      "id": "servant",
+      "title": "충직한 하인",
+      "traits": ["loyalty", "escapism"],
+      "description": "당신은 주인에게 충직하고 성실했던 하인이었습니다.",
+      "fullDescription": "당신은 양반 가문에서 충직하게 일했던 하인이었습니다. 주인에 대한 충성심과 책임감이 강했으며, 묵묵히 자신의 일을 해내는 성실함을 가졌습니다. 현대에서도 당신은 책임감이 강하고 맡은 일에 최선을 다하는 성격이며, 신뢰할 수 있는 사람입니다.",
+      "tags": ["신뢰성", "성실함", "책임감", "헌신"],
+      "fortune": "당신의 성실함과 노력이 인정받는 시기입니다. 묵묵히 해온 일들이 좋은 결과로 돌아올 것이니 포기하지 말고 계속 나아가세요.",
+      "similarCharacters": [
+        {
+          "name": "방석",
+          "description": "충직한 하인 캐릭터"
+        },
+        {
+          "name": "방춘",
+          "description": "문학작품 속 충성스러운 종"
+        }
+      ],
+      "imageUrl": "https://picsum.photos/id/91/600/400"
+    }
+  ]
+} 

@@ -67,27 +67,27 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "https://blogger.googleusercontent.com/img/a/AVvXsEg8N_cgIZ0Km4m5cNqzV4L-FX4Xu43G3ASiXH3gj92Vf_aNcICvHx_M5gwl1V0paPO8wHdiTVz60GUsnfcxRcHLJ31Qpww4XogaQiZkbaVMp98L3lGw50o5DPVxXRPmR9MreFnFOVHGoL2HbsOfPiQg-lD1gl0VAKPuU_q0EG8Lu-rugoVMQ-57j-OS1lc",
+        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
         sizes: "32x32",
-        type: "image/png",
+        type: "image/x-icon",
       },
       {
-        url: "https://blogger.googleusercontent.com/img/a/AVvXsEg8N_cgIZ0Km4m5cNqzV4L-FX4Xu43G3ASiXH3gj92Vf_aNcICvHx_M5gwl1V0paPO8wHdiTVz60GUsnfcxRcHLJ31Qpww4XogaQiZkbaVMp98L3lGw50o5DPVxXRPmR9MreFnFOVHGoL2HbsOfPiQg-lD1gl0VAKPuU_q0EG8Lu-rugoVMQ-57j-OS1lc",
+        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
         sizes: "16x16",
-        type: "image/png",
+        type: "image/x-icon",
       }
     ],
     shortcut: [
       {
-        url: "https://blogger.googleusercontent.com/img/a/AVvXsEg8N_cgIZ0Km4m5cNqzV4L-FX4Xu43G3ASiXH3gj92Vf_aNcICvHx_M5gwl1V0paPO8wHdiTVz60GUsnfcxRcHLJ31Qpww4XogaQiZkbaVMp98L3lGw50o5DPVxXRPmR9MreFnFOVHGoL2HbsOfPiQg-lD1gl0VAKPuU_q0EG8Lu-rugoVMQ-57j-OS1lc",
+        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
         sizes: "192x192",
       }
     ],
     apple: [
       {
-        url: "https://blogger.googleusercontent.com/img/a/AVvXsEg8N_cgIZ0Km4m5cNqzV4L-FX4Xu43G3ASiXH3gj92Vf_aNcICvHx_M5gwl1V0paPO8wHdiTVz60GUsnfcxRcHLJ31Qpww4XogaQiZkbaVMp98L3lGw50o5DPVxXRPmR9MreFnFOVHGoL2HbsOfPiQg-lD1gl0VAKPuU_q0EG8Lu-rugoVMQ-57j-OS1lc",
+        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
         sizes: "180x180",
-        type: "image/png",
+        type: "image/x-icon",
       }
     ],
   },
@@ -101,6 +101,13 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="ko">
       <ChannelIO />
+      <head>
+        <link 
+          rel="icon" 
+          href="https://i.ibb.co/djwM8FJ/favicon.ico" 
+          type="image/x-icon"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} ${gaegu.variable} antialiased min-h-screen flex flex-col overscroll-none`}
       >

@@ -50,7 +50,7 @@ export function Header() {
   
   return (
     <motion.header 
-      className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur"
+      className="sticky top-0 z-50 w-full border-b bg-white backdrop-blur"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

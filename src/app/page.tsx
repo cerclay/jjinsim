@@ -8,11 +8,21 @@ import { FeaturedPersonalColor } from '@/components/home/featured-personal-color
 import { HeroSection } from '@/components/home/hero-section';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Star, ChevronRight } from 'lucide-react';
+import { Star, ChevronRight, Bookmark } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Container } from '@/components/ui/container';
 
 // 인기 테스트 데이터
 const popularTests = [
+  {
+    id: 'past-life-character',
+    title: '나의 전생 케릭터는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+    participants: 154321,
+    isPopular: true,
+    isNew: true,
+  },
   {
     id: 'personal-color',
     title: '퍼스널컬러 테스트',
@@ -102,6 +112,23 @@ const popularTests = [
 
 // 신규 테스트 데이터
 const newTests = [
+  {
+    id: 'life-genre',
+    title: '내 인생 장르는 뭘까?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
+    participants: 5436,
+    isNew: true,
+    isPopular: false,
+    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!'
+  },
+  {
+    id: 'past-life-character',
+    title: '나의 전생 케릭터는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+    participants: 154321,
+    isNew: true,
+    description: '12문제로 알아보는 당신의 전생 캐릭터! 당신은 이순신이었을까요, 궁녀였을까요?'
+  },
   {
     id: 'dog-compatibility',
     title: '나랑 잘 맞는 강아지는?',
@@ -256,69 +283,108 @@ const itemVariants = {
   }
 };
 
-// 트렌딩/새로운 테스트 카드 컴포넌트
-const TrendingNewTestCard = ({ test }: { test: any }) => (
-  <motion.div
-    className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    <Link href={`/tests/${test.id}`} className="block">
-      <div className="flex items-center p-3">
-        <div className="w-20 h-20 flex-shrink-0 mr-4 relative rounded-md overflow-hidden">
-          <img 
-            src={test.imageUrl} 
-            alt={test.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start gap-2">
-            <h3 className="font-bold text-base text-gray-800 leading-tight line-clamp-2">{test.title}</h3>
-            <div className="flex gap-1 flex-shrink-0 mt-0.5">
-              {test.isNew && (
-                <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center h-5">
-                  NEW
-                </span>
-              )}
-              {test.isPopular && (
-                <span className="bg-yellow-500 text-white text-xs px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center h-5">
-                  <Star className="w-3 h-3 mr-0.5" fill="white" stroke="none" />
-                  인기
-                </span>
-              )}
+// 테스트 카드 컴포넌트
+const TestCard = ({ id, title, imageUrl, participants, isBookmarked = false, isNew = false, isPopular = false, className = '' }) => {
+  return (
+    <div className="w-full mb-4">
+      <Link href={`/tests/${id}`} className={`block ${className}`}>
+        <motion.div 
+          className="relative w-full rounded-none overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 bg-white border border-transparent hover:border-purple-300"
+          whileHover={{ 
+            scale: 1.03, 
+            transition: { duration: 0.2 }
+          }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {/* 썸네일 이미지 */}
+          <div className="relative aspect-video">
+            <Image 
+              src={imageUrl} 
+              alt={title} 
+              fill 
+              className="object-cover transition-transform duration-300 hover:scale-105"
+              sizes="(max-width: 500px) 100vw, 500px"
+              priority={false}
+              loading="lazy"
+            />
+            
+            {/* 배지 표시 */}
+            {(isNew || isPopular) && (
+              <div className="absolute bottom-3 right-3 z-10 flex gap-2">
+                {isNew && (
+                  <motion.div 
+                    className="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    NEW
+                  </motion.div>
+                )}
+                {isPopular && (
+                  <motion.div 
+                    className="bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <Star className="w-3 h-3 mr-0.5 inline" fill="white" stroke="none" />
+                    인기
+                  </motion.div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* 컨텐츠 정보 */}
+          <div className="p-4 bg-white group-hover:bg-gray-50 transition-colors duration-300">
+            <div className="flex justify-between items-start gap-2">
+              <h3 className="font-bold text-lg leading-tight text-gray-900 hover:text-purple-600 transition-colors duration-200">
+                {title}
+              </h3>
+              <motion.button 
+                className="flex-shrink-0 text-gray-700 hover:text-gray-900"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // 북마크 토글 기능
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Bookmark 
+                  size={16} 
+                  className={isBookmarked ? "fill-purple-500 text-purple-500" : ""} 
+                />
+              </motion.button>
+            </div>
+            
+            <div className="mt-3 flex items-center gap-3">
+              <span className="flex items-center text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded">
+                <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                2분
+              </span>
+              <span className="flex items-center text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded">
+                <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {participants >= 10000 
+                  ? `${(participants / 10000).toFixed(1)}만명`
+                  : participants >= 1000
+                  ? `${(participants / 1000).toFixed(1)}천명`
+                  : `${participants}명`}
+              </span>
             </div>
           </div>
-          <div className="flex items-center gap-3 mt-2 text-sm text-gray-600">
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              2분
-            </span>
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              {test.participants >= 10000 
-                ? `${(test.participants / 10000).toFixed(1)}만명`
-                : test.participants >= 1000
-                ? `${(test.participants / 1000).toFixed(1)}천명`
-                : `${test.participants}명`}
-            </span>
-          </div>
-        </div>
-        <div className="ml-2 flex-shrink-0">
-          <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </Link>
-  </motion.div>
-);
+          
+          {/* 호버 효과를 위한 오버레이 */}
+          <div className="absolute inset-0 bg-purple-600/0 pointer-events-none transition-colors duration-300 hover:bg-purple-600/5"></div>
+        </motion.div>
+      </Link>
+    </div>
+  );
+};
 
 // 유튜브 스타일 썸네일 카드 컴포넌트
 const YoutubeStyleCard = ({ test }: { test: any }) => (
@@ -589,7 +655,7 @@ const MBTITypeCard = () => {
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
               <h3 className="text-2xl font-bold mb-2 text-center">나의 MBTI는?</h3>
-              <p className="text-sm text-center text-white/90 max-w-xs">
+              <p className="text-white/90 text-sm text-center max-w-xs">
                 16가지 성격 유형 중 당신은 어디에 속하는지 알아보세요
               </p>
               
@@ -639,128 +705,131 @@ export default function Home() {
   const [activeTab, setActiveTab] = React.useState('popular');
   
   return (
-    <main className="w-full bg-gray-50">
-      <div className="container max-w-md mx-auto pb-6">
-        <HeroSection />
-        <TestSection 
-          title="인기 테스트" 
-          tests={popularTests.filter(test => test.isPopular)} 
-          viewAllLink="/tests/popular"
-        />
-        <CategorySection />
-        <TestSection 
-          title="새로운 테스트" 
-          tests={newTests.filter(test => test.isNew)} 
-          viewAllLink="/tests/new"
-        />
-        
-        {/* MBTI 유형별 테스트 섹션 추가 */}
-        <div className="px-4 py-4">
-          <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
-            <h2 className="text-lg font-bold text-gray-800">MBTI 유형별 테스트</h2>
-            <Link href="/tests/mbti-deep" className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
-              더보기
-              <ChevronRight size={14} className="ml-0.5" />
-            </Link>
-          </div>
-          
-          <div className="space-y-4">
-            {/* MBTI 분석하기 카드 */}
-            <Link href="/tests/mbti-deep">
-              <motion.div 
-                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-                whileHover={{ y: -3, scale: 1.01, boxShadow: "0 12px 25px -5px rgba(0, 0, 0, 0.1)" }}
-              >
-                <div className="relative">
-                  <div className="h-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-500 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-96 h-96 rounded-full bg-white opacity-5 absolute -top-48 -right-16"></div>
-                      <div className="w-64 h-64 rounded-full bg-white opacity-5 absolute -bottom-32 -left-16"></div>
-                    </div>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-                      <h3 className="text-2xl font-bold mb-2 text-center">나의 MBTI는?</h3>
-                      <p className="text-sm text-center text-white/90 max-w-xs">
-                        16가지 성격 유형 중 당신은 어디에 속하는지 알아보세요
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 flex justify-between items-center">
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
-                    <span className="flex items-center">
-                      <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      5분
-                    </span>
-                    <span className="flex items-center">
-                      <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                      8.5만명
-                    </span>
-                  </div>
-                  <motion.button
-                    className="bg-indigo-600 text-white rounded-full px-4 py-1.5 text-sm font-medium shadow flex items-center"
-                    whileHover={{ scale: 1.05, backgroundColor: "#4f46e5" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    테스트 시작
-                    <ChevronRight size={16} className="ml-1" />
-                  </motion.button>
-                </div>
-              </motion.div>
-            </Link>
-            
-            {/* MBTI 유형 그룹 */}
-            <div className="grid grid-cols-2 gap-3">
-              {Object.entries(mbtiGroups).map(([groupName, groupMbtis]) => (
-                <Link href={`/tests/mbti-deep?category=${groupName}`} key={groupName}>
-                  <motion.div 
-                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md p-3"
-                    style={{ 
-                      backgroundImage: `linear-gradient(120deg, ${groupName === '분석가' ? '#eef2ff' : groupName === '외교관' ? '#ecfdf5' : groupName === '관리자' ? '#f5f3ff' : '#fffbeb'} 0%, white 100%)` 
-                    }}
-                    whileHover={{ y: -3, scale: 1.02, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="flex items-center mb-2">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${groupMbtis[0].color} mr-2 text-white text-xs font-bold`}>
-                        {groupName.charAt(0)}
-                      </div>
-                      <h4 className="font-bold text-gray-800">{groupName} 유형</h4>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1 mt-2">
-                      {groupMbtis.slice(0, 4).map((mbti) => (
-                        <div key={mbti.type} className="text-xs flex items-center">
-                          <div className={`w-2 h-2 rounded-full ${mbti.color} mr-1`}></div>
-                          <span className="font-medium">{mbti.type}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
-            </div>
-          </div>
+    <Container>
+      <HeroSection />
+      
+      {/* 인기 테스트 섹션 */}
+      <div className="px-4 py-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold text-gray-900">🔥 인기 테스트</h2>
+          <Link href="/tests/popular" className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+            더보기
+            <ChevronRight size={16} className="ml-0.5" />
+          </Link>
         </div>
-        
-        <div className="mt-6 px-4">
-          <Link href="/tests">
+        <div className="space-y-4">
+          {popularTests
+            .sort((a, b) => b.participants - a.participants)
+            .slice(0, 5)
+            .map((test) => (
+            <TestCard
+              key={test.id}
+              id={test.id}
+              title={test.title}
+              imageUrl={test.imageUrl}
+              participants={test.participants}
+              isPopular={test.isPopular}
+              isNew={test.isNew}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* 새로운 테스트 섹션 */}
+      <div className="px-4 py-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold text-gray-900">✨ 새로운 테스트</h2>
+          <Link href="/tests/new" className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+            더보기
+            <ChevronRight size={16} className="ml-0.5" />
+          </Link>
+        </div>
+        <div className="space-y-4">
+          {newTests
+            .slice(0, 5)
+            .map((test) => (
+            <TestCard
+              key={test.id}
+              id={test.id}
+              title={test.title}
+              imageUrl={test.imageUrl}
+              participants={test.participants}
+              isPopular={test.isPopular}
+              isNew={test.isNew}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* MBTI 유형별 테스트 섹션 */}
+      <div className="px-4 py-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold text-gray-900">🎭 MBTI 유형별 테스트</h2>
+          <Link href="/tests/mbti-deep" className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+            더보기
+            <ChevronRight size={16} className="ml-0.5" />
+          </Link>
+        </div>
+
+        {/* MBTI 테스트 카드 추가 */}
+        <div className="mb-4">
+          <Link href="/mbti" className="block">
             <motion.div 
-              className="w-full rounded-lg py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center font-medium shadow-md flex items-center justify-center"
-              whileHover={{ 
-                scale: 1.02, 
-                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)'
-              }}
+              className="rounded-xl overflow-hidden shadow-md bg-gradient-to-r from-violet-500 to-purple-600"
+              whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)" }}
               whileTap={{ scale: 0.98 }}
             >
-              모든 테스트 보러가기
-              <ChevronRight size={18} className="ml-1" />
+              <div className="p-6 text-white relative">
+                <div className="w-64 h-64 rounded-full bg-white opacity-5 absolute -top-32 -right-32"></div>
+                <div className="w-48 h-48 rounded-full bg-white opacity-5 absolute -bottom-24 -left-24"></div>
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold mb-2">스무고개 MBTI 테스트</h3>
+                  <p className="text-white/90 text-sm mb-4">
+                    단 20문항으로, 한국 커뮤니티 감성 듬뿍 담아 내 성격을 '정확(…할 수도?)'하게 알아봅시다!
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                        <span>5분</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                        <span>8.5만명</span>
+                      </div>
+                    </div>
+                    <div className="bg-white/20 rounded-full px-3 py-1 text-sm">
+                      테스트 시작하기
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </Link>
         </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          {mbtiTypes.slice(0, 4).map((type) => (
+            <Link
+              key={type.type}
+              href={`/tests/mbti/${type.type.toLowerCase()}`}
+              className="block"
+            >
+              <motion.div
+                className={`p-4 rounded-lg bg-gradient-to-br ${type.lightColor} hover:shadow-md transition-shadow`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className={`inline-block px-2 py-1 rounded text-white text-xs font-bold mb-2 ${type.color}`}>
+                  {type.type}
+                </div>
+                <h3 className="text-sm font-medium text-gray-900">{type.name}</h3>
+                <p className="text-xs text-gray-600 mt-1">{type.category}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </main>
+    </Container>
   );
 }

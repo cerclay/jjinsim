@@ -29,6 +29,26 @@ const tests = [
     description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'
   },
   {
+    id: 'life-genre',
+    title: '내 인생 장르는 뭘까?',
+    imageUrl: 'https://picsum.photos/id/1059/400/400',
+    category: 'fun',
+    participants: 5436,
+    isPopular: false,
+    isNew: true,
+    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!'
+  },
+  {
+    id: 'past-life-character',
+    title: '나의 전생 케릭터는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+    category: 'fun',
+    participants: 154321,
+    isPopular: true,
+    isNew: true,
+    description: '12문제로 알아보는 당신의 전생 캐릭터! 당신은 이순신이었을까요, 궁녀였을까요?'
+  },
+  {
     id: 'color-blindness',
     title: '색맹테스트',
     imageUrl: 'https://picsum.photos/id/1054/400/400',
@@ -141,6 +161,15 @@ const categoryTests = {
       isNew: true,
     },
     {
+      id: 'past-life-character',
+      title: '나의 전생 케릭터는?',
+      imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+      participants: 154321,
+      description: '12문제로 알아보는 당신의 전생 캐릭터! 당신은 이순신이었을까요, 궁녀였을까요?',
+      isPopular: true,
+      isNew: true,
+    },
+    {
       id: 't-power',
       title: '나의 T발력 수치는?',
       imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
@@ -209,6 +238,24 @@ const categoryTests = {
       isPopular: true,
     },
   ],
+  'fun': [
+    {
+      id: 'life-genre',
+      title: '내 인생 장르는 뭘까?',
+      imageUrl: 'https://picsum.photos/id/1059/400/400',
+      participants: 5436,
+      description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!',
+      isNew: true,
+    },
+    {
+      id: 'dog-compatibility',
+      title: '나랑 잘 맞는 강아지는?',
+      imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+      participants: 12456,
+      description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!',
+      isNew: true,
+    },
+  ],
 };
 
 // 테스트 타입 정의
@@ -234,61 +281,72 @@ interface TestCardProps {
 const TestCard = ({ test, className = '', itemVariants, formatParticipants }: TestCardProps) => (
   <motion.div
     variants={itemVariants}
-    className={`bg-white rounded-xl overflow-hidden shadow-sharp hover:shadow-lg transition-shadow duration-300 ${className}`}
+    className={`bg-white border border-transparent hover:border-purple-300 hover:shadow-md transition-all duration-300 ${className}`}
+    whileHover={{ 
+      scale: 1.03,
+      transition: { duration: 0.2 } 
+    }}
   >
-    <div className="flex flex-col sm:flex-row">
-      <div className="w-full sm:w-32 h-40 sm:h-32 flex-shrink-0 relative">
-        <img 
-          src={test.imageUrl} 
-          alt={test.title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {test.isNew && (
-          <span className="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">
-            NEW
-          </span>
-        )}
-      </div>
-      <div className="flex-1 p-4 flex flex-col justify-between">
-        <div>
-          <div className="flex justify-between items-start">
-            <h3 className="font-medium text-gray-800 text-lg">{test.title}</h3>
-            {test.isPopular && (
-              <span className="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full flex items-center ml-2">
-                <Star className="w-3 h-3 mr-0.5" fill="white" stroke="none" />
-                인기
-              </span>
-            )}
+    <Link href={`/tests/${test.id}`} className="block relative">
+      <div className="flex items-center p-3 relative">
+        <div className="w-24 h-24 flex-shrink-0 mr-4 relative rounded-md overflow-hidden">
+          <img 
+            src={test.imageUrl} 
+            alt={test.title}
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+          {/* 호버 효과를 위한 오버레이 */}
+          <div className="absolute inset-0 bg-purple-500/0 hover:bg-purple-500/10 transition-colors duration-300"></div>
+        </div>
+        
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between">
+            <h3 className="font-bold text-lg text-gray-800 leading-tight line-clamp-2 hover:text-purple-600 transition-colors duration-200">
+              {test.title}
+            </h3>
+            <div className="flex gap-1 ml-2 flex-shrink-0">
+              {test.isNew && (
+                <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded shadow-sm flex items-center justify-center h-5">
+                  NEW
+                </span>
+              )}
+              {test.isPopular && (
+                <span className="bg-amber-500 text-white text-xs px-1.5 py-0.5 rounded shadow-sm flex items-center justify-center h-5">
+                  <Star className="w-3 h-3 mr-0.5" fill="white" stroke="none" />
+                  인기
+                </span>
+              )}
+            </div>
           </div>
-          {test.description && (
-            <p className="mt-1 text-sm text-gray-500 line-clamp-2">{test.description}</p>
-          )}
-          <div className="mt-2 flex items-center gap-3 text-sm text-gray-500">
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          
+          <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
+            <span className="flex items-center bg-gray-50 px-2 py-1 rounded">
+              <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              평균 2분
+              2분
             </span>
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="flex items-center bg-gray-50 px-2 py-1 rounded">
+              <svg className="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              {formatParticipants(test.participants)} 참여
+              {formatParticipants(test.participants)}
             </span>
           </div>
         </div>
-        <Link 
-          href={`/tests/${test.id}`}
-          className="mt-3 inline-flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-orange-500 transition-colors duration-200 text-sm font-medium"
-        >
-          테스트 하기
-          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
+        
+        <div className="ml-2 flex-shrink-0">
+          <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center hover:bg-purple-200 transition-colors duration-300">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
       </div>
-    </div>
+      
+      {/* 호버 효과를 위한 오버레이 */}
+      <div className="absolute inset-0 bg-purple-600/0 pointer-events-none transition-colors duration-300 hover:bg-purple-600/5"></div>
+    </Link>
   </motion.div>
 );
 
@@ -331,7 +389,7 @@ export default function Tests() {
     visible: { 
       y: 0, 
       opacity: 1,
-      transition: { type: 'spring', stiffness: 300, damping: 24 }
+      transition: { type: "spring", stiffness: 300, damping: 24 }
     }
   };
 
@@ -343,58 +401,43 @@ export default function Tests() {
   // 새로운 테스트 목록
   const newTests = tests.filter(test => test.isNew)
     .sort((a, b) => {
-      // dog-compatibility를 가장 먼저 표시
-      if (a.id === 'dog-compatibility') return -1;
-      if (b.id === 'dog-compatibility') return 1;
-      // 그 다음 참여자 수로 정렬
+      // 참여자 수로 정렬
       return b.participants - a.participants;
     });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 p-4">
-      <div className="max-w-3xl mx-auto">
-        <motion.div 
-          className="mb-6 flex justify-between items-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Link href="/" className="flex items-center text-purple-800 font-medium">
-            <ArrowLeft className="h-4 w-4 mr-1" />
-            <span>홈으로</span>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-[500px] mx-auto p-4">
+        {/* 헤더 */}
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/" className="text-gray-600 hover:text-gray-900">
+            <ArrowLeft className="h-6 w-6" />
           </Link>
-          <h1 className="text-xl font-bold text-purple-900">전체 테스트</h1>
-          <Button 
-            variant="ghost" 
-            size="icon"
+          <h1 className="text-xl font-bold text-gray-900">테스트 목록</h1>
+          <button
             onClick={() => setShowFilter(!showFilter)}
-            className="text-purple-800"
+            className="text-gray-600 hover:text-gray-900"
           >
-            <Filter className="h-5 w-5" />
-          </Button>
-        </motion.div>
+            <Filter className="h-6 w-6" />
+          </button>
+        </div>
 
-        <motion.div 
-          className="mb-4"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <input
-              type="text"
-              placeholder="테스트 검색"
-              className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </motion.div>
+        {/* 검색바 */}
+        <div className="relative mb-6">
+          <input
+            type="text"
+            placeholder="테스트 검색하기"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+        </div>
 
+        {/* 필터 */}
         {showFilter && (
           <motion.div 
-            className="mb-4 bg-white p-3 rounded-xl shadow-sm"
+            className="mb-4 bg-white p-3 rounded-lg shadow-sm"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
