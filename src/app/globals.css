@@ -334,16 +334,12 @@
 
 /* 언어 전환 스타일 */
 .language-switcher-container {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
   z-index: 50;
 }
 
 @media (min-width: 768px) {
   .language-switcher-container {
-    bottom: auto;
-    top: 20px;
+    /* 미디어 쿼리 내용도 제거 */
   }
 }
 

@@ -24,12 +24,17 @@ export function Footer() {
 
   return (
     <motion.footer 
-      className="border-t py-8 mt-4"
+      className="py-8 mt-0 relative bg-white"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
+      style={{
+        backgroundColor: '#ffffff',
+        backgroundImage: 'none'
+      }}
     >
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"></div>
       <div className="container px-4 max-w-md mx-auto">
         <motion.div 
           className="flex flex-col items-center text-center"
@@ -45,7 +50,7 @@ export function Footer() {
           </motion.div>
           
           <motion.p 
-            className="text-xs text-muted-foreground mt-2 max-w-md leading-relaxed"
+            className="text-xs text-gray-800 mt-2 max-w-md leading-relaxed"
             variants={item}
           >
             당신의 내면을 비추는 심리테스트 플랫폼입니다.
@@ -60,24 +65,24 @@ export function Footer() {
             variants={item}
           >
             <motion.div whileHover={{ scale: 1.2, y: -3 }} whileTap={{ scale: 0.9 }}>
-              <Link href="https://instagram.com" className="text-muted-foreground hover:text-pink-500" aria-label="Instagram">
+              <Link href="https://instagram.com" className="text-gray-700 hover:text-pink-500" aria-label="Instagram">
                 <Instagram size={18} />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.2, y: -3 }} whileTap={{ scale: 0.9 }}>
-              <Link href="https://twitter.com" className="text-muted-foreground hover:text-blue-400" aria-label="Twitter">
+              <Link href="https://twitter.com" className="text-gray-700 hover:text-blue-400" aria-label="Twitter">
                 <Twitter size={18} />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.2, y: -3 }} whileTap={{ scale: 0.9 }}>
-              <Link href="https://facebook.com" className="text-muted-foreground hover:text-blue-600" aria-label="Facebook">
+              <Link href="https://facebook.com" className="text-gray-700 hover:text-blue-600" aria-label="Facebook">
                 <Facebook size={18} />
               </Link>
             </motion.div>
           </motion.div>
           
           <motion.div 
-            className="flex flex-wrap justify-center gap-x-5 mt-6 text-xs text-muted-foreground"
+            className="flex flex-wrap justify-center gap-x-5 mt-6 text-xs text-gray-800"
             variants={item}
           >
             <motion.div whileHover={{ y: -2, color: "#000" }}>
@@ -95,7 +100,7 @@ export function Footer() {
           </motion.div>
           
           <motion.p 
-            className="text-xs text-muted-foreground mt-7"
+            className="text-xs text-gray-800 mt-7"
             variants={item}
           >
             © 2024 찐심(JJinSim). All rights reserved.

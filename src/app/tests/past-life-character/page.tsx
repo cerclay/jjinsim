@@ -246,37 +246,62 @@ export default function PastLifeCharacterTest() {
     
     setTraitCounts(traits);
     
-    // 가장 높은 트레이트 찾기
-    let maxTrait = '';
-    let maxCount = 0;
+    // 성향 순위로 정렬
+    const sortedTraits = Object.entries(traits)
+      .sort((a, b) => b[1] - a[1])
+      .map(([trait]) => trait);
     
-    Object.entries(traits).forEach(([trait, count]) => {
-      if (count > maxCount) {
-        maxTrait = trait;
-        maxCount = count;
-      }
-    });
+    // 점수가 같은 경우 랜덤성 부여를 위한 가중치 적용
+    const randomFactor = Math.random() * 0.2; // 20% 랜덤성 추가
     
-    // 두 번째로 높은 트레이트 찾기 (동점인 경우 존재 가능)
-    let secondMaxTrait = '';
-    let secondMaxCount = 0;
+    // 주요 트레이트와 보조 트레이트
+    const primaryTrait = sortedTraits[0] || '';
+    const secondaryTrait = sortedTraits[1] || '';
     
-    Object.entries(traits).forEach(([trait, count]) => {
-      if (trait !== maxTrait && count > secondMaxCount) {
-        secondMaxTrait = trait;
-        secondMaxCount = count;
-      }
-    });
+    // 전체 트레이트 점수 합
+    const totalPoints = Object.values(traits).reduce((sum, count) => sum + count, 0);
     
-    // 결과 찾기
-    const matchedResult = testData.results.find(r => {
-      // 주 트레이트와 부 트레이트 모두 일치
+    // 주요 트레이트의 점수 비율 계산
+    const primaryTraitRatio = traits[primaryTrait] / totalPoints;
+    
+    // 결과 후보군 찾기
+    const candidateResults = testData.results.filter(r => {
+      // 주트레이트와 부트레이트 조합 일치
       if (r.traits.length > 1) {
-        return r.traits[0] === maxTrait && r.traits[1] === secondMaxTrait;
+        return (r.traits[0] === primaryTrait && r.traits[1] === secondaryTrait) ||
+               (r.traits[1] === primaryTrait && r.traits[0] === secondaryTrait);
       }
-      // 단일 트레이트만 중요한 경우
-      return r.traits[0] === maxTrait;
+      // 주트레이트만 일치
+      return r.traits[0] === primaryTrait;
     });
+    
+    let result;
+    
+    if (candidateResults.length > 0) {
+      // 비율이 높으면 정확한 결과, 낮으면 랜덤성 증가
+      if (primaryTraitRatio > 0.4 + randomFactor) {
+        // 주 트레이트가 확실한 경우 - 정확한 결과
+        result = candidateResults[0];
+      } else {
+        // 주 트레이트가 불확실한 경우 - 후보 결과 중 랜덤 선택
+        const randomIndex = Math.floor(Math.random() * candidateResults.length);
+        result = candidateResults[randomIndex];
+      }
+    } else {
+      // 명확한 결과가 없는 경우 - 보조 트레이트 기반 또는 완전 랜덤
+      const fallbackResults = testData.results.filter(r => 
+        r.traits.includes(primaryTrait) || r.traits.includes(secondaryTrait)
+      );
+      
+      if (fallbackResults.length > 0) {
+        const randomIndex = Math.floor(Math.random() * fallbackResults.length);
+        result = fallbackResults[randomIndex];
+      } else {
+        // 완전 랜덤 결과
+        const randomIndex = Math.floor(Math.random() * testData.results.length);
+        result = testData.results[randomIndex];
+      }
+    }
     
     // 결과를 계산한 후 축하 효과 표시
     setTimeout(() => {
@@ -284,7 +309,7 @@ export default function PastLifeCharacterTest() {
       setTimeout(() => setShowConfetti(false), 6000);
     }, 300);
     
-    return matchedResult || testData.results[0]; // 기본값 반환
+    return result;
   };
 
   // 선택지 선택 핸들러
