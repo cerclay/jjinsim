@@ -5,10 +5,14 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 interface MbtiCardProps {
+  title?: string;
+  description?: string;
+  duration?: string;
+  participants?: string;
   onClick?: () => void;
 }
 
-export function MbtiCard({ onClick }: MbtiCardProps) {
+export function MbtiCard({ title, description, duration, participants, onClick }: MbtiCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -37,7 +41,7 @@ export function MbtiCard({ onClick }: MbtiCardProps) {
                 transition={{ duration: 0.5 }}
                 className="text-3xl font-extrabold drop-shadow-md mb-2 text-black"
               >
-                나의 MBTI 성격 유형은?
+                {title || "나의 MBTI 성격 유형은?"}
               </motion.h2>
               
               <motion.p 
@@ -46,7 +50,7 @@ export function MbtiCard({ onClick }: MbtiCardProps) {
                 transition={{ delay: 0.1, duration: 0.5 }}
                 className="text-lg font-medium text-gray-800 leading-relaxed"
               >
-                12가지 질문으로 알아보는 나만의 성격 유형 테스트, 지금 바로 시작해보세요!
+                {description || "12가지 질문으로 알아보는 나만의 성격 유형 테스트, 지금 바로 시작해보세요!"}
               </motion.p>
               
               <motion.div
@@ -57,10 +61,10 @@ export function MbtiCard({ onClick }: MbtiCardProps) {
               >
                 <div className="flex flex-wrap gap-3">
                   <span className="bg-rose-500 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm">
-                    소요시간: 3분
+                    소요시간: {duration || "3분"}
                   </span>
                   <span className="bg-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm">
-                    10만명 참여
+                    {participants || "10만명"} 참여
                   </span>
                 </div>
               </motion.div>

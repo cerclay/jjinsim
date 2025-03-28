@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { MbtiQuestion } from "./MbtiQuestion";
 import { MbtiResult } from "./MbtiResult";
-import { Button } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { calculateMbtiResult } from "../utils/calculateMbti";
 import { getMbtiData } from "../utils/getMbtiData";
 import { motion } from "framer-motion";

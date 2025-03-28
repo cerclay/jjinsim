@@ -38,7 +38,7 @@ export function LanguageSwitcher() {
   return (
     <div className="language-switcher-container" ref={switcherRef}>
       <motion.button
-        className="flex items-center gap-1.5 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-full text-sm font-medium text-gray-700 dark:text-gray-200 shadow-md hover:shadow-lg transition-all duration-200"
+        className="flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full text-xs font-medium shadow-md border border-purple-200"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -46,19 +46,19 @@ export function LanguageSwitcher() {
         animate={{ opacity: 1, y: 0 }}
       >
         <Globe
-          size={14}
-          className="text-gray-600 dark:text-gray-300"
-          strokeWidth={2}
+          size={12}
+          className="text-purple-600"
+          strokeWidth={2.5}
         />
-        <span>
-          {locale === "ko" ? "한국어" : "English"}
+        <span className="text-purple-700">
+          {locale === "ko" ? "KO" : "EN"}
         </span>
       </motion.button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-full mt-2 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-10 min-w-[140px]"
+            className="absolute top-full mt-1 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-purple-100 dark:border-gray-700 overflow-hidden z-10 min-w-[110px]"
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
@@ -105,20 +105,20 @@ function LanguageOption({
 }: LanguageOptionProps) {
   return (
     <motion.button
-      className={`flex items-center gap-2 text-left px-4 py-2.5 text-sm rounded-lg w-full ${
+      className={`flex items-center gap-2 text-left px-3 py-2 text-xs rounded-lg w-full ${
         isSelected
-          ? "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium"
+          ? "bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 font-medium"
           : "hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
       }`}
       onClick={onClick}
       whileHover={{ x: 2 }}
       whileTap={{ scale: 0.95 }}
     >
-      <span className="text-base">{flag}</span>
-      <span>{name}</span>
+      <span className="text-sm">{flag}</span>
+      <span>{locale === "ko" ? "한국어" : "English"}</span>
       {isSelected && (
         <motion.div
-          className="ml-auto w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500"
+          className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-500"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 15 }}

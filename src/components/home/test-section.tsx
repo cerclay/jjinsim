@@ -31,7 +31,10 @@ export function TestSection({ title, tests, viewAllLink, className = '' }: TestS
     <div className={`py-4 ${className}`}>
       {title && (
         <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
-          <h2 className="text-lg font-bold text-gray-800">{title}</h2>
+          <h2 className="text-xl font-extrabold text-gray-800 relative">
+            {title}
+            <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></span>
+          </h2>
           {viewAllLink && (
             <Link href={viewAllLink} className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
               더보기

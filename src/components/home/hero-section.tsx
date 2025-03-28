@@ -14,27 +14,27 @@ export function HeroSection() {
   const heroCards = [
     {
       id: 'tarot-consultation',
-      title: '타로 상담',
-      description: '당신의 고민을 타로카드로 상담해 드립니다',
-      category: '운세 / 상담',
+      titleKey: 'hero_tarot_title',
+      descriptionKey: 'hero_tarot_description',
+      categoryKey: 'hero_tarot_category',
       imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
-      color: 'from-purple-500/40 via-purple-500/30 to-black/70'
+      color: 'from-purple-500/30 via-purple-500/20 to-black/70'
     },
     {
       id: 'personal-color',
-      title: '퍼스널 컬러 테스트',
-      description: '나에게 어울리는 색상을 찾아보세요',
-      category: '뷰티 / 패션',
+      titleKey: 'hero_personal_color_title',
+      descriptionKey: 'hero_personal_color_description',
+      categoryKey: 'hero_personal_color_category',
       imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
-      color: 'from-pink-500/40 via-pink-500/30 to-black/70'
+      color: 'from-pink-500/30 via-pink-500/20 to-black/70'
     },
     {
       id: 'color-blindness',
-      title: '색맹 테스트',
-      description: '당신의 색상 인지 능력을 테스트해보세요',
-      category: '건강 / 의학',
+      titleKey: 'hero_color_blindness_title',
+      descriptionKey: 'hero_color_blindness_description',
+      categoryKey: 'hero_color_blindness_category',
       imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgeGzcb_BdpyZNglZW24ioN_ptB5ch7PZbw3nQQDDcWbnRcgupVnP2vGS3n6ijlPS4VTkF1PuqhceicDn-63UyyWBBbo6dGyj33az_VDC_4N7m9qersQPY-7H--tzwfE3CWB_wTyeBgys5KR6oz2IB3JFiKx7RQaVFm8q-POW9-Ae-EfrLGpr8WLMdYOho',
-      color: 'from-blue-500/40 via-blue-500/30 to-black/70'
+      color: 'from-blue-500/30 via-blue-500/20 to-black/70'
     }
   ];
 
@@ -83,7 +83,7 @@ export function HeroSection() {
                   <div className="absolute inset-0">
                     <Image 
                       src={card.imageUrl} 
-                      alt={`${card.title} 테스트 이미지`}
+                      alt={t[card.titleKey]}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 500px"
@@ -100,11 +100,11 @@ export function HeroSection() {
                       transition={{ delay: 0.2 }}
                       className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded text-white text-xs inline-block w-fit mb-2"
                     >
-                      {card.category}
+                      {t[card.categoryKey]}
                     </motion.div>
                     
-                    <h2 className="text-white font-extrabold text-2xl drop-shadow-lg">{card.title}</h2>
-                    <p className="text-white/90 text-sm mt-1 drop-shadow-md">{card.description}</p>
+                    <h2 className="text-white font-extrabold text-2xl drop-shadow-lg">{t[card.titleKey]}</h2>
+                    <p className="text-white/90 text-sm mt-1 drop-shadow-md">{t[card.descriptionKey]}</p>
                     
                     <div className="mt-4">
                       <motion.span 
@@ -118,7 +118,7 @@ export function HeroSection() {
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}
                       >
-                        테스트 시작하기
+                        {t.start_test}
                       </motion.span>
                     </div>
                   </div>
@@ -137,7 +137,7 @@ export function HeroSection() {
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex ? 'bg-white w-6' : 'bg-white/50'
               }`}
-              aria-label={`카드 ${index + 1}로 이동`}
+              aria-label={`${t.move_to_card} ${index + 1}`}
             />
           ))}
         </div>

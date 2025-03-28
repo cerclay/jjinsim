@@ -43,6 +43,7 @@ const categories = [
   { href: "/category/mental", label: "심리상태", icon: Sparkles, color: "text-blue-500 bg-blue-500/10" },
   { href: "/category/relationship", label: "관계", icon: Users, color: "text-green-500 bg-green-500/10" },
   { href: "/category/career", label: "진로", icon: Briefcase, color: "text-secondary-500 bg-secondary-500/10" },
+  { href: "/tests/iq-test", label: "IQ테스트", icon: Brain, color: "text-purple-500 bg-purple-500/10" },
 ];
 
 export function Header() {
@@ -50,11 +51,12 @@ export function Header() {
   
   return (
     <motion.header 
-      className="sticky top-0 z-50 w-full border-b bg-white backdrop-blur"
+      className="sticky top-0 z-50 w-full bg-white backdrop-blur relative"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"></div>
       <div className="container h-14 flex items-center justify-between px-4 max-w-md mx-auto">
         <div className="flex items-center">
           <MobileNav session={session} />
@@ -108,13 +110,13 @@ function MobileNav({ session }: { session: any }) {
           <span className="sr-only">메뉴 열기</span>
         </motion.button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 w-[280px] sm:w-[280px] border-r-2">
+      <SheetContent side="left" className="p-0 w-[280px] sm:w-[280px] border-r-2 bg-white">
         <div className="flex justify-between items-center p-4 border-b">
-          <Link href="/" className="text-lg font-extrabold jjinsim-logo-vertical">
+          <Link href="/" className="text-lg font-extrabold jjinsim-logo-vertical text-black">
             찐심
           </Link>
-          <SheetClose className="rounded-full p-2 hover:bg-muted">
-            <X className="h-5 w-5" />
+          <SheetClose className="rounded-full p-2 hover:bg-gray-100">
+            <X className="h-5 w-5 text-black" />
             <span className="sr-only">닫기</span>
           </SheetClose>
         </div>
@@ -137,11 +139,11 @@ function MobileNav({ session }: { session: any }) {
               >
                 <Link
                   href={item.href}
-                  className="flex items-center justify-between py-3 px-4 hover:bg-muted rounded-md transition-colors"
+                  className="flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-md transition-colors text-black"
                   onClick={() => setIsOpen(false)}
                 >
                   <span className="text-sm font-medium">{item.label}</span>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  <ChevronRight className="h-4 w-4 text-gray-500" />
                 </Link>
               </motion.div>
             ))}
@@ -154,7 +156,7 @@ function MobileNav({ session }: { session: any }) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.3 }}
         >
-          <h3 className="text-sm font-semibold mb-3 px-1">카테고리</h3>
+          <h3 className="text-sm font-semibold mb-3 px-1 text-black">카테고리</h3>
           <div className="grid grid-cols-2 gap-2">
             {categories.map((category, index) => {
               const Icon = category.icon;
@@ -169,13 +171,13 @@ function MobileNav({ session }: { session: any }) {
                 >
                   <Link
                     href={category.href}
-                    className="flex flex-col items-center p-3 bg-muted/50 hover:bg-muted rounded-md transition-colors"
+                    className="flex flex-col items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1 ${category.color}`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1 text-purple-500 bg-purple-100`}>
                       <Icon className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-medium text-center">{category.label}</span>
+                    <span className="text-xs font-medium text-center text-black">{category.label}</span>
                   </Link>
                 </motion.div>
               );
@@ -184,7 +186,7 @@ function MobileNav({ session }: { session: any }) {
         </motion.div>
         
         <motion.div 
-          className="absolute bottom-0 left-0 right-0 border-t p-4"
+          className="absolute bottom-0 left-0 right-0 border-t p-4 bg-white"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.3 }}
@@ -194,7 +196,7 @@ function MobileNav({ session }: { session: any }) {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
                   href="/profile" 
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-sm font-medium text-black hover:text-purple-600 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   내 정보
@@ -203,7 +205,7 @@ function MobileNav({ session }: { session: any }) {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <button 
                   onClick={handleSignOut}
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-sm font-medium text-black hover:text-purple-600 transition-colors"
                 >
                   로그아웃
                 </button>
@@ -214,7 +216,7 @@ function MobileNav({ session }: { session: any }) {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
                   href="/auth/signin" 
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-sm font-medium text-black hover:text-purple-600 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   로그인
@@ -223,7 +225,7 @@ function MobileNav({ session }: { session: any }) {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
                   href="/auth/register" 
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-sm font-medium text-black hover:text-purple-600 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   회원가입
