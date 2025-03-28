@@ -6,8 +6,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Noto_Sans_KR, Roboto } from 'next/font/google';
 import './globals.css';
 import Providers from './providers';
-import { Header } from '@/components/ui/header';
-import { Footer } from '@/components/ui/footer';
+import Header from '@/components/layout/header';
+import Footer from '@/components/layout/footer';
 import { AuthProvider } from '@/components/auth/auth-provider';
 import { Inter, Caveat, Gaegu } from 'next/font/google';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
@@ -65,31 +65,8 @@ export const metadata: Metadata = {
     title: '찐심(JJinSim)',
   },
   icons: {
-    icon: [
-      {
-        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
-        sizes: "32x32",
-        type: "image/x-icon",
-      },
-      {
-        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
-        sizes: "16x16",
-        type: "image/x-icon",
-      }
-    ],
-    shortcut: [
-      {
-        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
-        sizes: "192x192",
-      }
-    ],
-    apple: [
-      {
-        url: "https://i.ibb.co/djwM8FJ/favicon.ico",
-        sizes: "180x180",
-        type: "image/x-icon",
-      }
-    ],
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
 };
 
@@ -104,28 +81,42 @@ export default function RootLayout({
       <head>
         <link 
           rel="icon" 
-          href="https://i.ibb.co/djwM8FJ/favicon.ico" 
-          type="image/x-icon"
+          href="/favicon.png" 
+          type="image/png"
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} ${gaegu.variable} antialiased min-h-screen flex flex-col overscroll-none`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} ${gaegu.variable} antialiased min-h-screen flex flex-col overscroll-none bg-gray-50`}
+        suppressHydrationWarning
       >
         <Clarity />
-        {/* Google Analytics */}
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         <Providers>
-          <AuthProvider>
-            <Header />
-            <main className="flex-grow flex flex-col">
-              {children}
+          <div className="flex flex-col min-h-screen">
+            <div 
+              className="w-full flex justify-center sticky top-0 z-50"
+              id="header-container"
+            >
+              <Header />
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="h-0.5 w-full max-w-[500px] bg-gradient-to-r from-purple-500 to-pink-500"></div>
+            </div>
+            <main className="flex-grow flex flex-col items-center">
+              <div className="w-full max-w-[500px] mx-auto bg-white min-h-screen">
+                {children}
+              </div>
             </main>
-            <Footer />
-            {/* 언어 전환 버튼 */}
-            <div className="language-switcher-container">
+            <div className="flex flex-col items-center">
+              <div className="h-0.5 w-full max-w-[500px] bg-gradient-to-r from-purple-500 to-pink-500"></div>
+            </div>
+            <div className="w-full">
+              <Footer />
+            </div>
+            <div className="language-switcher-container fixed bottom-4 right-4 z-30">
               <LanguageSwitcher />
             </div>
-          </AuthProvider>
+          </div>
         </Providers>
       </body>
     </html>

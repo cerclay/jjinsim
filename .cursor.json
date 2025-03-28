@@ -1,0 +1,9 @@
+{
+  "mcpServers": [
+    {
+      "name": "browser-tools",
+      "type": "command",
+      "command": "C:\\Users\\Lenovo\\AppData\\Roaming\\npm\\npx.cmd @agentdeskai/browser-tools-mcp@1.2.0"
+    }
+  ]
+} 

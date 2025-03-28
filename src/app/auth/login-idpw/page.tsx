@@ -45,17 +45,13 @@ export default function LoginPage() {
     setError('');
     setKakaoLoading(true);
     try {
-      const result = await signIn('kakao', { 
+      await signIn('kakao', {
         callbackUrl: '/',
-        redirect: true,
-        scope: 'profile_nickname profile_image'
+        redirect: true
       });
-      if (!result) {
-        setError('카카오 로그인에 실패했습니다. 다시 시도해주세요.');
-      }
-    } catch (err) {
-      console.error("카카오 로그인 오류:", err);
-      setError('로그인 처리 중 오류가 발생했습니다.');
+    } catch (error) {
+      console.error('카카오 로그인 오류:', error);
+      setError('카카오 로그인 중 오류가 발생했습니다.');
     } finally {
       setKakaoLoading(false);
     }

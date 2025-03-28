@@ -4,35 +4,37 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
 export function HeroSection() {
   const { t } = useI18n();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   
-  // 히어로 카드 데이터 - 타로상담가가 첫 번째로 나오도록 순서 변경
+  // 히어로 카드 데이터
   const heroCards = [
     {
       id: 'tarot-consultation',
-      titleKey: 'hero_tarot_title',
-      descriptionKey: 'hero_tarot_description',
-      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
-      color: 'from-purple-500/30 via-purple-500/20 to-black/70'
+      title: '타로 상담',
+      description: '당신의 고민을 타로카드로 상담해 드립니다',
+      category: '운세 / 상담',
+      imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
+      color: 'from-purple-500/40 via-purple-500/30 to-black/70'
     },
     {
       id: 'personal-color',
-      titleKey: 'hero_color_title',
-      descriptionKey: 'hero_color_description',
+      title: '퍼스널 컬러 테스트',
+      description: '나에게 어울리는 색상을 찾아보세요',
+      category: '뷰티 / 패션',
       imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
-      color: 'from-pink-500/30 via-pink-500/20 to-black/70'
+      color: 'from-pink-500/40 via-pink-500/30 to-black/70'
     },
     {
       id: 'color-blindness',
-      titleKey: 'hero_colorblind_title',
-      descriptionKey: 'hero_colorblind_description',
-      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
-      color: 'from-blue-500/30 via-blue-500/20 to-black/70'
+      title: '색맹 테스트',
+      description: '당신의 색상 인지 능력을 테스트해보세요',
+      category: '건강 / 의학',
+      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgeGzcb_BdpyZNglZW24ioN_ptB5ch7PZbw3nQQDDcWbnRcgupVnP2vGS3n6ijlPS4VTkF1PuqhceicDn-63UyyWBBbo6dGyj33az_VDC_4N7m9qersQPY-7H--tzwfE3CWB_wTyeBgys5KR6oz2IB3JFiKx7RQaVFm8q-POW9-Ae-EfrLGpr8WLMdYOho',
+      color: 'from-blue-500/40 via-blue-500/30 to-black/70'
     }
   ];
 
@@ -47,13 +49,13 @@ export function HeroSection() {
 
   return (
     <motion.div 
-      className="py-3"
+      className="py-3 max-w-[500px] mx-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       {/* 카드 슬라이더 */}
-      <div className="relative h-[250px] w-full overflow-hidden rounded-xl shadow-xl">
+      <div className="relative h-[300px] w-full overflow-hidden rounded-xl shadow-xl">
         {heroCards.map((card, index) => {
           const isActive = index === currentIndex;
           const isPrev = (index === currentIndex - 1) || (currentIndex === 0 && index === heroCards.length - 1);
@@ -81,10 +83,10 @@ export function HeroSection() {
                   <div className="absolute inset-0">
                     <Image 
                       src={card.imageUrl} 
-                      alt={t[card.titleKey]}
+                      alt={`${card.title} 테스트 이미지`}
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 400px"
+                      sizes="(max-width: 768px) 100vw, 500px"
                       priority={index === currentIndex}
                     />
                   </div>
@@ -92,10 +94,19 @@ export function HeroSection() {
                   <div className={`absolute inset-0 bg-gradient-to-b ${card.color}`} />
                   
                   <div className="absolute inset-0 flex flex-col justify-end p-5">
-                    <h2 className="text-white font-extrabold text-2xl drop-shadow-lg">{t[card.titleKey]}</h2>
-                    <p className="text-white/90 text-sm mt-1 drop-shadow-md">{t[card.descriptionKey]}</p>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded text-white text-xs inline-block w-fit mb-2"
+                    >
+                      {card.category}
+                    </motion.div>
                     
-                    <div className="mt-3">
+                    <h2 className="text-white font-extrabold text-2xl drop-shadow-lg">{card.title}</h2>
+                    <p className="text-white/90 text-sm mt-1 drop-shadow-md">{card.description}</p>
+                    
+                    <div className="mt-4">
                       <motion.span 
                         className="inline-block bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-bold backdrop-blur-sm border border-white/20 shadow-lg"
                         whileHover={{ 
@@ -107,7 +118,7 @@ export function HeroSection() {
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {t.start_test}
+                        테스트 시작하기
                       </motion.span>
                     </div>
                   </div>
@@ -131,34 +142,6 @@ export function HeroSection() {
           ))}
         </div>
       </div>
-      
-      {/* 검색창 */}
-      <motion.div 
-        className="relative mt-4"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-      >
-        <div className="relative bg-white shadow-lg rounded-full p-1 border border-gray-100">
-          <div className="flex items-center">
-            <input 
-              type="text" 
-              placeholder={t.search_placeholder} 
-              className="w-full bg-transparent text-gray-800 placeholder-gray-400 py-2 px-4 rounded-full focus:outline-none text-sm"
-              aria-label="검색"
-            />
-            <motion.button 
-              type="button"
-              className="flex-shrink-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full p-2 ml-1 transition-colors duration-200"
-              aria-label="검색하기"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Search size={18} />
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
     </motion.div>
   );
 } 

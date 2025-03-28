@@ -1,0 +1,10 @@
+{
+    "servers": [
+      {
+        "name": "browser-tools",
+        "type": "command",
+        "command": "npx @agentdeskai/browser-tools-mcp@1.2.0"
+      }
+    ]
+  }
+  
