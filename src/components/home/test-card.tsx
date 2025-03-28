@@ -159,5 +159,4 @@ export function TestCard({
   );
 }
 
-export type { TestCardProps };
-export { TestCard }; 
+export type { TestCardProps }; 

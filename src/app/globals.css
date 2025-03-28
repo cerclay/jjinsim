@@ -234,8 +234,14 @@
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   @keyframes slideUp {
@@ -302,8 +308,8 @@
 
 /* 손글씨 폰트 스타일 */
 .font-handwriting {
-  font-family: 'Caveat', 'Gaegu', cursive;
-  font-weight: 500;
+  font-family: 'Caveat', cursive;
+  @apply text-lg tracking-wide leading-relaxed;
 }
 
 /* 폴라로이드 스타일 */
@@ -325,11 +331,8 @@
 }
 
 .polaroid-caption {
-  text-align: center;
-  font-family: 'Caveat', 'Gaegu', cursive;
-  font-weight: 500;
-  font-size: 1.1rem;
-  color: #333;
+  font-family: 'Caveat', cursive;
+  @apply text-sm text-center mt-2 px-2 pb-3 text-gray-800;
 }
 
 /* 언어 전환 스타일 */
@@ -360,4 +363,8 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(147, 51, 234, 0.5);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
 }

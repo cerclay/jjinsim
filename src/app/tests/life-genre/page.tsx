@@ -701,9 +701,11 @@ export default function LifeGenreTest() {
                 >
                   <h3 className="font-medium text-gray-800 mb-4 text-lg">🎬 당신의 인생 장르</h3>
                   <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                    <motion.img 
+                    <Image 
                       src={result.imageUrl} 
-                      alt={result.title}
+                      alt={`${result.title} - ${result.description}`}
+                      width={800}
+                      height={400}
                       className="w-full h-full object-cover"
                       initial={{ scale: 1.2, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}

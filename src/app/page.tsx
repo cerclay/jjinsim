@@ -15,6 +15,14 @@ import { TestCard } from '@/components/home/test-card';
 // 인기 테스트 데이터
 const popularTests = [
   {
+    id: 'iq-humor',
+    title: '나의 진짜 IQ는? 유머버전!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
+    participants: 93521,
+    isPopular: true,
+    isNew: true,
+  },
+  {
     id: 'past-life-character',
     title: '나의 전생 케릭터는?',
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
@@ -111,6 +119,14 @@ const popularTests = [
 
 // 신규 테스트 데이터
 const newTests = [
+  {
+    id: 'iq-humor',
+    title: '나의 진짜 IQ는? 유머버전!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
+    participants: 3521,
+    isNew: true,
+    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!'
+  },
   {
     id: 'life-genre',
     title: '내 인생 장르는 뭘까?',

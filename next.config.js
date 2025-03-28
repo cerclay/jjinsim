@@ -8,6 +8,7 @@ const nextConfig = {
       'k.kakaocdn.net',
       'developers.kakao.com',
       'images.unsplash.com',
+      'media.giphy.com',
     ],
   },
   serverExternalPackages: ['bcryptjs'],

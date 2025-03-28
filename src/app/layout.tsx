@@ -9,8 +9,9 @@ import Providers from './providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { AuthProvider } from '@/components/auth/auth-provider';
-import { Inter, Caveat, Gaegu } from 'next/font/google';
+import { Inter, Caveat } from 'next/font/google';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -39,13 +40,6 @@ const inter = Inter({ subsets: ['latin'] });
 const caveat = Caveat({
   subsets: ['latin'],
   variable: '--font-caveat',
-  display: 'swap',
-});
-
-const gaegu = Gaegu({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-gaegu',
   display: 'swap',
 });
 
@@ -84,6 +78,24 @@ export default function RootLayout({
           rel="icon" 
           href="/favicon.ico" 
           type="image/x-icon"
+        />
+        {/* 카카오톡 공유 SDK */}
+        <script 
+          src="https://developers.kakao.com/sdk/js/kakao.js"
+          async
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('load', () => {
+                if (window.Kakao) {
+                  // 카카오 SDK 초기화
+                  window.Kakao.init('PASTE_YOUR_KAKAO_APP_KEY_HERE');
+                  console.log('Kakao SDK initialized');
+                }
+              });
+            `
+          }}
         />
         {/* IQ 테스트 카드 초기화 스크립트 */}
         <script 
@@ -206,8 +218,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} ${gaegu.variable} antialiased min-h-screen flex flex-col overscroll-none bg-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} antialiased min-h-screen flex flex-col overscroll-none bg-white`}
       >
+        <Toaster position="top-center" />
         <Clarity />
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         <Providers>

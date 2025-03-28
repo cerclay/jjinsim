@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Heart, Sparkles, Users, Brain, Star, Clock, Share2, Lightbulb, Shield, Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 // 서비스 특징 데이터
 const features = [
@@ -210,9 +211,11 @@ export default function AboutPage() {
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur opacity-30" />
               <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?q=80&w=2069&auto=format&fit=crop" 
-                  alt="자기 성찰" 
+                  alt="자기 성찰과 성장을 상징하는 이미지" 
+                  width={800}
+                  height={400}
                   className="w-full h-48 sm:h-56 object-cover object-center" 
                 />
                 <div className="p-4 sm:p-6">
@@ -235,9 +238,11 @@ export default function AboutPage() {
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-orange-600 rounded-2xl blur opacity-30" />
               <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2068&auto=format&fit=crop" 
                   alt="관계 개선" 
+                  width={800}
+                  height={400}
                   className="w-full h-48 sm:h-56 object-cover object-center" 
                 />
                 <div className="p-4 sm:p-6">

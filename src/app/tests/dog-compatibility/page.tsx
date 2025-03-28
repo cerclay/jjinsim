@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import testData from './data.json';
 import confetti from 'canvas-confetti';
+import Image from 'next/image';
 
 // 범위 문자열을 숫자 범위로 변환하는 함수
 const parseRange = (rangeStr: string): [number, number] => {
@@ -332,15 +333,19 @@ export default function DogCompatibilityTest() {
                 >
                   <div className="w-full h-52 overflow-hidden mb-3 border-b-4 border-pink-300">
                     {customImage ? (
-                      <img 
+                      <Image 
                         src={customImage} 
-                        alt={result.breed}
+                        alt={`${result.breed} 견종과의 궁합 결과`}
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <img 
+                      <Image 
                         src={thumbnailImage || result.imageUrl} 
-                        alt={result.breed}
+                        alt={`${result.breed} 견종 이미지`}
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover"
                       />
                     )}

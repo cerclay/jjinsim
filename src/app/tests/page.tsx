@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '@/components/ui/container';
 import { TestsContent } from '@/components/tests/tests-content';
+import { TestThumbnail as IQHumorTestThumbnail } from '@/features/tests/iq-humor/components/TestThumbnail';
 
 export const metadata = {
   title: '테스트 모음 | 찐심테스트',

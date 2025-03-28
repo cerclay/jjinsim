@@ -8,6 +8,7 @@ import { Share2, RefreshCw, Brain, Star, Lightbulb, Smile, Trophy, Award, Party 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface ResultCardProps {
   result: TestResult;
@@ -150,9 +151,11 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
             
             {/* 밈 이미지 */}
             <div className="w-full max-w-[300px] h-[180px] relative mb-4 overflow-hidden rounded-lg">
-              <img 
+              <Image 
                 src={getMemeImageUrl()} 
-                alt="funny meme" 
+                alt={`IQ ${result.iqScore}점 결과에 대한 재미있는 밈 이미지`}
+                width={300}
+                height={180}
                 className="w-full h-full object-cover"
               />
             </div>

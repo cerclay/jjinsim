@@ -251,17 +251,18 @@ function UserNav({ session }: { session: any }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative p-2 rounded-full">
+        <Button variant="ghost" className="relative rounded-full h-8 w-8 bg-muted p-0 overflow-hidden">
           {userImage ? (
             <Image
               src={userImage}
-              alt="프로필 이미지"
-              width={20}
-              height={20}
-              className="rounded-full h-5 w-5 object-cover"
+              alt={`${session.user.name || '사용자'} 프로필 이미지`}
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-full object-cover"
+              priority
             />
           ) : (
-            <UserCircle className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+            <UserCircle className="h-6 w-6" />
           )}
         </Button>
       </DropdownMenuTrigger>
