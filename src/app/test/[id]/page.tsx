@@ -5,11 +5,14 @@ import { cookies } from "next/headers";
 import TestIntroduction from "@/features/tests/components/TestIntroduction";
 import { recordTestParticipation } from "@/features/tests/api";
 
-interface PageParams {
-  id: string;
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  return {
+    title: `테스트 - ${params.id}`,
+    description: "다양한 재미있는 온라인 심리 테스트를 즐겨보세요."
+  };
 }
 
-export default async function TestPage({ params }: Promise<{ params: PageParams }>) {
+export default async function TestPage({ params }: { params: { id: string } }) {
   const supabase = createServerComponentClient({ cookies });
   
   // 테스트 카드 정보 가져오기

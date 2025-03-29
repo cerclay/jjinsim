@@ -1074,3 +1074,4 @@ export default function PastLifeCharacterTest() {
       </main>
     </div>
   );
+}
