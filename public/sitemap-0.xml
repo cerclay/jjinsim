@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://mysimli.com/access-denied</loc><lastmod>2025-03-27T06:31:25.799Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/access-denied"/></url>
-<url><loc>https://mysimli.com/i18n</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/i18n"/></url>
-<url><loc>https://mysimli.com/mbti</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/mbti"/></url>
-<url><loc>https://mysimli.com/about</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/about"/></url>
-<url><loc>https://mysimli.com/my-results</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/my-results"/></url>
-<url><loc>https://mysimli.com/stress-check</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/stress-check"/></url>
-<url><loc>https://mysimli.com/profile</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/profile"/></url>
-<url><loc>https://mysimli.com</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com"/></url>
-<url><loc>https://mysimli.com/sentry-example-page</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/sentry-example-page"/></url>
-<url><loc>https://mysimli.com/t-power</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/t-power"/></url>
-<url><loc>https://mysimli.com/tests/flirting-style</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/flirting-style"/></url>
-<url><loc>https://mysimli.com/tests/color-blindness</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/color-blindness"/></url>
-<url><loc>https://mysimli.com/tests/fortune-telling</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/fortune-telling"/></url>
-<url><loc>https://mysimli.com/tests/dog-compatibility</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/dog-compatibility"/></url>
-<url><loc>https://mysimli.com/tests/fortune-telling/life</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/fortune-telling/life"/></url>
-<url><loc>https://mysimli.com/tests/fortune-telling/today</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/fortune-telling/today"/></url>
-<url><loc>https://mysimli.com/tests/iq-test</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/iq-test"/></url>
-<url><loc>https://mysimli.com/tests/life-genre</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/life-genre"/></url>
-<url><loc>https://mysimli.com/tests/fortune-telling/year</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/fortune-telling/year"/></url>
-<url><loc>https://mysimli.com/tests/healing-moment</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/healing-moment"/></url>
-<url><loc>https://mysimli.com/tests/marriage-type</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/marriage-type"/></url>
-<url><loc>https://mysimli.com/tests/multiple-personality</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/multiple-personality"/></url>
-<url><loc>https://mysimli.com/tests/mbti</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/mbti"/></url>
-<url><loc>https://mysimli.com/tests</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests"/></url>
-<url><loc>https://mysimli.com/tests/personal-color</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/personal-color"/></url>
-<url><loc>https://mysimli.com/tests/popular</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/popular"/></url>
-<url><loc>https://mysimli.com/tests/past-life-character</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/past-life-character"/></url>
-<url><loc>https://mysimli.com/tests/social-character</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/social-character"/></url>
-<url><loc>https://mysimli.com/tests/t-power</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/t-power"/></url>
-<url><loc>https://mysimli.com/tests/tarot-consultation</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/tarot-consultation"/></url>
-<url><loc>https://mysimli.com/tests/new</loc><lastmod>2025-03-27T06:31:25.802Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://mysimli.com/tests/new"/></url>
+<url><loc>https://www.mysimli.com/access-denied</loc><lastmod>2025-03-31T15:29:36.674Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/about</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/error</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/mbti</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/signin</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/stress-check</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/i18n</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/t-power</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/profile</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/color-blindness</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/attachment-style</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/attachment-style/test</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/sentry-example-page</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/login-kakao</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/my-results</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/dog-compatibility</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/healing-moment</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/migration</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/flirting-style</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/login</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/iq-test</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/life-genre</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/marriage-type</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/mbti</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/multiple-personality</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/pet-match</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/mbti/start</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/popular</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/polsok-character</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/register</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/stress-check</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/social-character</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/memory-test</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/personal-color</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/t-power</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/tarot-consultation</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/tests/past-life-character</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.mysimli.com/auth/login-idpw</loc><lastmod>2025-03-31T15:29:36.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
