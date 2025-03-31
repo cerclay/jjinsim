@@ -1,3 +1,4 @@
+import AdSense from '@/third-parties/AdSense';
 import { ChannelIO } from '@/third-parties/Channelio';
 import Clarity from '@/third-parties/Clarity';
 import { GoogleAnalytics } from '@next/third-parties/google'
@@ -234,7 +235,8 @@ export default function RootLayout({
             `
           }}
         />
-      </head>
+          <AdSense />
+  </head>
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
         geistSans.variable,
