@@ -14,7 +14,7 @@ export function HeroSection() {
   // 히어로 카드 데이터
   const heroCards = [
     {
-      id: 'iq-humor',
+      id: 'iq-test',
       titleKey: 'hero_iq_humor_title',
       title: '나의 진짜 IQ는? 유머버전!',
       descriptionKey: 'hero_iq_humor_description',
@@ -76,32 +76,8 @@ export function HeroSection() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* 상단 제목 섹션 */}
-      <div className="text-center mb-6">
-        <motion.h1 
-          className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          재미있는 테스트를<br />
-          <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-transparent bg-clip-text">
-            지금 경험해보세요
-          </span>
-        </motion.h1>
-        
-        <motion.p
-          className="text-gray-600 text-base md:text-lg"
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          나에 대해 더 알아가는 여정을 시작해보세요
-        </motion.p>
-      </div>
-      
       {/* 카드 슬라이더 */}
-      <div className="relative h-[350px] w-full overflow-hidden rounded-xl shadow-xl">
+      <div className="relative h-[350px] w-full overflow-hidden rounded-xl shadow-xl mb-6">
         {heroCards.map((card, index) => {
           const isActive = index === currentIndex;
           const isPrev = (index === currentIndex - 1) || (currentIndex === 0 && index === heroCards.length - 1);
@@ -170,10 +146,11 @@ export function HeroSection() {
                       <motion.span 
                         className="inline-flex items-center gap-2 bg-white/30 text-white px-5 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm border border-white/20 shadow-lg"
                         whileHover={{ 
-                          scale: 1.05, 
-                          backgroundColor: "rgba(255, 255, 255, 0.5)",
-                          textShadow: "0 0 8px rgba(0,0,0,0.3)",
-                          boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
+                          scale: 1.10, 
+                          backgroundColor: "rgba(255, 255, 255, 0.7)",
+                          color: "#6029C1",
+                          textShadow: "0 0 10px rgba(255,255,255,0.8)",
+                          boxShadow: "0 0 20px rgba(255,255,255,0.4), 0 8px 20px rgba(0,0,0,0.3)"
                         }}
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}
@@ -202,6 +179,18 @@ export function HeroSection() {
             />
           ))}
         </div>
+      </div>
+      
+      {/* 상단 제목 섹션 */}
+      <div className="text-center">
+        <motion.h1 
+          className="text-3xl md:text-4xl font-extrabold text-gray-900"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          재미있는 테스트를
+        </motion.h1>
       </div>
     </motion.div>
   );

@@ -16,9 +16,9 @@ const popularTests = [
     isNew: true,
   },
   {
-    id: 'mbti-deep',
-    title: 'MBTI 심층 분석',
-    imageUrl: 'https://picsum.photos/id/1005/400/400',
+    id: 'mbti',
+    title: 'MBTI 빠르고 정확하게!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
     participants: 125689,
     isPopular: true,
   },

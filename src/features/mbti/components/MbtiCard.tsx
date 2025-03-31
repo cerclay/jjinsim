@@ -9,10 +9,11 @@ interface MbtiCardProps {
   description?: string;
   duration?: string;
   participants?: string;
+  imageUrl?: string;
   onClick?: () => void;
 }
 
-export function MbtiCard({ title, description, duration, participants, onClick }: MbtiCardProps) {
+export function MbtiCard({ title, description, duration, participants, imageUrl, onClick }: MbtiCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -20,6 +21,11 @@ export function MbtiCard({ title, description, duration, participants, onClick }
       transition={{ type: "spring", stiffness: 300, damping: 15 }}
     >
       <Card className="shadow-xl rounded-xl overflow-hidden border-none relative cursor-pointer" onClick={onClick}>
+        {imageUrl && (
+          <div className="w-full h-56 overflow-hidden">
+            <img src={imageUrl} alt={title || "MBTI 테스트"} className="w-full h-full object-cover" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-br from-rose-200 via-pink-200 to-orange-200 opacity-95"></div>
         <div className="relative p-6 text-black z-10">
           <div className="absolute top-2 right-2">
@@ -76,6 +82,7 @@ export function MbtiCard({ title, description, duration, participants, onClick }
               >
                 <Button 
                   className="mt-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-lg px-6 py-6 h-auto rounded-xl shadow-lg hover:shadow-xl transition-all"
+                  onClick={onClick || (() => window.location.href = '/tests/mbti')}
                 >
                   테스트 시작하기
                 </Button>

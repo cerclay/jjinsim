@@ -12,6 +12,8 @@ import { AuthProvider } from '@/components/auth/auth-provider';
 import { Inter, Caveat } from 'next/font/google';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { Toaster } from 'sonner';
+import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/components/ui/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -59,9 +61,16 @@ export const metadata: Metadata = {
     title: '찐심(JJinSim)',
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/favicon.png' }
+    ],
+    shortcut: [
+      { url: '/favicon.ico' }
+    ],
   },
 };
 
@@ -71,13 +80,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="ko">
+    <html suppressHydrationWarning lang="ko" className="light">
       <ChannelIO />
       <head>
         <link 
           rel="icon" 
           href="/favicon.ico" 
           type="image/x-icon"
+        />
+        <link
+          rel="shortcut icon"
+          href="/favicon.ico"
+          type="image/x-icon"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/favicon.png"
         />
         {/* 카카오톡 공유 SDK */}
         <script 
@@ -217,25 +235,33 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKr.variable} ${roboto.variable} ${inter.className} ${caveat.variable} antialiased min-h-screen flex flex-col overscroll-none bg-white`}
-      >
+      <body className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        geistSans.variable,
+        geistMono.variable,
+        notoSansKr.variable,
+        roboto.variable,
+        inter.className,
+        caveat.variable
+      )}>
         <Toaster position="top-center" />
         <Clarity />
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
-        <Providers>
-          <AuthProvider>
-            <Header />
-            {/* 언어 전환 버튼 */}
-            <div className="fixed top-4 right-4 z-[9999]">
-              <LanguageSwitcher />
-            </div>
-            <main className="flex-grow flex flex-col bg-white">
-              {children}
-            </main>
-            <Footer />
-          </AuthProvider>
-        </Providers>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <Providers>
+            <AuthProvider>
+              <Header />
+              {/* 언어 전환 버튼 */}
+              <div className="fixed top-4 right-4 z-[9999]">
+                <LanguageSwitcher />
+              </div>
+              <main className="flex-grow flex flex-col bg-white">
+                {children}
+              </main>
+              <Footer />
+            </AuthProvider>
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

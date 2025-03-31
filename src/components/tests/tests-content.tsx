@@ -15,13 +15,44 @@ import { supabase } from '@/lib/supabase/client'; // supabase 클라이언트 �
 // 기본 테스트 데이터 (API에서 데이터를 가져오지 못할 경우 사용)
 const defaultTests = [
   {
+    id: 'memory-test',
+    title: '기억력 지수 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgIHM2zFl3lLs-BmIXmAVVjDhSuC6nEFWe3sLwWcaqJ_cncNc6mcU-C9Cfx1a6i0QynhivQrId5Gp4Q-bMiO_mVZ6ZURPsjYqk0wItse9EjvH5UPCe0ATr9NsQinLSCRqo5FqpqHEEwdoxj_4pRU9IZjm18JjgkVqwIr4z9Xtk5jQLTemvXukF-xgKYAJw',
+    participants: 8500,
+    isNew: true,
+    isPopular: true,
+    description: '12문제로 당신의 뇌 메모리를 테스트합니다. 감성 저장소인지, 금붕어인지 직접 확인해보세요!',
+    category: 'ability'
+  },
+  {
+    id: 'pet-match',
+    title: '나랑 찰떡인 반려동물은?',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    participants: 9500,
+    isNew: true,
+    isPopular: true,
+    description: '당신의 성격과 일상 습관을 바탕으로 운명처럼 맞는 동물 친구를 찾아드립니다!',
+    category: 'relationship'
+  },
+  {
     id: 'iq-test',
     title: '나의 진짜 IQ테스트 - 유머버전',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
     participants: 8752,
     isNew: true,
     isPopular: true,
-    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!'
+    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!',
+    category: 'iq'
+  },
+  {
+    id: 'flirting-style',
+    title: '나의 썸탈때 유형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEi3RsaJfXF348yQXIqPu854ExsUJHbCOWRIaJl8WAN5CB2Hd2LonZlL2JeivUUfqmaeB_uHstCYJkZK5RMMFTO9qK1Xj3JatGqyP-0JcbeCapr4-ithvuIYG4I2ESQBKVudfMbK_buO4WB3SwhFt21UY0QaosOv8Zso0a_t7nqU1wyzALTriopSDnkL_LY',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신이 관심 있는 사람에게 어떻게 다가가는지 알아보세요! 당신만의 썸 스타일은?',
+    category: 'relationship'
   },
   {
     id: 'stress-check',
@@ -30,7 +61,8 @@ const defaultTests = [
     participants: 0,
     isNew: true,
     isPopular: false,
-    description: '12문제로 알아보는 당신의 스트레스 지수. 지금 당신 멘탈, 몇 % 남았을까?'
+    description: '12문제로 알아보는 당신의 스트레스 지수. 지금 당신 멘탈, 몇 % 남았을까?',
+    category: 'psychology'
   },
   {
     id: 'past-life-character',
@@ -39,6 +71,7 @@ const defaultTests = [
     participants: 154321,
     isPopular: true,
     isNew: true,
+    category: 'fun'
   },
   {
     id: 'personal-color',
@@ -47,6 +80,7 @@ const defaultTests = [
     participants: 178945,
     isPopular: true,
     isNew: true,
+    category: 'personality'
   },
   {
     id: 'marriage-type',
@@ -54,6 +88,7 @@ const defaultTests = [
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
     participants: 145632,
     isPopular: true,
+    category: 'relationship'
   },
   {
     id: 't-power',
@@ -61,6 +96,7 @@ const defaultTests = [
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
     participants: 132589,
     isPopular: true,
+    category: 'personality'
   },
   {
     id: 'life-genre',
@@ -69,7 +105,8 @@ const defaultTests = [
     participants: 5436,
     isNew: true,
     isPopular: false,
-    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!'
+    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!',
+    category: 'fun'
   },
   {
     id: 'dog-compatibility',
@@ -77,7 +114,8 @@ const defaultTests = [
     imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
     participants: 12456,
     isNew: true,
-    description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'
+    description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!',
+    category: 'relationship'
   },
   // 더 많은 기본 테스트 데이터 추가
   {
@@ -86,13 +124,16 @@ const defaultTests = [
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgeGzcb_BdpyZNglZW24ioN_ptB5ch7PZbw3nQQDDcWbnRcgupVnP2vGS3n6ijlPS4VTkF1PuqhceicDn-63UyyWBBbo6dGyj33az_VDC_4N7m9qersQPY-7H--tzwfE3CWB_wTyeBgys5KR6oz2IB3JFiKx7RQaVFm8q-POW9-Ae-EfrLGpr8WLMdYOho',
     participants: 97842,
     isPopular: true,
+    category: 'iq'
   },
   {
-    id: 'mbti-deep',
-    title: 'MBTI 심층 분석',
-    imageUrl: 'https://picsum.photos/id/1005/400/400',
-    participants: 125689,
-    isPopular: true,
+    id: 'mbti',
+    title: 'MBTI 빠르고 정확하게!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
+    participants: 23456,
+    likes: 1247,
+    isNew: false,
+    isPopular: true
   },
   {
     id: 'fortune-telling',
@@ -100,6 +141,7 @@ const defaultTests = [
     imageUrl: 'https://picsum.photos/id/1060/400/400',
     participants: 107456,
     isPopular: true,
+    category: 'fun'
   },
   {
     id: 'tarot-consultation',
@@ -107,6 +149,7 @@ const defaultTests = [
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
     participants: 119872,
     isPopular: true,
+    category: 'psychology'
   },
   {
     id: 'stress-level',
@@ -114,6 +157,7 @@ const defaultTests = [
     imageUrl: 'https://picsum.photos/id/1025/400/400',
     participants: 7843,
     isNew: true,
+    category: 'psychology'
   },
   {
     id: 'love-language',
@@ -121,6 +165,7 @@ const defaultTests = [
     imageUrl: 'https://picsum.photos/id/1066/400/400',
     participants: 9245,
     isNew: true,
+    category: 'relationship'
   }
 ];
 
@@ -161,7 +206,7 @@ export const TestsContent = () => {
         // 인기 테스트: test_card_stats 테이블에서 직접 가져오기, 컬럼 명시적으로 지정
         const { data: testsData, error: testsError } = await supabase
           .from('test_card_stats')
-          .select('id, title, thumbnail_url, participation_count, like_count, created_at')
+          .select('id, title, thumbnail_url, participation_count, like_count, created_at, category')
           .limit(TESTS_PER_PAGE);
         
         if (testsError) {
@@ -175,8 +220,82 @@ export const TestsContent = () => {
           첫번째항목: testsData && testsData.length > 0 ? testsData[0] : null
         });
         
+        // 모든 테스트 디렉토리 기반 데이터 생성
+        // src/app/tests 디렉토리에 있는 모든 테스트 폴더를 기반으로 테스트 데이터 생성
+        const testDirectories = [
+          'memory-test',
+          'past-life-character',
+          'marriage-type',
+          'iq-test',
+          'mbti',
+          'stress-check',
+          'life-genre',
+          'dog-compatibility',
+          'fortune',
+          'fortune-telling',
+          'tarot-consultation',
+          'social-character',
+          'multiple-personality',
+          'healing-moment',
+          'flirting-style',
+          't-power',
+          'personal-color',
+          'color-blindness',
+          'pet-match'
+        ];
+
+        // 폴더 이름에서 테스트 제목 생성
+        const generateTitle = (id) => {
+          const words = id.split('-');
+          return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + ' 테스트';
+        };
+
+        // 카테고리 매핑
+        const getCategoryForTest = (id) => {
+          const categoryMap = {
+            'memory-test': 'ability',
+            'iq-test': 'iq',
+            'color-blindness': 'iq',
+            'mbti': 'personality',
+            'personal-color': 'personality',
+            't-power': 'personality',
+            'multiple-personality': 'personality',
+            'social-character': 'personality',
+            'marriage-type': 'relationship',
+            'dog-compatibility': 'relationship',
+            'pet-match': 'relationship',
+            'flirting-style': 'relationship',
+            'healing-moment': 'psychology',
+            'stress-check': 'psychology',
+            'fortune': 'fun',
+            'fortune-telling': 'fun',
+            'tarot-consultation': 'fun',
+            'past-life-character': 'fun',
+            'life-genre': 'fun'
+          };
+          return categoryMap[id] || 'fun';
+        };
+
+        // 디렉토리 기반 테스트 데이터 생성
+        const directoryTests = testDirectories.map((dir, index) => {
+          // 기본 테스트 데이터에서 해당 ID의 테스트를 찾음
+          const existingTest = defaultTests.find(test => test.id === dir);
+          
+          // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
+          return existingTest || {
+            id: dir,
+            title: generateTitle(dir),
+            imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
+            participants: 10000 - (index * 500), // 임의의 참여자 수
+            likes: 1000 - (index * 50), // 임의의 좋아요 수
+            isPopular: index < 10, // 상위 10개는 인기 테스트로 표시
+            isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
+            category: getCategoryForTest(dir)
+          };
+        });
+        
         if (testsData && testsData.length > 0) {
-          // 테스트 데이터 변환
+          // API 데이터와 디렉토리 기반 데이터를 합침
           const formattedTests = testsData.map(test => ({
             id: test.id,
             title: test.title,
@@ -184,35 +303,131 @@ export const TestsContent = () => {
             participants: test.participation_count || 0,
             likes: test.like_count || 0,
             isPopular: test.participation_count > 10000 || false,
-            isNew: new Date(test.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+            isNew: new Date(test.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            category: test.category || 'fun' // 카테고리가 없는 경우 기본값으로 'fun' 설정
           }));
           
-          // 인기 순으로 정렬
-          const sortedTests = formattedTests.sort((a, b) => b.participants - a.participants);
+          // API 데이터 ID 목록
+          const apiTestIds = new Set(formattedTests.map(test => test.id));
+          
+          // 중복되지 않는 디렉토리 테스트만 필터링
+          const uniqueDirectoryTests = directoryTests.filter(test => !apiTestIds.has(test.id));
+          
+          // 두 데이터를 합친 후 정렬
+          const allTests = [...formattedTests, ...uniqueDirectoryTests];
+          const sortedTests = allTests.sort((a, b) => b.participants - a.participants);
+          
           setPopularTests(sortedTests);
           
-          // 최신 생성일 순으로 정렬하여 신규 테스트로 사용
-          const newTestsData = [...formattedTests]
-            .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
-            .filter(test => test.isNew);
+          // 신규 테스트는 isNew가 true인 테스트만 필터링하여 사용
+          const newTestsData = sortedTests.filter(test => test.isNew);
             
           if (newTestsData.length > 0) {
             setNewTests(newTestsData);
           } else {
-            console.log("충분한 신규 테스트가 없어 기본 데이터 사용");
-            setNewTests(defaultTests.filter(test => test.isNew || Math.random() > 0.5));
+            // 신규 테스트가 없으면 최근에 추가된 테스트를 신규로 표시
+            setNewTests(sortedTests.slice(0, 10));
           }
         } else {
-          // 데이터가 없는 경우 기본 데이터 사용
-          console.log("테스트 데이터 없음, 기본 데이터 사용");
-          setPopularTests(defaultTests.sort((a, b) => b.participants - a.participants));
-          setNewTests(defaultTests.filter(test => test.isNew || Math.random() > 0.5));
+          // API 데이터 없을 경우 디렉토리 기반 데이터만 사용
+          const sortedTests = directoryTests.sort((a, b) => b.participants - a.participants);
+          setPopularTests(sortedTests);
+          
+          // 신규 테스트
+          const newTestsData = sortedTests.filter(test => test.isNew);
+          if (newTestsData.length > 0) {
+            setNewTests(newTestsData);
+          } else {
+            setNewTests(sortedTests.slice(0, 10));
+          }
         }
       } catch (error) {
         console.error("테스트 데이터 로딩 오류:", error instanceof Error ? error.message : JSON.stringify(error));
-        // 오류가 발생해도 기본 데이터로 UI 표시
-        setPopularTests(defaultTests.sort((a, b) => b.participants - a.participants));
-        setNewTests(defaultTests.filter(test => test.isNew || Math.random() > 0.5));
+        
+        // 오류 발생 시 디렉토리 기반 테스트 데이터 생성
+        const testDirectories = [
+          'memory-test',
+          'past-life-character',
+          'marriage-type',
+          'iq-test',
+          'mbti',
+          'stress-check',
+          'life-genre',
+          'dog-compatibility',
+          'fortune',
+          'fortune-telling',
+          'tarot-consultation',
+          'social-character',
+          'multiple-personality',
+          'healing-moment',
+          'flirting-style',
+          't-power',
+          'personal-color',
+          'color-blindness',
+          'pet-match'
+        ];
+
+        // 테스트 제목 생성 함수
+        const generateTitle = (id) => {
+          const words = id.split('-');
+          return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + ' 테스트';
+        };
+
+        // 카테고리 매핑 함수
+        const getCategoryForTest = (id) => {
+          const categoryMap = {
+            'memory-test': 'ability',
+            'iq-test': 'iq',
+            'color-blindness': 'iq',
+            'mbti': 'personality',
+            'personal-color': 'personality',
+            't-power': 'personality',
+            'multiple-personality': 'personality',
+            'social-character': 'personality',
+            'marriage-type': 'relationship',
+            'dog-compatibility': 'relationship',
+            'pet-match': 'relationship',
+            'flirting-style': 'relationship',
+            'healing-moment': 'psychology',
+            'stress-check': 'psychology',
+            'fortune': 'fun',
+            'fortune-telling': 'fun',
+            'tarot-consultation': 'fun',
+            'past-life-character': 'fun',
+            'life-genre': 'fun'
+          };
+          return categoryMap[id] || 'fun';
+        };
+
+        // 디렉토리 기반 테스트 데이터 생성
+        const directoryTests = testDirectories.map((dir, index) => {
+          // 기본 테스트 데이터에서 해당 ID의 테스트를 찾음
+          const existingTest = defaultTests.find(test => test.id === dir);
+          
+          // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
+          return existingTest || {
+            id: dir,
+            title: generateTitle(dir),
+            imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
+            participants: 10000 - (index * 500), // 임의의 참여자 수
+            likes: 1000 - (index * 50), // 임의의 좋아요 수
+            isPopular: index < 10, // 상위 10개는 인기 테스트로 표시
+            isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
+            category: getCategoryForTest(dir)
+          };
+        });
+
+        // 인기 순서로 정렬된 테스트
+        const sortedTests = directoryTests.sort((a, b) => b.participants - a.participants);
+        setPopularTests(sortedTests);
+        
+        // 신규 테스트
+        const newTestsData = sortedTests.filter(test => test.isNew);
+        if (newTestsData.length > 0) {
+          setNewTests(newTestsData);
+        } else {
+          setNewTests(sortedTests.slice(0, 10));
+        }
       } finally {
         setLoading(false);
       }
@@ -223,11 +438,13 @@ export const TestsContent = () => {
 
   // 검색 및 카테고리 필터링
   const filteredPopularTests = popularTests.filter(test => 
-    test.title.toLowerCase().includes(searchTerm.toLowerCase())
+    test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
+    (category === 'all' || test.category === category)
   );
   
   const filteredNewTests = newTests.filter(test => 
-    test.title.toLowerCase().includes(searchTerm.toLowerCase())
+    test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
+    (category === 'all' || test.category === category)
   );
 
   // 로딩 스켈레톤 컴포넌트
@@ -248,6 +465,7 @@ export const TestsContent = () => {
     { id: 'psychology', name: '심리' },
     { id: 'fun', name: '재미' },
     { id: 'iq', name: 'IQ테스트' },
+    { id: 'ability', name: '능력' },
   ];
 
   return (

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" width="300" height="180">
+  <style>
+    .brain { fill: #9575cd; }
+    .spark { fill: #ffd54f; }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    .sparkle1 {
+      animation: sparkle 1.5s ease-in-out infinite;
+    }
+    .sparkle2 {
+      animation: sparkle 1.5s ease-in-out 0.5s infinite;
+    }
+    .sparkle3 {
+      animation: sparkle 1.5s ease-in-out 1s infinite;
+    }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#f5f5f5"/>
+  
+  <g transform="translate(150, 90)">
+    <circle class="brain" r="40"/>
+    
+    <path class="spark sparkle1" d="M-40,0 L-60,-5 L-40,-10 L-30,-30 L-20,-10 L0,-5 L-20,0 L-30,20 L-40,0Z" transform="scale(0.8) translate(-20, -20)"/>
+    <path class="spark sparkle2" d="M-40,0 L-60,-5 L-40,-10 L-30,-30 L-20,-10 L0,-5 L-20,0 L-30,20 L-40,0Z" transform="scale(0.7) translate(50, -30)"/>
+    <path class="spark sparkle3" d="M-40,0 L-60,-5 L-40,-10 L-30,-30 L-20,-10 L0,-5 L-20,0 L-30,20 L-40,0Z" transform="scale(0.6) translate(30, 40)"/>
+  </g>
+  
+  <text x="150" y="160" text-anchor="middle" font-family="Arial" font-size="14" fill="#333">
+    숨은 천재형 - 반짝이는 지능
+  </text>
+</svg> 

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" width="300" height="180">
+  <style>
+    .brain { fill: #81c784; }
+    .thought { fill: #78909c; }
+    @keyframes think {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .think {
+      animation: think 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.8; }
+    }
+    .pulse {
+      animation: pulse 2s linear infinite;
+    }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#f5f5f5"/>
+  
+  <g class="think" transform="translate(150, 90)">
+    <circle class="brain" r="40"/>
+    <circle class="thought pulse" cx="-25" cy="-25" r="10"/>
+    <circle class="thought pulse" cx="15" cy="-30" r="8" style="animation-delay: 0.5s"/>
+    <circle class="thought pulse" cx="30" cy="-5" r="7" style="animation-delay: 1s"/>
+  </g>
+  
+  <text x="150" y="160" text-anchor="middle" font-family="Arial" font-size="14" fill="#333">
+    느림의 미학형 - 깊은 생각 중
+  </text>
+</svg> 

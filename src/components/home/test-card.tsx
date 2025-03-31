@@ -56,6 +56,8 @@ export function TestCard({
     const testPathMap: Record<string, string> = {
       'stress-check': '/tests/stress-check',
       'mbti': '/tests/mbti',
+      'flirting-style': '/tests/flirting-style',
+      'pet-match': '/tests/pet-match',
       // 다른 테스트 경로들 추가...
     };
 

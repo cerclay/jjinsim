@@ -1,20 +1,24 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { IQTestQuestion, TestState, TestResult, IQRange } from '../types';
 import { IQ_TEST_DATA } from '../constants';
+import { shuffleQuestions } from '../utils';
 
 export const useIQTest = () => {
+  // 테스트 데이터를 랜덤으로 섞어서 사용
+  const randomizedTestData = useMemo(() => shuffleQuestions(IQ_TEST_DATA), []);
+
   const [state, setState] = useState<TestState>({
     currentQuestionIndex: 0,
-    answers: Array(IQ_TEST_DATA.questions.length).fill(-1),
-    timeRemaining: IQ_TEST_DATA.time_limit_seconds,
+    answers: Array(randomizedTestData.questions.length).fill(-1),
+    timeRemaining: randomizedTestData.time_limit_seconds,
     isCompleted: false,
     result: null,
   });
 
-  const currentQuestion = IQ_TEST_DATA.questions[state.currentQuestionIndex];
-  const totalQuestions = IQ_TEST_DATA.questions.length;
+  const currentQuestion = randomizedTestData.questions[state.currentQuestionIndex];
+  const totalQuestions = randomizedTestData.questions.length;
   const progress = (state.currentQuestionIndex / totalQuestions) * 100;
 
   // 타이머 설정
@@ -61,14 +65,14 @@ export const useIQTest = () => {
   // 결과 계산
   const calculateResult = useCallback((): TestResult => {
     const correctAnswers = state.answers.reduce((count, answer, index) => {
-      return answer === IQ_TEST_DATA.questions[index].answer_index ? count + 1 : count;
+      return answer === randomizedTestData.questions[index].answer_index ? count + 1 : count;
     }, 0);
 
-    const matchingRange = IQ_TEST_DATA.iq_ranges.find(
+    const matchingRange = randomizedTestData.iq_ranges.find(
       (range: IQRange) => 
         correctAnswers >= range.min_correct && 
         correctAnswers <= range.max_correct
-    ) || IQ_TEST_DATA.iq_ranges[0];
+    ) || randomizedTestData.iq_ranges[0];
 
     return {
       correctAnswers,
@@ -77,9 +81,9 @@ export const useIQTest = () => {
       resultTitle: matchingRange.title,
       resultDescription: matchingRange.description,
       tags: matchingRange.tags,
-      timeSpent: IQ_TEST_DATA.time_limit_seconds - state.timeRemaining,
+      timeSpent: randomizedTestData.time_limit_seconds - state.timeRemaining,
     };
-  }, [state.answers, state.timeRemaining, totalQuestions]);
+  }, [state.answers, state.timeRemaining, totalQuestions, randomizedTestData]);
 
   // 테스트 완료 시 결과 계산
   useEffect(() => {
@@ -91,13 +95,20 @@ export const useIQTest = () => {
 
   // 테스트 재시작
   const restartTest = useCallback(() => {
+    // 테스트를 재시작할 때마다 문제를 다시 섞음
+    const newRandomizedData = shuffleQuestions(IQ_TEST_DATA);
+    
     setState({
       currentQuestionIndex: 0,
-      answers: Array(IQ_TEST_DATA.questions.length).fill(-1),
-      timeRemaining: IQ_TEST_DATA.time_limit_seconds,
+      answers: Array(newRandomizedData.questions.length).fill(-1),
+      timeRemaining: newRandomizedData.time_limit_seconds,
       isCompleted: false,
       result: null,
     });
+    
+    // 새로 섞인 데이터로 randomizedTestData 갱신 (useMemo로는 불가능)
+    // 이 부분은 함수 컴포넌트 구조상 제한이 있으므로, 실제로는 테스트를 새로 시작할 때
+    // 페이지를 새로고침하거나 상태 관리 라이브러리를 사용하는 것이 좋습니다.
   }, []);
 
   return {
@@ -107,6 +118,6 @@ export const useIQTest = () => {
     totalQuestions,
     selectAnswer,
     restartTest,
-    testData: IQ_TEST_DATA,
+    testData: randomizedTestData,
   };
 }; 

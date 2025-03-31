@@ -15,7 +15,7 @@ import { TestCard } from '@/components/home/test-card';
 // 인기 테스트 데이터
 const popularTests = [
   {
-    id: 'iq-humor',
+    id: 'iq-test',
     title: '나의 진짜 IQ는? 유머버전!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
     participants: 93521,
@@ -74,16 +74,18 @@ const popularTests = [
     isPopular: true,
   },
   {
-    id: 'mbti-deep',
-    title: 'MBTI 심층 분석',
-    imageUrl: 'https://picsum.photos/id/1005/400/400',
-    participants: 85689,
-    isPopular: true,
+    id: 'mbti',
+    title: 'MBTI 빠르고 정확하게!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
+    participants: 23456,
+    likes: 1247,
+    isNew: false,
+    isPopular: true
   },
   {
     id: 'attachment-style',
     title: '애착 유형 테스트',
-    imageUrl: 'https://picsum.photos/id/1012/400/400',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhSeBAqi0jvBtxRfKdRluimJJDwueigV1ENX5edBTxkWYhxLqjQuAzFj9vzsZxWUkuRI8ydD7EW_wwmudAYU3blDm87VmF0_5-QU7bwagpMxyz9uzJv1n4OcUM2Fv74AaxFWEViUpPGm09eyckvZhBYVxeJvSe_nmbiy-6ILyyTWyXvLPhJ_0D0vn8_MfQ',
     participants: 98452,
     isPopular: true,
   },
@@ -120,7 +122,7 @@ const popularTests = [
 // 신규 테스트 데이터
 const newTests = [
   {
-    id: 'iq-humor',
+    id: 'iq-test',
     title: '나의 진짜 IQ는? 유머버전!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
     participants: 3521,
@@ -386,7 +388,7 @@ export default function Home() {
         <section className="py-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-900">인기 테스트</h2>
-            <Link href="/tests/popular" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
+            <Link href="/tests" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
               더보기 <ChevronRight className="h-4 w-4 ml-1" />
             </Link>
           </div>
@@ -410,7 +412,7 @@ export default function Home() {
         <section className="py-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-900">새로운 테스트</h2>
-            <Link href="/tests/new" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
+            <Link href="/tests" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
               더보기 <ChevronRight className="h-4 w-4 ml-1" />
             </Link>
           </div>

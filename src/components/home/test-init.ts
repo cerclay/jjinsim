@@ -21,21 +21,55 @@ const THIRTY_DAYS_AGO = '2023-12-01T00:00:00.000Z';
 
 // 기본 이미지 URL 설정
 const getDefaultImage = (id: string) => {
-  return `https://picsum.photos/seed/${id}/400/200`;
+  const imageMap: Record<string, string> = {
+    'iq-test': 'https://picsum.photos/id/24/400/400',
+    'mbti': 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
+    'stress-check': 'https://picsum.photos/id/22/400/400',
+    'personal-color': 'https://picsum.photos/seed/personal-color/400/200',
+    'past-life': 'https://picsum.photos/seed/past-life/400/200',
+    'life-genre': 'https://picsum.photos/seed/life-genre/400/200',
+    'dog-compatibility': 'https://picsum.photos/seed/dog-compatibility/400/200',
+    'marriage-type': 'https://picsum.photos/seed/marriage-type/400/200',
+    't-power': 'https://picsum.photos/seed/t-power/400/200',
+    'color-blindness': 'https://picsum.photos/seed/color-blindness/400/200',
+  };
+  return imageMap[id] || `https://picsum.photos/seed/${id}/400/200`;
 };
 
 // 인기 테스트 데이터
 export const popularTests: TestCardData[] = [
   {
+    id: 'iq-test',
+    title: '나의 진짜 IQ테스트 - 유머버전',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
+    participants: 8752,
+    likes: 1245,
+    isNew: true,
+    isPopular: true,
+    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'memory-test',
+    title: '기억력 지수 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgIHM2zFl3lLs-BmIXmAVVjDhSuC6nEFWe3sLwWcaqJ_cncNc6mcU-C9Cfx1a6i0QynhivQrId5Gp4Q-bMiO_mVZ6ZURPsjYqk0wItse9EjvH5UPCe0ATr9NsQinLSCRqo5FqpqHEEwdoxj_4pRU9IZjm18JjgkVqwIr4z9Xtk5jQLTemvXukF-xgKYAJw',
+    participants: 8500,
+    likes: 1100,
+    isNew: true,
+    isPopular: true,
+    description: '12문제로 당신의 뇌 메모리를 테스트합니다. 감성 저장소인지, 금붕어인지 직접 확인해보세요!',
+    createdAt: new Date().toISOString(),
+  },
+  {
     id: 'mbti',
-    title: 'MBTI 성격유형 테스트: 당신의 진짜 MBTI는?',
+    title: 'MBTI 빠르고 정확하게!',
     imageUrl: getDefaultImage('mbti'),
-    participants: 32150,
-    likes: 2540,
+    participants: 23456,
+    likes: 1247,
     isNew: false,
     isPopular: true,
-    description: '정확한 성격유형 분석을 통해 자신의 진짜 MBTI를 찾아보세요.',
-    createdAt: '2023-03-20T00:00:00.000Z',
+    description: '20개의 질문으로 당신의 성격 유형을 정확하게 분석해 드립니다.',
+    createdAt: '2024-06-01T00:00:00.000Z',
   },
   {
     id: 'stress-check',

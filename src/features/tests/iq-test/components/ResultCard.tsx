@@ -81,15 +81,15 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
   // 재미있는 밈 이미지 URL (IQ 점수에 따라 다른 이미지)
   const getMemeImageUrl = () => {
     if (result.iqScore < 90) {
-      return "https://media1.giphy.com/media/kaq6GnxDlJaBq/giphy.gif"; // 멍한 표정 밈
+      return "https://media2.giphy.com/media/fwbZnTftCXVocKzfxR/giphy.gif"; // 감자형 뇌 - 귀여운 감자 캐릭터
     } else if (result.iqScore < 105) {
-      return "https://media.tenor.com/MbgGaAf_IncAAAAC/think-thinking.gif"; // 생각하는 밈
+      return "https://media3.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif"; // 느림의 미학형 - 느리게 생각하는 모습
     } else if (result.iqScore < 120) {
-      return "https://media.tenor.com/xWKAmXs0JJ0AAAAC/thumbs-up-approve.gif"; // 엄지 척
+      return "https://media2.giphy.com/media/l0IyjsRmJnWxpZOOk/giphy.gif"; // 밸런스 브레인 - 밸런스 있게 균형잡힌 모습
     } else if (result.iqScore < 135) {
-      return "https://media.tenor.com/rynk9vXV_iMAAAAd/smart-thinking.gif"; // 똑똑한 표정
+      return "https://media4.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif"; // 숨은 천재형 - 갑자기 번뜩이는 아이디어
     } else {
-      return "https://media.tenor.com/vZZEPrwrPLgAAAAC/big-brain-markiplier.gif"; // 큰 뇌 밈
+      return "https://media0.giphy.com/media/xuXzcHMkuwvf2/giphy.gif"; // 지적 우주인형 - 머리가 폭발하는 모습
     }
   };
 
@@ -151,11 +151,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
             
             {/* 밈 이미지 */}
             <div className="w-full max-w-[300px] h-[180px] relative mb-4 overflow-hidden rounded-lg">
-              <Image 
+              <img 
                 src={getMemeImageUrl()} 
                 alt={`IQ ${result.iqScore}점 결과에 대한 재미있는 밈 이미지`}
-                width={300}
-                height={180}
                 className="w-full h-full object-cover"
               />
             </div>

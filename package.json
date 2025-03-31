@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --no-turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync-tests": "ts-node scripts/sync-test-cards.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
@@ -29,7 +30,6 @@
     "@sentry/nextjs": "^9.9.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.49.1",
     "@tanstack/react-query": "^5",
     "@types/bcryptjs": "^2.4.6",
     "autoprefixer": "10.4.20",
@@ -60,17 +60,20 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.4.7",
     "eslint": "^9",
     "eslint-config-next": "15.2.0",
     "postcss": "^8",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
