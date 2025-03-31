@@ -32,6 +32,8 @@ const getDefaultImage = (id: string) => {
     'marriage-type': 'https://picsum.photos/seed/marriage-type/400/200',
     't-power': 'https://picsum.photos/seed/t-power/400/200',
     'color-blindness': 'https://picsum.photos/seed/color-blindness/400/200',
+    'polsok-character': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
+    'tarot-consultation': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_7N_eT25_Yi5_tZb_FvGd2JAO7rI2yGjykBbAh8o1QB5fZaTeQAM4xGkYujRq0c_pXz1UonPdzt46gZ32G2dyKAvmPQVohYBZ3UiQxvJaoIAN-evV6eLiguC1LOqbUMhgvzyKRSsRfOuF9rn7oNFb-SLfVhadZYxHjUEmZVkC9UlF862CsP9THrhCD5o/s320/MBTI.jpg',
   };
   return imageMap[id] || `https://picsum.photos/seed/${id}/400/200`;
 };
@@ -103,7 +105,18 @@ export const popularTests: TestCardData[] = [
     isPopular: true,
     description: '당신의 전생에 대한 흥미로운 분석을 통해 과거의 자신을 만나보세요.',
     createdAt: '2023-04-18T00:00:00.000Z',
-  }
+  },
+  {
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 케릭터라면?',
+    imageUrl: getDefaultImage('polsok-character'),
+    participants: 1043,
+    likes: 521,
+    isNew: true,
+    isPopular: true,
+    description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!',
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 // 새로운 테스트 데이터
@@ -162,5 +175,16 @@ export const newTests: TestCardData[] = [
     isPopular: false,
     description: '간단한 색각 테스트로 당신의 색상 인식 능력을 확인해보세요.',
     createdAt: THIRTY_DAYS_AGO,
-  }
+  },
+  {
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 케릭터라면?',
+    imageUrl: getDefaultImage('polsok-character'),
+    participants: 1043,
+    likes: 521,
+    isNew: true,
+    isPopular: true,
+    description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!',
+    createdAt: new Date().toISOString(),
+  },
 ]; 

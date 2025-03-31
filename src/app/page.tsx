@@ -23,6 +23,14 @@ const popularTests = [
     isNew: true,
   },
   {
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 케릭터라면?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
+    participants: 1043,
+    isPopular: true,
+    isNew: true,
+  },
+  {
     id: 'past-life-character',
     title: '나의 전생 케릭터는?',
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
@@ -130,6 +138,14 @@ const newTests = [
     description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!'
   },
   {
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 케릭터라면?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiElKX6LGf2O_9g5JoMxRN_0ALVh9uZ-JzwIuxqwKtOJLMPO0YlLHgC-q0kGn--ZrgCcP2gN3O98vhqWCYSQ0eZI1D6HcqRtaLdKwHhvSSHOOLxTdaAPRYANAIVs4qIHvE7fv8B9NpGp80_1w3WOK5JnxWY0yvlRxZjRFYVZrhJ7IZA7gCH54kw4QcZzmk/w400-h400/polsok.jpg',
+    participants: 1043,
+    isNew: true,
+    description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!'
+  },
+  {
     id: 'life-genre',
     title: '내 인생 장르는 뭘까?',
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
@@ -137,14 +153,6 @@ const newTests = [
     isNew: true,
     isPopular: false,
     description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!'
-  },
-  {
-    id: 'past-life-character',
-    title: '나의 전생 케릭터는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
-    participants: 154321,
-    isNew: true,
-    description: '12문제로 알아보는 당신의 전생 캐릭터! 당신은 이순신이었을까요, 궁녀였을까요?'
   },
   {
     id: 'dog-compatibility',
