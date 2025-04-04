@@ -31,8 +31,7 @@ import { UserCircle } from 'lucide-react'
 
 const menuItems = [
   { href: "/", label: "홈" },
-  { href: "/tests/popular", label: "인기 테스트" },
-  { href: "/tests/new", label: "신규 테스트" },
+  { href: "/tests", label: "전체 테스트" },
   { href: "/my-results", label: "결과 보관함" },
   { href: "/about", label: "서비스 소개" },
 ];
@@ -48,6 +47,11 @@ const categories = [
 
 export function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+  };
   
   return (
     <motion.header 
@@ -72,17 +76,36 @@ export function Header() {
         </div>
         
         <div className="flex items-center space-x-2">
-          <motion.button 
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted" 
-            aria-label="검색"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Search className="h-5 w-5" />
-          </motion.button>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <UserNav session={session} />
-          </motion.div>
+          <Link href="/search">
+            <motion.button 
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted" 
+              aria-label="검색"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Search className="h-5 w-5" />
+            </motion.button>
+          </Link>
+          {session ? (
+            <motion.button
+              onClick={handleSignOut}
+              className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              로그아웃
+            </motion.button>
+          ) : (
+            <Link href="/auth/signin">
+              <motion.button
+                className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                로그인
+              </motion.button>
+            </Link>
+          )}
         </div>
       </div>
     </motion.header>
@@ -112,7 +135,7 @@ function MobileNav({ session }: { session: any }) {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 w-[280px] sm:w-[280px] border-r-2 bg-white">
         <div className="flex justify-between items-center p-4 border-b">
-          <Link href="/" className="text-lg font-extrabold jjinsim-logo-vertical text-black">
+          <Link href="/" className="text-lg font-extrabold jjinsim-logo-vertical text-black" onClick={() => setIsOpen(false)}>
             찐심
           </Link>
           <SheetClose className="rounded-full p-2 hover:bg-gray-100">
@@ -121,35 +144,28 @@ function MobileNav({ session }: { session: any }) {
           </SheetClose>
         </div>
         
-        <SheetTitle className="sr-only">메인 메뉴</SheetTitle>
-        
-        <motion.div 
-          className="py-2 px-1"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1, duration: 0.3 }}
-        >
-          <nav className="flex flex-col">
+        <div className="py-4 px-4">
+          <nav className="space-y-2">
             {menuItems.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
+                transition={{ delay: 0.1 * index }}
               >
                 <Link
                   href={item.href}
-                  className="flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-md transition-colors text-black"
+                  className="flex items-center justify-between w-full p-3 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
                   onClick={() => setIsOpen(false)}
                 >
-                  <span className="text-sm font-medium">{item.label}</span>
-                  <ChevronRight className="h-4 w-4 text-gray-500" />
+                  {item.label}
+                  <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600" />
                 </Link>
               </motion.div>
             ))}
           </nav>
-        </motion.div>
-        
+        </div>
+
         <motion.div 
           className="mt-2 pt-4 border-t px-4"
           initial={{ opacity: 0 }}
@@ -171,11 +187,11 @@ function MobileNav({ session }: { session: any }) {
                 >
                   <Link
                     href={category.href}
-                    className="flex flex-col items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-md transition-colors"
+                    className="flex flex-col items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1 text-purple-500 bg-purple-100`}>
-                      <Icon className="h-5 w-5" />
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1 ${category.color}`}>
+                      <Icon className="h-5 w-5 text-white" />
                     </div>
                     <span className="text-xs font-medium text-center text-black">{category.label}</span>
                   </Link>

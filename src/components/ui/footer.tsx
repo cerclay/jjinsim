@@ -89,10 +89,10 @@ export function Footer() {
               <Link href="/about" className="hover:text-primary">서비스 소개</Link>
             </motion.div>
             <motion.div whileHover={{ y: -2, color: "#000" }}>
-              <Link href="https://picturesque-ox-876.notion.site/1c0ae7b4e9538066a2daeceaae197c57?pvs=4" target="_blank" rel="noopener noreferrer" className="hover:text-primary">개인정보 처리방침</Link>
+              <Link href="https://picturesque-ox-876.notion.site/1c0ae7b4e9538059bd03fc093d1f3305?pvs=4" target="_blank" rel="noopener noreferrer" className="hover:text-primary">이용약관</Link>
             </motion.div>
             <motion.div whileHover={{ y: -2, color: "#000" }}>
-              <Link href="https://picturesque-ox-876.notion.site/1c0ae7b4e9538059bd03fc093d1f3305?pvs=4" target="_blank" rel="noopener noreferrer" className="hover:text-primary">이용약관</Link>
+              <Link href="https://picturesque-ox-876.notion.site/1c0ae7b4e9538066a2daeceaae197c57?pvs=4" target="_blank" rel="noopener noreferrer" className="hover:text-primary">개인정보처리방침</Link>
             </motion.div>
             <motion.div whileHover={{ y: -2, color: "#000" }}>
               <Link href="https://picturesque-ox-876.notion.site/1c0ae7b4e9538087af36e09f550597cd?pvs=4" target="_blank" rel="noopener noreferrer" className="hover:text-primary">오픈소스 라이센스</Link>

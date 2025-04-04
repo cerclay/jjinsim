@@ -84,6 +84,7 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="ko" className="light">
       <ChannelIO />
       <head>
+        <meta name="naver-site-verification" content="68df3cca1368ab0533c08b01ae13d42b63bfc12a" />
         <link 
           rel="icon" 
           href="/favicon.ico" 

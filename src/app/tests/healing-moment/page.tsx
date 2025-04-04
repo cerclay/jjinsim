@@ -246,9 +246,9 @@ export default function HealingMomentTest() {
 
   // 애니메이션 변수
   const pageVariants = {
-    initial: { opacity: 0, y: 50 },
+    initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -50 }
+    exit: { opacity: 0, y: -20 }
   };
 
   return (
@@ -269,7 +269,7 @@ export default function HealingMomentTest() {
                 <div className="flex justify-center mb-4">
                   <Sparkles className="h-16 w-16 text-teal-500" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-800 mb-2">힐링모먼트 테스트</h1>
+                <h1 className="text-3xl font-bold text-purple-800 mb-4">내가 가장 힐링 되는 순간은?!</h1>
                 <p className="text-gray-600 mb-6">당신에게 가장 힐링이 되는 순간은 언제인가요?</p>
                 
                 <div className="mb-6">

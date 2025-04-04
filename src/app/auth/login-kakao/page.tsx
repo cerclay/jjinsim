@@ -14,22 +14,26 @@ export default function KakaoLoginPage() {
     try {
       setLoading(true);
       setError('');
+      console.log('카카오 로그인 시도...');
       
-      const result = await signIn('kakao', {
-        redirect: false,
-        callbackUrl: '/',
-        scope: 'profile_nickname profile_image'
+      // NextAuth의 signIn 함수를 사용하여 카카오 로그인
+      const result = await signIn('kakao', { 
+        callbackUrl: '/auth/dashboard',
+        redirect: false 
       });
+      
+      console.log('카카오 로그인 결과:', result);
       
       if (result?.error) {
         setError('로그인 중 오류가 발생했습니다.');
-        console.error(result.error);
+        console.error('카카오 로그인 오류:', result.error);
       } else if (result?.url) {
+        // 성공 시 리다이렉트
         router.push(result.url);
       }
     } catch (error) {
       setError('로그인 중 오류가 발생했습니다.');
-      console.error(error);
+      console.error('카카오 로그인 오류:', error);
     } finally {
       setLoading(false);
     }

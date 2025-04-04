@@ -1,0 +1,13 @@
+{
+  "title": "나랑 잘 맞는 여행지는?",
+  "description": "12개의 질문으로 알아보는 당신의 여행 궁합! 지금 바로 확인해보세요!",
+  "ogImage": "https://picsum.photos/id/1052/1200/600",
+  "keywords": ["여행", "성향테스트", "여행지", "성격유형", "여행 스타일"],
+  "category": "PERSONALITY",
+  "duration": "3분",
+  "participantCount": 0,
+  "createdAt": "2023-04-03T00:00:00Z",
+  "updatedAt": "2023-04-03T00:00:00Z",
+  "isPublished": true,
+  "tags": ["여행", "성향테스트"]
+} 

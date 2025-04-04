@@ -27,7 +27,7 @@ const defaultTests = [
   {
     id: 'pet-match',
     title: '나랑 찰떡인 반려동물은?',
-    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEg0j8Ns1GMihqct6xNAHgzooZ7aWqWnTPGUL0ZyHCeN8Hl3zRO2eLM3XrD0HZFeRnVG4HF1t7hB6zdqS_3Q_FGJw3zfXgfuIdZnlt1CSwicip9l-OfypNyR-l0_-GvFhCIFpi6vCqm4cBFrpUqhsUaOIbTI9RGCNG756ig-Dg2IqGfN2Tz6bxfUtfWjn9s',
     participants: 9500,
     isNew: true,
     isPopular: true,
@@ -58,7 +58,7 @@ const defaultTests = [
     id: 'stress-check',
     title: '스트레스 지수 체크 - 나 지금 멘탈 몇 % 남았지?',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEjugZz1t1M1h_2aXzumcj-afULGj_5KndsXnxRKHRgyIzBNefPl5XAwFstHLvgK2xB0GXoJEswTWjwG1JDEs7ZzR0PSqek1-0SpybstGU8STmYCBQYfTm_l3sKIuxIq-j1mTGCOTa2UzWEwldmgAm7Gw0U3Ey8NRfIQjIg6ElkmYm76Sy01Yxi15qWYSwA',
-    participants: 0,
+    participants: 8723,
     isNew: true,
     isPopular: false,
     description: '12문제로 알아보는 당신의 스트레스 지수. 지금 당신 멘탈, 몇 % 남았을까?',
@@ -74,74 +74,13 @@ const defaultTests = [
     category: 'fun'
   },
   {
-    id: 'personal-color',
-    title: '퍼스널컬러 테스트',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
-    participants: 178945,
-    isPopular: true,
-    isNew: true,
-    category: 'personality'
-  },
-  {
-    id: 'marriage-type',
-    title: '나의 결혼 이상형은?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
-    participants: 145632,
-    isPopular: true,
-    category: 'relationship'
-  },
-  {
-    id: 't-power',
-    title: '나의 T발력 수치는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
-    participants: 132589,
-    isPopular: true,
-    category: 'personality'
-  },
-  {
-    id: 'life-genre',
-    title: '내 인생 장르는 뭘까?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
-    participants: 5436,
-    isNew: true,
-    isPopular: false,
-    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!',
-    category: 'fun'
-  },
-  {
     id: 'dog-compatibility',
     title: '나랑 잘 맞는 강아지는?',
-    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
     participants: 12456,
     isNew: true,
     description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!',
     category: 'relationship'
-  },
-  // 더 많은 기본 테스트 데이터 추가
-  {
-    id: 'color-blindness',
-    title: '색맹테스트',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgeGzcb_BdpyZNglZW24ioN_ptB5ch7PZbw3nQQDDcWbnRcgupVnP2vGS3n6ijlPS4VTkF1PuqhceicDn-63UyyWBBbo6dGyj33az_VDC_4N7m9qersQPY-7H--tzwfE3CWB_wTyeBgys5KR6oz2IB3JFiKx7RQaVFm8q-POW9-Ae-EfrLGpr8WLMdYOho',
-    participants: 97842,
-    isPopular: true,
-    category: 'iq'
-  },
-  {
-    id: 'mbti',
-    title: 'MBTI 빠르고 정확하게!',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
-    participants: 23456,
-    likes: 1247,
-    isNew: false,
-    isPopular: true
-  },
-  {
-    id: 'fortune-telling',
-    title: '사주팔자 점보기',
-    imageUrl: 'https://picsum.photos/id/1060/400/400',
-    participants: 107456,
-    isPopular: true,
-    category: 'fun'
   },
   {
     id: 'tarot-consultation',
@@ -152,20 +91,37 @@ const defaultTests = [
     category: 'psychology'
   },
   {
-    id: 'stress-level',
-    title: '스트레스 지수 체크',
-    imageUrl: 'https://picsum.photos/id/1025/400/400',
-    participants: 7843,
+    id: 'social-character',
+    title: '나의 사회 생활 케릭터는?!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgClS6uwKav_V1RFcqw_RrMysUA_FPrTiEnqNjTcQtlGLVTTYQEToJAmga7KravDN-2LzuBS3I8kmiDCewHN5lmRN92bGDo1x43X0gFLol0zYXLK_bW-xXhPEJ33ZhHRTofJf80hDC8FVHppVWl3QAyhY6Rv6-RVhoFZHzMICCmjC0xio-V-FmEOgs_us8',
+    participants: 5321,
+    isNew: true,
+    category: 'social'
+  },
+  {
+    id: 'multiple-personality',
+    title: '다중인격 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
+    participants: 4895,
+    isNew: true,
+    category: 'personality'
+  },
+  {
+    id: 'healing-moment',
+    title: '내가 가장 힐링 되는 순간은?!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
+    participants: 3764,
     isNew: true,
     category: 'psychology'
   },
   {
-    id: 'love-language',
-    title: '사랑의 언어 테스트',
-    imageUrl: 'https://picsum.photos/id/1066/400/400',
-    participants: 9245,
-    isNew: true,
-    category: 'relationship'
+    id: 'mbti',
+    title: 'MBTI 빠르고 정확하게!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
+    participants: 23456,
+    likes: 1247,
+    isNew: false,
+    isPopular: true
   }
 ];
 
@@ -231,18 +187,46 @@ export const TestsContent = () => {
           'stress-check',
           'life-genre',
           'dog-compatibility',
-          'fortune',
-          'fortune-telling',
           'tarot-consultation',
           'social-character',
           'multiple-personality',
           'healing-moment',
           'flirting-style',
+          'pet-match',
+          'polsok-character',
+          'attachment-style',
           't-power',
           'personal-color',
           'color-blindness',
-          'pet-match'
+          'travel-match'
         ];
+
+        // 테스트 제목 보정
+        const mapTitleOverrides = (id) => {
+          const titleMap = {
+            'memory-test': '기억력 지수 테스트',
+            'past-life-character': '나의 전생 케릭터는?',
+            'marriage-type': '나의 결혼 이상형은?',
+            'iq-test': '나의 진짜 IQ테스트 - 유머버전',
+            'mbti': 'MBTI 빠르고 정확하게!',
+            'stress-check': '스트레스 지수 체크 - 나 지금 멘탈 몇 % 남았지?',
+            'social-character': '나의 사회 생활 케릭터는?!',
+            'multiple-personality': '다중인격 테스트',
+            'healing-moment': '내가 가장 힐링 되는 순간은?!',
+            'flirting-style': '나의 썸탈때 유형은?',
+            'pet-match': '나랑 찰떡인 반려동물은?',
+            'dog-compatibility': '나랑 잘 맞는 강아지는?',
+            'tarot-consultation': '타로 상담가',
+            'polsok-character': '내가 폭싹 속았수다 속 케릭터라면?',
+            'attachment-style': '나의 애착 유형은?',
+            'life-genre': '내 인생 장르는 뭘까?',
+            't-power': '나의 T발력 수치는?',
+            'personal-color': '퍼스널컬러 테스트',
+            'color-blindness': '색맹 테스트',
+            'travel-match': '나랑 잘 맞는 여행지는?'
+          };
+          return titleMap[id] || generateTitle(id);
+        };
 
         // 폴더 이름에서 테스트 제목 생성
         const generateTitle = (id) => {
@@ -250,28 +234,29 @@ export const TestsContent = () => {
           return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + ' 테스트';
         };
 
-        // 카테고리 매핑
+        // 카테고리 매핑 함수
         const getCategoryForTest = (id) => {
           const categoryMap = {
             'memory-test': 'ability',
             'iq-test': 'iq',
-            'color-blindness': 'iq',
             'mbti': 'personality',
-            'personal-color': 'personality',
-            't-power': 'personality',
             'multiple-personality': 'personality',
             'social-character': 'personality',
             'marriage-type': 'relationship',
             'dog-compatibility': 'relationship',
             'pet-match': 'relationship',
             'flirting-style': 'relationship',
+            'attachment-style': 'relationship',
             'healing-moment': 'psychology',
             'stress-check': 'psychology',
-            'fortune': 'fun',
-            'fortune-telling': 'fun',
-            'tarot-consultation': 'fun',
+            'tarot-consultation': 'psychology',
             'past-life-character': 'fun',
-            'life-genre': 'fun'
+            'polsok-character': 'fun',
+            'life-genre': 'fun',
+            't-power': 'personality',
+            'personal-color': 'personality',
+            'color-blindness': 'ability',
+            'travel-match': 'personality'
           };
           return categoryMap[id] || 'fun';
         };
@@ -281,16 +266,55 @@ export const TestsContent = () => {
           // 기본 테스트 데이터에서 해당 ID의 테스트를 찾음
           const existingTest = defaultTests.find(test => test.id === dir);
           
+          // 이미지 URL 맵핑
+          const customImageUrls = {
+            'marriage-type': 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
+            'dog-compatibility': 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
+            'tarot-consultation': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
+            'pet-match': 'https://blogger.googleusercontent.com/img/a/AVvXsEg0j8Ns1GMihqct6xNAHgzooZ7aWqWnTPGUL0ZyHCeN8Hl3zRO2eLM3XrD0HZFeRnVG4HF1t7hB6zdqS_3Q_FGJw3zfXgfuIdZnlt1CSwicip9l-OfypNyR-l0_-GvFhCIFpi6vCqm4cBFrpUqhsUaOIbTI9RGCNG756ig-Dg2IqGfN2Tz6bxfUtfWjn9s',
+            'polsok-character': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
+            'attachment-style': 'https://blogger.googleusercontent.com/img/a/AVvXsEhSeBAqi0jvBtxRfKdRluimJJDwueigV1ENX5edBTxkWYhxLqjQuAzFj9vzsZxWUkuRI8ydD7EW_wwmudAYU3blDm87VmF0_5-QU7bwagpMxyz9uzJv1n4OcUM2Fv74AaxFWEViUpPGm09eyckvZhBYVxeJvSe_nmbiy-6ILyyTWyXvLPhJ_0D0vn8_MfQ',
+            't-power': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
+            'personal-color': 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
+            'color-blindness': 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
+            'life-genre': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
+            'social-character': 'https://blogger.googleusercontent.com/img/a/AVvXsEgClS6uwKav_V1RFcqw_RrMysUA_FPrTiEnqNjTcQtlGLVTTYQEToJAmga7KravDN-2LzuBS3I8kmiDCewHN5lmRN92bGDo1x43X0gFLol0zYXLK_bW-xXhPEJ33ZhHRTofJf80hDC8FVHppVWl3QAyhY6Rv6-RVhoFZHzMICCmjC0xio-V-FmEOgs_us8',
+            'multiple-personality': 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
+            'healing-moment': 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
+            'travel-match': 'https://picsum.photos/id/1052/1200/600'
+          };
+          
           // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
           return existingTest || {
             id: dir,
-            title: generateTitle(dir),
-            imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
-            participants: 10000 - (index * 500), // 임의의 참여자 수
-            likes: 1000 - (index * 50), // 임의의 좋아요 수
-            isPopular: index < 10, // 상위 10개는 인기 테스트로 표시
+            title: mapTitleOverrides(dir),
+            imageUrl: customImageUrls[dir] || `https://picsum.photos/seed/${dir}/400/200`,
+            participants: 8000 - (index * 200), // 임의의 참여자 수 (0명이 되지 않도록 수정)
+            likes: 750 - (index * 30), // 임의의 좋아요 수
+            isPopular: index < 8, // 상위 8개는 인기 테스트로 표시
             isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
-            category: getCategoryForTest(dir)
+            category: {
+              'memory-test': 'ability',
+              'iq-test': 'iq',
+              'mbti': 'personality',
+              'multiple-personality': 'personality',
+              'social-character': 'personality',
+              'marriage-type': 'relationship',
+              'dog-compatibility': 'relationship',
+              'pet-match': 'relationship',
+              'flirting-style': 'relationship',
+              'attachment-style': 'relationship',
+              'healing-moment': 'psychology',
+              'stress-check': 'psychology',
+              'tarot-consultation': 'psychology',
+              'past-life-character': 'fun',
+              'polsok-character': 'fun',
+              'life-genre': 'fun',
+              't-power': 'personality',
+              'personal-color': 'personality',
+              'color-blindness': 'ability',
+              'travel-match': 'personality'
+            }[dir] || 'fun'
           };
         });
         
@@ -354,49 +378,51 @@ export const TestsContent = () => {
           'stress-check',
           'life-genre',
           'dog-compatibility',
-          'fortune',
-          'fortune-telling',
           'tarot-consultation',
           'social-character',
           'multiple-personality',
           'healing-moment',
           'flirting-style',
+          'pet-match',
+          'polsok-character',
+          'attachment-style',
           't-power',
           'personal-color',
           'color-blindness',
-          'pet-match'
+          'travel-match'
         ];
 
-        // 테스트 제목 생성 함수
+        // 테스트 제목 보정
+        const mapTitleOverrides = (id) => {
+          const titleMap = {
+            'memory-test': '기억력 지수 테스트',
+            'past-life-character': '나의 전생 케릭터는?',
+            'marriage-type': '나의 결혼 이상형은?',
+            'iq-test': '나의 진짜 IQ테스트 - 유머버전',
+            'mbti': 'MBTI 빠르고 정확하게!',
+            'stress-check': '스트레스 지수 체크 - 나 지금 멘탈 몇 % 남았지?',
+            'social-character': '나의 사회 생활 케릭터는?!',
+            'multiple-personality': '다중인격 테스트',
+            'healing-moment': '내가 가장 힐링 되는 순간은?!',
+            'flirting-style': '나의 썸탈때 유형은?',
+            'pet-match': '나랑 찰떡인 반려동물은?',
+            'dog-compatibility': '나랑 잘 맞는 강아지는?',
+            'tarot-consultation': '타로 상담가',
+            'polsok-character': '내가 폭싹 속았수다 속 케릭터라면?',
+            'attachment-style': '나의 애착 유형은?',
+            'life-genre': '내 인생 장르는 뭘까?',
+            't-power': '나의 T발력 수치는?',
+            'personal-color': '퍼스널컬러 테스트',
+            'color-blindness': '색맹 테스트',
+            'travel-match': '나랑 잘 맞는 여행지는?'
+          };
+          return titleMap[id] || generateTitle(id);
+        };
+
+        // 폴더 이름에서 테스트 제목 생성
         const generateTitle = (id) => {
           const words = id.split('-');
           return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + ' 테스트';
-        };
-
-        // 카테고리 매핑 함수
-        const getCategoryForTest = (id) => {
-          const categoryMap = {
-            'memory-test': 'ability',
-            'iq-test': 'iq',
-            'color-blindness': 'iq',
-            'mbti': 'personality',
-            'personal-color': 'personality',
-            't-power': 'personality',
-            'multiple-personality': 'personality',
-            'social-character': 'personality',
-            'marriage-type': 'relationship',
-            'dog-compatibility': 'relationship',
-            'pet-match': 'relationship',
-            'flirting-style': 'relationship',
-            'healing-moment': 'psychology',
-            'stress-check': 'psychology',
-            'fortune': 'fun',
-            'fortune-telling': 'fun',
-            'tarot-consultation': 'fun',
-            'past-life-character': 'fun',
-            'life-genre': 'fun'
-          };
-          return categoryMap[id] || 'fun';
         };
 
         // 디렉토리 기반 테스트 데이터 생성
@@ -407,13 +433,34 @@ export const TestsContent = () => {
           // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
           return existingTest || {
             id: dir,
-            title: generateTitle(dir),
+            title: mapTitleOverrides(dir),
             imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
-            participants: 10000 - (index * 500), // 임의의 참여자 수
-            likes: 1000 - (index * 50), // 임의의 좋아요 수
-            isPopular: index < 10, // 상위 10개는 인기 테스트로 표시
+            participants: 8000 - (index * 200), // 임의의 참여자 수 (0명이 되지 않도록 수정)
+            likes: 750 - (index * 30), // 임의의 좋아요 수
+            isPopular: index < 8, // 상위 8개는 인기 테스트로 표시
             isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
-            category: getCategoryForTest(dir)
+            category: {
+              'memory-test': 'ability',
+              'iq-test': 'iq',
+              'mbti': 'personality',
+              'multiple-personality': 'personality',
+              'social-character': 'personality',
+              'marriage-type': 'relationship',
+              'dog-compatibility': 'relationship',
+              'pet-match': 'relationship',
+              'flirting-style': 'relationship',
+              'attachment-style': 'relationship',
+              'healing-moment': 'psychology',
+              'stress-check': 'psychology',
+              'tarot-consultation': 'psychology',
+              'past-life-character': 'fun',
+              'polsok-character': 'fun',
+              'life-genre': 'fun',
+              't-power': 'personality',
+              'personal-color': 'personality',
+              'color-blindness': 'ability',
+              'travel-match': 'personality'
+            }[dir] || 'fun'
           };
         });
 
@@ -437,15 +484,19 @@ export const TestsContent = () => {
   }, []);
 
   // 검색 및 카테고리 필터링
-  const filteredPopularTests = popularTests.filter(test => 
-    test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
-    (category === 'all' || test.category === category)
-  );
+  const filteredPopularTests = popularTests
+    .filter(test => 
+      test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      (category === 'all' || test.category === category) &&
+      test.participants > 0 // 참여자가 0명인 테스트는 제외
+    );
   
-  const filteredNewTests = newTests.filter(test => 
-    test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
-    (category === 'all' || test.category === category)
-  );
+  const filteredNewTests = newTests
+    .filter(test => 
+      test.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      (category === 'all' || test.category === category) &&
+      test.participants > 0 // 참여자가 0명인 테스트는 제외
+    );
 
   // 로딩 스켈레톤 컴포넌트
   const SkeletonLoader = () => (

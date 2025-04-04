@@ -111,8 +111,12 @@ const resultTypes = [
     range: "0 ~ 5",
     title: "🍃 눈치 만렙 생존러",
     description: "당신은 회사에서 최대한 튀지 않고, 바람처럼 존재하는 '온도조절형 생존러'입니다. 잘못된 리액션은 피하고, 공기 흐름을 읽는 데 집중하죠. '살아남는 게 이기는 것'이란 말을 온몸으로 실천 중!",
+    tagLine: "상사 앞에선 투명 인간, 뒤에선 불평 대장!",
+    funFact: "당신의 능력: 상사가 화났을 때 '존재감 감소' 기술 발동!",
+    survivalTip: "계속 이대로만 가면 10년 후에도 같은 자리... 가끔은 의견도 내보자!",
     tag: "#눈치챔피언 #리액션기계 #회사내_투명인간",
     imageUrl: "https://picsum.photos/id/1025/400/400",
+    gifUrl: "https://media.giphy.com/media/jUwpNzg9IcyrK/giphy.gif",
     emoji: "🤫",
     color: "green"
   },
@@ -120,8 +124,12 @@ const resultTypes = [
     range: "6 ~ 10",
     title: "🧤 부드러운 중재자형",
     description: "갈등보단 화합, 강함보단 유연함! 당신은 조직 내에서 사람들을 부드럽게 이어주는 중간다리 같은 존재예요. 문제는 정면돌파보단 '잘 풀어가기'를 선호하는 타입!",
+    tagLine: "회식자리의 분위기 메이커, 사무실의 평화 수호자!",
+    funFact: "당신의 능력: 상사와 후배 사이 감정 통역 담당!",
+    survivalTip: "너무 중재만 하다 보면 내 의견은 어디로 갔지? 가끔은 내 주장도 필요해요!",
     tag: "#온화한협상가 #회사내_조율러 #쌓이는스트레스는_혼자해결",
     imageUrl: "https://picsum.photos/id/1054/400/400",
+    gifUrl: "https://media.giphy.com/media/l0HlKrB02QY0f1mbm/giphy.gif",
     emoji: "🧠",
     color: "blue"
   },
@@ -129,8 +137,12 @@ const resultTypes = [
     range: "11 ~ 15",
     title: "🧠 분석형 현실주의자",
     description: "당신은 일 잘하는 사람이 되고 싶고, 될 수 있는 능력자! 감정보다는 논리로 움직이며, 보고서에 '왜?'가 3번은 들어갑니다. 괜히 쿨해 보이는 게 아니라, 진짜 이성적이에요.",
+    tagLine: "감정은 잠시 넣어두고, 논리로 승부하는 엑셀 마스터!",
+    funFact: "당신의 능력: 복잡한 업무도 5분 만에 엑셀로 정리 완료!",
+    survivalTip: "데이터는 정확하지만 사람의 마음은 그렇지 않아요. 가끔은 감성도 필요해요!",
     tag: "#팩트기반보고서 #회사의DB #공감은옵션",
     imageUrl: "https://picsum.photos/id/1022/400/400",
+    gifUrl: "https://media.giphy.com/media/3owzW5c1tPq63MPmWk/giphy.gif",
     emoji: "🧠",
     color: "purple"
   },
@@ -138,8 +150,12 @@ const resultTypes = [
     range: "16 ~ 19",
     title: "🦊 회의 90% 무표정관종",
     description: "겉은 무표정, 속은 불타는 열정! 관심 받고 싶진 않은데, 똑 부러지는 피드백은 꼭 남깁니다. '일은 깔끔히, 리액션은 최소한으로'가 모토. 정작 사람들은 당신을 조용한 카리스마라 생각함.",
+    tagLine: "무표정으로 회의실을 장악하는 카리스마의 소유자!",
+    funFact: "당신의 능력: 한마디 한 번에 회의 분위기 완전 반전!",
+    survivalTip: "표정 관리는 좋지만 너무 무표정이면 오해받기 쉬워요. 가끔은 미소도 필요해요!",
     tag: "#무표정장인 #숨은야망러 #단톡조용_일할땐프로",
     imageUrl: "https://picsum.photos/id/1059/400/400",
+    gifUrl: "https://media.giphy.com/media/7JsQ5EQTZlQHRFPrjt/giphy.gif",
     emoji: "🦊",
     color: "orange"
   },
@@ -147,8 +163,12 @@ const resultTypes = [
     range: "20",
     title: "💼 돌직구 상위보스형",
     description: "말 돌리는 거 싫어하고, 눈치 게임도 질색. 그냥 논리와 기준대로 움직이는 당신은 팀장이거나, 팀장이 될 사람입니다. 리더십 있고 직선적인 성향으로 사람을 이끌지만, 너무 팩폭하면 눈물 나올 수 있어요 😇",
+    tagLine: "회의실에 들어오는 순간 모두가 자세를 고치는 카리스마!",
+    funFact: "당신의 능력: '그건 안 될 것 같은데요'라는 한마디로 회의 끝내기!",
+    survivalTip: "돌직구도 좋지만 가끔은 커브볼도 필요해요. 모든 사람이 돌직구를 받아낼 준비가 되어있지 않아요!",
     tag: "#일단팩트부터 #돌직구보스 #회사생활은_전략게임",
     imageUrl: "https://picsum.photos/id/1072/400/400",
+    gifUrl: "https://media.giphy.com/media/3o7TKF1fSIs1R19B8k/giphy.gif",
     emoji: "💼",
     color: "red"
   }
@@ -286,194 +306,271 @@ export default function SocialCharacterTest() {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b ${step === 'result' && resultType ? getResultBgColor() : 'from-blue-50 to-indigo-100'} p-4`}>
-      <div className="max-w-lg mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-purple-50 py-10">
+      <div className="container mx-auto px-4 max-w-[500px]">
+        {/* 인트로 화면 */}
         <AnimatePresence mode="wait">
           {step === "intro" && (
-            <motion.div 
-              key="intro"
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={pageVariants}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
+              className="flex flex-col items-center text-center"
             >
-              <div className="p-6 text-center">
-                <div className="flex justify-center mb-4">
-                  <Briefcase className="h-16 w-16 text-indigo-500" />
-                </div>
-                <h1 className="text-2xl font-bold text-gray-800 mb-2">나의 사회생활 생존 캐릭터는?</h1>
-                <p className="text-gray-600 mb-6">회의, 단톡, 보고서, 회식... 회사라는 정글에서 당신은 어떤 생존 캐릭터일까요?</p>
+              <h1 className="text-3xl font-bold text-purple-800 mb-4">나의 사회 생활 케릭터는?!</h1>
+              <div className="mb-6 text-gray-600">
+                <p className="mb-2">회사, 학교, 모임에서 나는 어떤 유형의 소통가일까?</p>
+                <p>10개의 질문으로 나의 진짜 사회생활 캐릭터를 알아보세요!</p>
+              </div>
+              
+              <div className="w-full max-w-xs mb-8">
+                <Card className="bg-white shadow-lg rounded-2xl p-6 mb-6">
+                  <div className="flex items-center space-x-2 text-purple-700 mb-3">
+                    <Trophy size={18} />
+                    <h3 className="font-semibold">이런 걸 알 수 있어요</h3>
+                  </div>
+                  <ul className="space-y-2 text-left text-gray-700 text-sm">
+                    <li className="flex items-start">
+                      <Briefcase className="h-4 w-4 mr-2 mt-0.5 text-purple-500" />
+                      <span>나의 사회생활 핵심 스타일</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Laugh className="h-4 w-4 mr-2 mt-0.5 text-purple-500" />
+                      <span>어떤 상황에서 내가 빛날까?</span>
+                    </li>
+                    <li className="flex items-start">
+                      <ArrowRight className="h-4 w-4 mr-2 mt-0.5 text-purple-500" />
+                      <span>사회생활에서 내 장단점은?</span>
+                    </li>
+                  </ul>
+                </Card>
                 
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    테스트를 시작하기 전에 이름을 입력해주세요
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="이름 입력"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    className="w-full"
-                  />
-                </div>
+                <Input
+                  type="text"
+                  placeholder="이름을 입력하세요"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="mb-4 border-purple-300 focus:border-purple-500 focus:ring-purple-500"
+                />
                 
-                <Button 
+                <Button
                   onClick={startTest}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg flex items-center justify-center"
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition-colors"
                 >
                   테스트 시작하기
-                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                
-                <div className="mt-6 text-sm text-gray-500">
-                  <div className="flex items-center justify-center mb-2">
-                    <Clock className="h-4 w-4 mr-1" />
-                    <span>소요 시간: 약 3분</span>
-                  </div>
-                  <p>10가지 질문으로 당신의 '직장 내 캐릭터 유형'을 알아보세요!</p>
-                  <p className="mt-1 text-indigo-500">유쾌하고 현실감 넘치는 결과가 기다리고 있어요.</p>
-                </div>
               </div>
+              
+              <p className="text-xs text-gray-500">약 3분 소요 • 10개 질문</p>
             </motion.div>
           )}
-
+          
+          {/* 테스트 화면 */}
           {step === "test" && (
-            <motion.div 
-              key="test"
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={pageVariants}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-[500px] mx-auto"
             >
-              <div className="p-6">
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-600">진행 상황</span>
-                    <span className="text-sm text-gray-600">{currentQuestion + 1}/{questions.length}</span>
-                  </div>
-                  <Progress value={progress} className="h-2" />
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-gray-600">진행도 {Math.round(progress)}%</span>
+                  <span className="text-sm font-medium text-gray-600">{currentQuestion + 1}/{questions.length}</span>
                 </div>
-                
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+                <Progress value={progress} className="h-2 bg-gray-200" indicatorClassName="bg-purple-600" />
+              </div>
+              
+              <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl font-bold text-gray-800 mb-6">
                   {questions[currentQuestion].question}
                 </h2>
                 
                 <div className="space-y-3">
                   {questions[currentQuestion].options.map((option) => (
-                    <Button
+                    <motion.button
                       key={option.id}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full text-left p-4 rounded-lg border border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-colors"
                       onClick={() => handleAnswer(option.score)}
-                      className="w-full bg-white border border-gray-300 hover:bg-indigo-50 text-gray-800 py-3 px-4 rounded-lg flex items-center justify-between text-left"
-                      variant="outline"
                     >
-                      <span>{option.text}</span>
-                      <ArrowRight className="h-4 w-4 text-gray-400" />
-                    </Button>
+                      {option.text}
+                    </motion.button>
                   ))}
                 </div>
               </div>
             </motion.div>
           )}
-
+          
+          {/* 결과 화면 */}
           {step === "result" && resultType && (
-            <motion.div 
-              key="result"
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={pageVariants}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
+              className="max-w-[500px] mx-auto pb-10"
             >
-              <div className="p-6 text-center">
-                <motion.div 
-                  className="flex justify-center mb-6"
-                  variants={emojiVariants}
-                  initial="hidden"
-                  animate="visible"
+              <motion.div 
+                className={`bg-gradient-to-b ${getResultBgColor()} shadow-xl rounded-2xl overflow-hidden`}
+                initial={{ borderRadius: "1rem" }}
+                animate={{ borderRadius: ["1rem", "2rem", "1rem"] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+              >
+                <div className="p-6">
+                  <div className="text-center mb-6">
+                    <motion.div 
+                      initial={{ scale: 0, rotate: 0 }}
+                      animate={{ 
+                        scale: [0, 1.2, 1],
+                        rotate: [0, 20, 0, -20, 0]
+                      }}
+                      transition={{ duration: 1.5 }}
+                      className="mb-4"
+                    >
+                      <h2 className="text-2xl font-extrabold text-gray-800 mb-2">{resultType.title}</h2>
+                    </motion.div>
+                    
+                    <div className="flex justify-center mb-4">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                          delay: 0.2
+                        }}
+                        className="relative w-56 h-56 rounded-full overflow-hidden border-4 border-white shadow-lg"
+                      >
+                        <img 
+                          src={resultType.gifUrl} 
+                          alt={resultType.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
+                    </div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="mb-4"
+                    >
+                      <p className="text-xl font-bold mb-2">"{userName}님은 바로..."</p>
+                      <h3 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+                        {resultType.tagLine}
+                      </h3>
+                    </motion.div>
+                  </div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                    className="mb-6"
+                  >
+                    <p className="text-gray-700 mb-4 leading-relaxed">{resultType.description}</p>
+                    
+                    <div className="bg-white bg-opacity-60 rounded-lg p-4 mb-4">
+                      <h3 className="font-bold text-purple-700 mb-2">⚡ 숨겨진 능력</h3>
+                      <p className="text-gray-700">{resultType.funFact}</p>
+                    </div>
+                    
+                    <div className="bg-white bg-opacity-60 rounded-lg p-4 mb-4">
+                      <h3 className="font-bold text-orange-500 mb-2">💡 생존 팁</h3>
+                      <p className="text-gray-700">{resultType.survivalTip}</p>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    className="mb-4"
+                  >
+                    <h3 className="font-semibold text-gray-700 mb-2">🏷️ 당신을 설명하는 키워드</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {resultType.tag.split(' ').map((tag, index) => (
+                        <motion.span 
+                          key={index} 
+                          className="px-3 py-1.5 bg-white bg-opacity-70 text-gray-800 text-sm rounded-full font-medium"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ 
+                            delay: 1 + (index * 0.1),
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 20
+                          }}
+                          whileHover={{ 
+                            scale: 1.1, 
+                            backgroundColor: "rgba(255,255,255,0.9)" 
+                          }}
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                    className="text-sm text-gray-600 mb-4 text-center"
+                  >
+                    <p>{userName}님과 같은 유형은 전체 사용자 중 약 {Math.floor(Math.random() * 20) + 10}%입니다</p>
+                    <div className="flex items-center justify-center space-x-2 mt-2">
+                      <Clock size={14} />
+                      <span>
+                        테스트 완료: {format(new Date(), 'yyyy년 MM월 dd일')}
+                      </span>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4 }}
+                className="mt-6 flex flex-col space-y-3"
+              >
+                <Button 
+                  onClick={shareResult}
+                  className="bg-purple-600 hover:bg-purple-700 text-white group relative overflow-hidden"
+                  variant="default"
                 >
-                  <div className="text-6xl">
-                    {resultType.emoji}
-                  </div>
-                </motion.div>
+                  <span className="z-10 flex items-center">
+                    <Share2 size={16} className="mr-2" />
+                    결과 공유하기
+                  </span>
+                  <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </Button>
                 
-                <h2 className="text-xl font-bold text-gray-800 mb-1">
-                  {userName}님은
-                </h2>
-                <h1 className="text-2xl font-extrabold text-indigo-600 mb-3">
-                  {resultType.title}
-                </h1>
+                <Button 
+                  onClick={restartTest}
+                  variant="outline"
+                  className="border-purple-300 text-purple-700 hover:bg-purple-50 transition-all duration-300 hover:scale-[1.02]"
+                >
+                  <RefreshCcw size={16} className="mr-2" />
+                  다시 테스트하기
+                </Button>
                 
-                <div className="flex flex-wrap justify-center gap-2 mb-6">
-                  {resultType.tag.split(' ').map((tag, index) => (
-                    <span key={index} className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="mb-6">
-                  <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4 border-4 border-indigo-200">
-                    <img 
-                      src={resultType.imageUrl} 
-                      alt="Character" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                    <p className="text-gray-700 leading-relaxed">
-                      {resultType.description}
-                    </p>
-                  </div>
-                  
-                  <div className="text-sm text-gray-500 mb-6">
-                    점수: {totalScore}/20
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <Button
-                    onClick={restartTest}
-                    className="bg-white border border-indigo-500 text-indigo-500 hover:bg-indigo-50 py-2 rounded-lg flex items-center justify-center"
+                <Link href="/tests" className="w-full">
+                  <Button 
                     variant="outline"
+                    className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300"
                   >
-                    <RefreshCcw className="mr-2 h-4 w-4" />
-                    다시 테스트
+                    <ChevronLeft size={16} className="mr-2" />
+                    다른 테스트 보러가기
                   </Button>
-                  
-                  <Button
-                    onClick={shareResult}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg flex items-center justify-center"
-                  >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    결과 공유
-                  </Button>
-                </div>
-                
-                <div className="mt-6">
-                  <Link href="/tests/new" className="flex items-center justify-center text-sm text-gray-600 hover:text-indigo-600">
-                    <ChevronLeft className="h-4 w-4 mr-1" />
-                    다른 테스트 보기
-                  </Link>
-                </div>
-                
-                <motion.div 
-                  className="mt-6 pt-4 border-t border-gray-100"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <p className="text-sm text-gray-500 flex items-center justify-center gap-1">
-                    <Laugh className="h-4 w-4" />
-                    <span>재미로 즐기는 테스트입니다 😊</span>
-                  </p>
-                </motion.div>
-              </div>
+                </Link>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

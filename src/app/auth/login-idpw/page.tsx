@@ -30,7 +30,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError('아이디 또는 비밀번호가 올바르지 않습니다.');
       } else {
-        router.push('/');
+        router.push('/auth/dashboard');
         router.refresh();
       }
     } catch (error) {
@@ -42,13 +42,26 @@ export default function LoginPage() {
   };
 
   const handleKakaoSignIn = async () => {
-    setError('');
-    setKakaoLoading(true);
     try {
-      await signIn('kakao', {
-        callbackUrl: '/',
-        redirect: true
+      setError('');
+      setKakaoLoading(true);
+      console.log('카카오 로그인 시도...');
+      
+      // NextAuth의 signIn 함수를 사용하여 카카오 로그인
+      const result = await signIn('kakao', { 
+        callbackUrl: '/auth/dashboard',
+        redirect: false 
       });
+      
+      console.log('카카오 로그인 결과:', result);
+      
+      if (result?.error) {
+        setError('카카오 로그인 중 오류가 발생했습니다.');
+        console.error('카카오 로그인 오류:', result.error);
+      } else if (result?.url) {
+        // 성공 시 리다이렉트
+        router.push(result.url);
+      }
     } catch (error) {
       console.error('카카오 로그인 오류:', error);
       setError('카카오 로그인 중 오류가 발생했습니다.');
@@ -181,12 +194,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-                비밀번호를 잊으셨나요?
-              </Link>
-            </div>
+          <div className="flex items-center justify-center">
             <div className="text-sm">
               <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                 회원가입
@@ -212,14 +220,6 @@ export default function LoginPage() {
             </button>
           </div>
         </form>
-        
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
-            테스트 계정:
-            <span className="font-medium text-indigo-600 ml-1">admin / admin1234</span> 또는
-            <span className="font-medium text-indigo-600 ml-1">user / user1234</span>
-          </p>
-        </div>
       </div>
     </div>
   );

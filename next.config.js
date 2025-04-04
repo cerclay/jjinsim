@@ -21,13 +21,14 @@ const nextConfig = {
       'media2.giphy.com', 
       'media3.giphy.com',
       'media4.giphy.com',
+      'picturesque-ox-876.notion.site',
+      'prod-files-secure.s3.us-west-2.amazonaws.com'
     ],
   },
-  serverExternalPackages: ['bcryptjs'],
-  // 개발 서버 포트 3000으로 설정
-  devIndicators: {
-    buildActivity: true,
+  env: {
+    NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
   },
+  serverExternalPackages: ['bcryptjs'],
   // 외부 URL 설정
   async rewrites() {
     return [

@@ -9,9 +9,15 @@ export const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
+      redirectUri: process.env.KAKAO_REDIRECT_URI || 'http://localhost:3000/api/auth/callback/kakao',
       profile(profile) {
         // 카카오 프로필 로그
         console.log('카카오 프로필 데이터:', JSON.stringify(profile, null, 2));
+        console.log('카카오 로그인 환경 변수:', {
+          KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+          KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
+          NEXTAUTH_URL: process.env.NEXTAUTH_URL
+        });
         
         // 카카오 ID로 항상 고유한 가상 이메일 생성
         const virtualEmail = `kakao_${profile.id}@example.com`;
@@ -188,6 +194,8 @@ export const authOptions: NextAuthOptions = {
   logger: {
     error(code, metadata) {
       console.error(`[Auth] Error ${code}:`, metadata);
+      // 환경 변수 디버깅
+      console.error(`[Auth] 환경 변수 정보 - NEXTAUTH_URL: ${process.env.NEXTAUTH_URL}, NODE_ENV: ${process.env.NODE_ENV}`);
     },
     warn(code) {
       console.warn(`[Auth] Warning ${code}`);

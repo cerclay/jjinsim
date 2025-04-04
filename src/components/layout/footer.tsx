@@ -30,9 +30,9 @@ export default function Footer() {
   
   const navLinks = [
     { href: "/about", label: "찐심이 뭐예요?" },
-    { href: "/privacy", label: "개인정보처리방침" },
-    { href: "/terms", label: "이용약관" },
-    { href: "/contact", label: "제휴문의" }
+    { href: "https://picturesque-ox-876.notion.site/1c0ae7b4e9538066a2daeceaae197c57?pvs=4", label: "개인정보처리방침" },
+    { href: "https://picturesque-ox-876.notion.site/1c0ae7b4e9538059bd03fc093d1f3305?pvs=4", label: "이용약관" },
+    { href: "https://picturesque-ox-876.notion.site/1c0ae7b4e9538087af36e09f550597cd?pvs=4", label: "오픈소스 라이센스" }
   ];
   
   return (
@@ -71,6 +71,8 @@ export default function Footer() {
               key={link.href}
               href={link.href} 
               className="text-sm text-gray-600 hover:text-purple-600 transition-colors"
+              target={link.href.startsWith('http') ? "_blank" : "_self"}
+              rel={link.href.startsWith('http') ? "noopener noreferrer" : ""}
             >
               {link.label}
             </Link>

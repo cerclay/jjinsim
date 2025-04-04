@@ -1,29 +1,32 @@
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { cn } from '@/lib/utils';
 
-interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface SpinnerProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+}
 
-export function Spinner({ className, ...props }: SpinnerProps) {
+export function Spinner({ size = 'md', className }: SpinnerProps) {
+  const sizeClasses = {
+    sm: 'h-4 w-4 border-2',
+    md: 'h-8 w-8 border-2',
+    lg: 'h-16 w-16 border-3',
+    xl: 'h-24 w-24 border-4',
+  };
+
   return (
     <div
-      className={cn("animate-spin text-muted-foreground", className)}
-      {...props}
+      className={cn(
+        'inline-block animate-spin rounded-full border-solid border-current border-r-transparent motion-reduce:animate-[spin_1.5s_linear_infinite]',
+        sizeClasses[size],
+        'text-rose-600',
+        className
+      )}
+      role="status"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-      </svg>
+      <span className="sr-only">로딩 중...</span>
     </div>
   );
 } 
