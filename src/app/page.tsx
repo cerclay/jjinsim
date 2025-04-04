@@ -15,6 +15,14 @@ import { TestCard } from '@/components/home/test-card';
 // 인기 테스트 데이터
 const popularTests = [
   {
+    id: 'travel-match',
+    title: '나랑 잘 맞는 여행지는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
+    participants: 25432,
+    isPopular: true,
+    isNew: true,
+  },
+  {
     id: 'iq-test',
     title: '나의 진짜 IQ는? 유머버전!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
@@ -130,6 +138,14 @@ const popularTests = [
 // 신규 테스트 데이터
 const newTests = [
   {
+    id: 'travel-match',
+    title: '나랑 잘 맞는 여행지는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
+    participants: 5432,
+    isNew: true,
+    description: '12개의 질문으로 알아보는 당신의 여행 궁합! 지금 바로 확인해보세요!'
+  },
+  {
     id: 'iq-test',
     title: '나의 진짜 IQ는? 유머버전!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
@@ -140,7 +156,7 @@ const newTests = [
   {
     id: 'polsok-character',
     title: '내가 폭싹 속았수다 케릭터라면?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiElKX6LGf2O_9g5JoMxRN_0ALVh9uZ-JzwIuxqwKtOJLMPO0YlLHgC-q0kGn--ZrgCcP2gN3O98vhqWCYSQ0eZI1D6HcqRtaLdKwHhvSSHOOLxTdaAPRYANAIVs4qIHvE7fv8B9NpGp80_1w3WOK5JnxWY0yvlRxZjRFYVZrhJ7IZA7gCH54kw4QcZzmk/w400-h400/polsok.jpg',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
     participants: 1043,
     isNew: true,
     description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!'
@@ -477,6 +493,14 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* 푸터 영역 */}
+        <footer className="mt-10 mb-4 text-center text-gray-500 text-sm">
+          <Link href="/admin/login" className="text-rose-500 hover:underline">
+            관리자 로그인
+          </Link>
+          <p>© 2024 찐심테스트. All rights reserved.</p>
+        </footer>
       </div>
     </div>
   );
