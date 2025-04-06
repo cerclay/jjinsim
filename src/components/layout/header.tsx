@@ -12,8 +12,7 @@ export default function Header() {
 
   const menuItems = [
     { href: "/", label: "홈" },
-    { href: "/tests/popular", label: "인기 테스트" },
-    { href: "/tests/new", label: "신규 테스트" },
+    { href: "/tests", label: "모든 테스트" },
     { href: "/my-results", label: "결과 보관함" },
     { href: "/about", label: "서비스 소개" },
   ];

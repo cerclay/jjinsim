@@ -26,6 +26,11 @@ export async function middleware(req: NextRequest) {
       return NextResponse.next();
     }
     
+    // 테스트 페이지 리디렉션 처리 (인기 테스트와 신규 테스트를 모든 테스트로 통합)
+    if (pathname === '/tests/popular' || pathname === '/tests/new') {
+      return NextResponse.redirect(new URL('/tests', req.url));
+    }
+    
     // 관리자 페이지 접근 체크 (로그인 페이지 제외)
     if (pathname.startsWith('/admin') && !pathname.startsWith(ADMIN_LOGIN_PATH)) {
       try {
@@ -89,5 +94,7 @@ export const config = {
     '/admin/:path*', 
     '/profile/:path*', 
     '/my-results/:path*',
+    '/tests/popular',
+    '/tests/new',
   ],
 }; 

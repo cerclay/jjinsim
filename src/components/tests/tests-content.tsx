@@ -198,7 +198,8 @@ export const TestsContent = () => {
           't-power',
           'personal-color',
           'color-blindness',
-          'travel-match'
+          'travel-match',
+          'adhd-test'
         ];
 
         // 테스트 제목 보정
@@ -223,7 +224,8 @@ export const TestsContent = () => {
             't-power': '나의 T발력 수치는?',
             'personal-color': '퍼스널컬러 테스트',
             'color-blindness': '색맹 테스트',
-            'travel-match': '나랑 잘 맞는 여행지는?'
+            'travel-match': '나랑 잘 맞는 여행지는?',
+            'adhd-test': '당신의 ADHD 성향 테스트'
           };
           return titleMap[id] || generateTitle(id);
         };
@@ -256,7 +258,8 @@ export const TestsContent = () => {
             't-power': 'personality',
             'personal-color': 'personality',
             'color-blindness': 'ability',
-            'travel-match': 'personality'
+            'travel-match': 'personality',
+            'adhd-test': 'psychology'
           };
           return categoryMap[id] || 'fun';
         };
@@ -281,7 +284,8 @@ export const TestsContent = () => {
             'social-character': 'https://blogger.googleusercontent.com/img/a/AVvXsEgClS6uwKav_V1RFcqw_RrMysUA_FPrTiEnqNjTcQtlGLVTTYQEToJAmga7KravDN-2LzuBS3I8kmiDCewHN5lmRN92bGDo1x43X0gFLol0zYXLK_bW-xXhPEJ33ZhHRTofJf80hDC8FVHppVWl3QAyhY6Rv6-RVhoFZHzMICCmjC0xio-V-FmEOgs_us8',
             'multiple-personality': 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
             'healing-moment': 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
-            'travel-match': 'https://picsum.photos/id/1052/1200/600'
+            'travel-match': 'https://picsum.photos/id/1052/1200/600',
+            'adhd-test': 'https://blogger.googleusercontent.com/img/a/AVvXsEjtiEJUudqPTaxJfPOpVctjo16rNKVmqbKfBtgmvFUxvOhndLKS0x66cX6AXp4UFigEFH2cJ_J953Pbrch9fTeSfM1-nc0_7b_eLw600zHXyOt58P9sEVEpfrKWLHMiNtb9_YJrzrdk5wCywGcWU8BwQ77AVWGAbKM1q4gQkcpe-wq__a1q9vpiZcPgu-g'
           };
           
           // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
@@ -291,8 +295,8 @@ export const TestsContent = () => {
             imageUrl: customImageUrls[dir] || `https://picsum.photos/seed/${dir}/400/200`,
             participants: 8000 - (index * 200), // 임의의 참여자 수 (0명이 되지 않도록 수정)
             likes: 750 - (index * 30), // 임의의 좋아요 수
-            isPopular: index < 8, // 상위 8개는 인기 테스트로 표시
-            isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
+            isPopular: index < 8 || dir === 'adhd-test', // 상위 8개와 ADHD 테스트는 인기 테스트로 표시
+            isNew: index < 5 || dir === 'adhd-test', // 상위 5개와 ADHD 테스트는 새로운 테스트로 표시
             category: {
               'memory-test': 'ability',
               'iq-test': 'iq',
@@ -389,7 +393,8 @@ export const TestsContent = () => {
           't-power',
           'personal-color',
           'color-blindness',
-          'travel-match'
+          'travel-match',
+          'adhd-test'
         ];
 
         // 테스트 제목 보정
@@ -414,7 +419,8 @@ export const TestsContent = () => {
             't-power': '나의 T발력 수치는?',
             'personal-color': '퍼스널컬러 테스트',
             'color-blindness': '색맹 테스트',
-            'travel-match': '나랑 잘 맞는 여행지는?'
+            'travel-match': '나랑 잘 맞는 여행지는?',
+            'adhd-test': '당신의 ADHD 성향 테스트'
           };
           return titleMap[id] || generateTitle(id);
         };
@@ -437,8 +443,8 @@ export const TestsContent = () => {
             imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
             participants: 8000 - (index * 200), // 임의의 참여자 수 (0명이 되지 않도록 수정)
             likes: 750 - (index * 30), // 임의의 좋아요 수
-            isPopular: index < 8, // 상위 8개는 인기 테스트로 표시
-            isNew: index < 5, // 상위 5개는 새로운 테스트로 표시
+            isPopular: index < 8 || dir === 'adhd-test', // 상위 8개와 ADHD 테스트는 인기 테스트로 표시
+            isNew: index < 5 || dir === 'adhd-test', // 상위 5개와 ADHD 테스트는 새로운 테스트로 표시
             category: {
               'memory-test': 'ability',
               'iq-test': 'iq',
