@@ -9,14 +9,15 @@ export const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
-      redirectUri: process.env.KAKAO_REDIRECT_URI || 'http://localhost:3000/api/auth/callback/kakao',
+      redirectUri: process.env.KAKAO_REDIRECT_URI || `${process.env.NEXTAUTH_URL}/api/auth/callback/kakao`,
       profile(profile) {
         // 카카오 프로필 로그
         console.log('카카오 프로필 데이터:', JSON.stringify(profile, null, 2));
         console.log('카카오 로그인 환경 변수:', {
           KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
           KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
-          NEXTAUTH_URL: process.env.NEXTAUTH_URL
+          NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+          NODE_ENV: process.env.NODE_ENV
         });
         
         // 카카오 ID로 항상 고유한 가상 이메일 생성
@@ -25,8 +26,9 @@ export const authOptions: NextAuthOptions = {
         // 아주 기본적인 정보만 반환
         return {
           id: profile.id.toString(),
-          name: '카카오사용자', // 기본값 사용
-          email: virtualEmail
+          name: profile.properties?.nickname || '카카오사용자',
+          email: virtualEmail,
+          image: profile.properties?.profile_image || null
         }
       }
     }),
@@ -182,7 +184,7 @@ export const authOptions: NextAuthOptions = {
   },
   cookies: {
     sessionToken: {
-      name: `__Secure-next-auth.session-token`,
+      name: process.env.NODE_ENV === 'production' ? `__Secure-next-auth.session-token` : `next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: 'lax',
@@ -195,7 +197,7 @@ export const authOptions: NextAuthOptions = {
     error(code, metadata) {
       console.error(`[Auth] Error ${code}:`, metadata);
       // 환경 변수 디버깅
-      console.error(`[Auth] 환경 변수 정보 - NEXTAUTH_URL: ${process.env.NEXTAUTH_URL}, NODE_ENV: ${process.env.NODE_ENV}`);
+      console.error(`[Auth] 환경 변수 정보 - NEXTAUTH_URL: ${process.env.NEXTAUTH_URL}, NODE_ENV: ${process.env.NODE_ENV}, KAKAO_REDIRECT_URI: ${process.env.KAKAO_REDIRECT_URI}`);
     },
     warn(code) {
       console.warn(`[Auth] Warning ${code}`);
@@ -205,7 +207,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV !== 'production',
+  debug: process.env.NODE_ENV === 'development',
 };
 
 // 타입 확장

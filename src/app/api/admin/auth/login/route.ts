@@ -7,11 +7,11 @@ import { compare } from "bcryptjs";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { username, password, isTestLogin, isLocalStorageAuth, adminUser } = body;
+    const { username, password, isLocalStorageAuth, adminUser } = body;
     
     let userData;
     
-    // 로컬 스토리지 기반 인증
+    // 로컬 스토리지 기반 인증 (레거시 지원)
     if (isLocalStorageAuth && adminUser) {
       if (adminUser.role === 'admin') {
         userData = adminUser;
@@ -21,15 +21,6 @@ export async function POST(req: NextRequest) {
           { status: 403 }
         );
       }
-    }
-    // 테스트 로그인 처리
-    else if (isTestLogin && username === 'admin' && password === 'password') {
-      console.log('테스트 계정으로 로그인 처리 중');
-      userData = {
-        id: '1',
-        username: 'admin',
-        role: 'admin',
-      };
     }
     // 일반 로그인 처리
     else if (username && password) {
