@@ -32,7 +32,8 @@ import { UserCircle } from 'lucide-react'
 const menuItems = [
   { href: "/", label: "홈" },
   { href: "/tests", label: "전체 테스트" },
-  { href: "/my-results", label: "결과 보관함" },
+  { href: "/auth/dashboard", label: "결과 보관함", authRequired: true },
+  { href: "/my-results", label: "결과 보관함", authRequired: false },
   { href: "/about", label: "서비스 소개" },
 ];
 
@@ -86,26 +87,36 @@ export function Header() {
               <Search className="h-5 w-5" />
             </motion.button>
           </Link>
-          {session ? (
-            <motion.button
-              onClick={handleSignOut}
-              className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              로그아웃
-            </motion.button>
-          ) : (
-            <Link href="/auth/signin">
-              <motion.button
-                className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                로그인
-              </motion.button>
-            </Link>
-          )}
+          {/* 로그인 관련 버튼 */}
+          <div className="hidden md:flex items-center gap-2">
+            {session ? (
+              <>
+                <Link href="/auth/dashboard">
+                  <Button variant="outline" size="sm" className="text-sm">
+                    대시보드
+                  </Button>
+                </Link>
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="bg-purple-600 hover:bg-purple-700 text-sm"
+                >
+                  로그아웃
+                </Button>
+              </>
+            ) : (
+              <Link href="/auth/signin">
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-purple-600 hover:bg-purple-700 text-sm"
+                >
+                  로그인
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </motion.header>
@@ -119,6 +130,12 @@ function MobileNav({ session }: { session: any }) {
     await signOut({ callbackUrl: '/' });
     setIsOpen(false);
   };
+
+  // 로그인 상태에 따른 메뉴 필터링
+  const filteredMenuItems = menuItems.filter(item => {
+    if (item.authRequired === undefined) return true;
+    return item.authRequired ? !!session : !session;
+  });
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -144,27 +161,23 @@ function MobileNav({ session }: { session: any }) {
           </SheetClose>
         </div>
         
-        <div className="py-4 px-4">
-          <nav className="space-y-2">
-            {menuItems.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * index }}
-              >
-                <Link
-                  href={item.href}
-                  className="flex items-center justify-between w-full p-3 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                  <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600" />
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-        </div>
+        <motion.div 
+          className="flex flex-col py-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.3 }}
+        >
+          {filteredMenuItems.map((item) => (
+            <Link 
+              key={item.href}
+              href={item.href}
+              className="flex items-center p-4 hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="text-sm font-medium">{item.label}</span>
+            </Link>
+          ))}
+        </motion.div>
 
         <motion.div 
           className="mt-2 pt-4 border-t px-4"

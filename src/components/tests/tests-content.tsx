@@ -15,6 +15,16 @@ import { supabase } from '@/lib/supabase/client'; // supabase 클라이언트 �
 // 기본 테스트 데이터 (API에서 데이터를 가져오지 못할 경우 사용)
 const defaultTests = [
   {
+    id: 'boomer-test',
+    title: '나의 꼰대력은?!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfl5eqh5bGdKTYkWyK02Pd4nfeBnOaRGmKtdu-gNVVxmUbNa9RHOd1J4nPPBEhj-agPWoeFWNb02RKdUmz9Fb6miGtzq9tEQO4tKawQLyyr7JGMOS5c_SzUZC6JecRRfYosDV18Fll38q0jCtjq6AObiUI5cReNXaLYU4uFia4k-gAZ8C5vpT6FRtuBq4/s320/ChatGPT%20Image%202025%EB%85%84%204%EC%9B%94%207%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_14_18.png',
+    participants: 8210,
+    isNew: true,
+    isPopular: true,
+    description: '12문항으로 확인하는 내 속에 잠재된 꼰대 기질! 재미로만 참고하세요.',
+    category: 'psychology'
+  },
+  {
     id: 'memory-test',
     title: '기억력 지수 테스트',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgIHM2zFl3lLs-BmIXmAVVjDhSuC6nEFWe3sLwWcaqJ_cncNc6mcU-C9Cfx1a6i0QynhivQrId5Gp4Q-bMiO_mVZ6ZURPsjYqk0wItse9EjvH5UPCe0ATr9NsQinLSCRqo5FqpqHEEwdoxj_4pRU9IZjm18JjgkVqwIr4z9Xtk5jQLTemvXukF-xgKYAJw',
@@ -179,32 +189,34 @@ export const TestsContent = () => {
         // 모든 테스트 디렉토리 기반 데이터 생성
         // src/app/tests 디렉토리에 있는 모든 테스트 폴더를 기반으로 테스트 데이터 생성
         const testDirectories = [
+          'iq-test',
+          'color-blindness',
+          'pet-match',
           'memory-test',
+          'life-genre',
+          'travel-match',
+          'personal-color',
+          'polsok-character',
+          'attachment-style',
+          't-power',
+          'boomer-test',
           'past-life-character',
           'marriage-type',
-          'iq-test',
           'mbti',
           'stress-check',
-          'life-genre',
-          'dog-compatibility',
           'tarot-consultation',
           'social-character',
           'multiple-personality',
           'healing-moment',
           'flirting-style',
-          'pet-match',
-          'polsok-character',
-          'attachment-style',
-          't-power',
-          'personal-color',
-          'color-blindness',
-          'travel-match',
+          'dog-compatibility',
           'adhd-test'
         ];
 
         // 테스트 제목 보정
         const mapTitleOverrides = (id) => {
           const titleMap = {
+            'boomer-test': '나의 꼰대력은?!',
             'memory-test': '기억력 지수 테스트',
             'past-life-character': '나의 전생 케릭터는?',
             'marriage-type': '나의 결혼 이상형은?',
@@ -239,6 +251,7 @@ export const TestsContent = () => {
         // 카테고리 매핑 함수
         const getCategoryForTest = (id) => {
           const categoryMap = {
+            'boomer-test': 'psychology',
             'memory-test': 'ability',
             'iq-test': 'iq',
             'mbti': 'personality',
@@ -271,6 +284,7 @@ export const TestsContent = () => {
           
           // 이미지 URL 맵핑
           const customImageUrls = {
+            'boomer-test': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfl5eqh5bGdKTYkWyK02Pd4nfeBnOaRGmKtdu-gNVVxmUbNa9RHOd1J4nPPBEhj-agPWoeFWNb02RKdUmz9Fb6miGtzq9tEQO4tKawQLyyr7JGMOS5c_SzUZC6JecRRfYosDV18Fll38q0jCtjq6AObiUI5cReNXaLYU4uFia4k-gAZ8C5vpT6FRtuBq4/s320/ChatGPT%20Image%202025%EB%85%84%204%EC%9B%94%207%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_14_18.png',
             'marriage-type': 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
             'dog-compatibility': 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
             'tarot-consultation': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
@@ -284,7 +298,7 @@ export const TestsContent = () => {
             'social-character': 'https://blogger.googleusercontent.com/img/a/AVvXsEgClS6uwKav_V1RFcqw_RrMysUA_FPrTiEnqNjTcQtlGLVTTYQEToJAmga7KravDN-2LzuBS3I8kmiDCewHN5lmRN92bGDo1x43X0gFLol0zYXLK_bW-xXhPEJ33ZhHRTofJf80hDC8FVHppVWl3QAyhY6Rv6-RVhoFZHzMICCmjC0xio-V-FmEOgs_us8',
             'multiple-personality': 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
             'healing-moment': 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
-            'travel-match': 'https://picsum.photos/id/1052/1200/600',
+            'travel-match': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwcZecDbw2Psrma7voRO7iGbZjQNKvtDmiPraoGk2yGTDCpbOhz-XrvsVyhoCJEgECUJJgUCnOEiwK_IPzQZcFCu6ALZnc_Mm_hk8iO_Ut7OBvl2q85B4rM9m6W9zYQDfDOMEw9vZnUixe5kTFMq1vdmNF0CYRhlCh69D2fPB2OimP7wPwbZVN1z8jZfo/s320/travel-match.jpg',
             'adhd-test': 'https://blogger.googleusercontent.com/img/a/AVvXsEjtiEJUudqPTaxJfPOpVctjo16rNKVmqbKfBtgmvFUxvOhndLKS0x66cX6AXp4UFigEFH2cJ_J953Pbrch9fTeSfM1-nc0_7b_eLw600zHXyOt58P9sEVEpfrKWLHMiNtb9_YJrzrdk5wCywGcWU8BwQ77AVWGAbKM1q4gQkcpe-wq__a1q9vpiZcPgu-g'
           };
           
@@ -297,28 +311,7 @@ export const TestsContent = () => {
             likes: 750 - (index * 30), // 임의의 좋아요 수
             isPopular: index < 8 || dir === 'adhd-test', // 상위 8개와 ADHD 테스트는 인기 테스트로 표시
             isNew: index < 5 || dir === 'adhd-test', // 상위 5개와 ADHD 테스트는 새로운 테스트로 표시
-            category: {
-              'memory-test': 'ability',
-              'iq-test': 'iq',
-              'mbti': 'personality',
-              'multiple-personality': 'personality',
-              'social-character': 'personality',
-              'marriage-type': 'relationship',
-              'dog-compatibility': 'relationship',
-              'pet-match': 'relationship',
-              'flirting-style': 'relationship',
-              'attachment-style': 'relationship',
-              'healing-moment': 'psychology',
-              'stress-check': 'psychology',
-              'tarot-consultation': 'psychology',
-              'past-life-character': 'fun',
-              'polsok-character': 'fun',
-              'life-genre': 'fun',
-              't-power': 'personality',
-              'personal-color': 'personality',
-              'color-blindness': 'ability',
-              'travel-match': 'personality'
-            }[dir] || 'fun'
+            category: getCategoryForTest(dir)
           };
         });
         
@@ -374,32 +367,34 @@ export const TestsContent = () => {
         
         // 오류 발생 시 디렉토리 기반 테스트 데이터 생성
         const testDirectories = [
+          'iq-test',
+          'color-blindness',
+          'pet-match',
           'memory-test',
+          'life-genre',
+          'travel-match',
+          'personal-color',
+          'polsok-character',
+          'attachment-style',
+          't-power',
+          'boomer-test',
           'past-life-character',
           'marriage-type',
-          'iq-test',
           'mbti',
           'stress-check',
-          'life-genre',
-          'dog-compatibility',
           'tarot-consultation',
           'social-character',
           'multiple-personality',
           'healing-moment',
           'flirting-style',
-          'pet-match',
-          'polsok-character',
-          'attachment-style',
-          't-power',
-          'personal-color',
-          'color-blindness',
-          'travel-match',
+          'dog-compatibility',
           'adhd-test'
         ];
 
         // 테스트 제목 보정
         const mapTitleOverrides = (id) => {
           const titleMap = {
+            'boomer-test': '나의 꼰대력은?!',
             'memory-test': '기억력 지수 테스트',
             'past-life-character': '나의 전생 케릭터는?',
             'marriage-type': '나의 결혼 이상형은?',
@@ -445,28 +440,7 @@ export const TestsContent = () => {
             likes: 750 - (index * 30), // 임의의 좋아요 수
             isPopular: index < 8 || dir === 'adhd-test', // 상위 8개와 ADHD 테스트는 인기 테스트로 표시
             isNew: index < 5 || dir === 'adhd-test', // 상위 5개와 ADHD 테스트는 새로운 테스트로 표시
-            category: {
-              'memory-test': 'ability',
-              'iq-test': 'iq',
-              'mbti': 'personality',
-              'multiple-personality': 'personality',
-              'social-character': 'personality',
-              'marriage-type': 'relationship',
-              'dog-compatibility': 'relationship',
-              'pet-match': 'relationship',
-              'flirting-style': 'relationship',
-              'attachment-style': 'relationship',
-              'healing-moment': 'psychology',
-              'stress-check': 'psychology',
-              'tarot-consultation': 'psychology',
-              'past-life-character': 'fun',
-              'polsok-character': 'fun',
-              'life-genre': 'fun',
-              't-power': 'personality',
-              'personal-color': 'personality',
-              'color-blindness': 'ability',
-              'travel-match': 'personality'
-            }[dir] || 'fun'
+            category: getCategoryForTest(dir)
           };
         });
 

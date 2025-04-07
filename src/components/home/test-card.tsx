@@ -54,6 +54,7 @@ export function TestCard({
     
     // 다른 테스트들의 경로 패턴
     const testPathMap: Record<string, string> = {
+      'boomer-test': '/tests/boomer-test',
       'stress-check': '/tests/stress-check',
       'mbti': '/tests/mbti',
       'flirting-style': '/tests/flirting-style',

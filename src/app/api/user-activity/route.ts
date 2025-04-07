@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createServerOnlyClient } from '@/lib/supabase-server';
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  
-  if (!session?.user) {
-    return NextResponse.json(
-      { error: "인증이 필요합니다" },
-      { status: 401 }
-    );
-  }
-  
-  const supabase = createServerComponentClient({ cookies });
-  
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: "인증이 필요합니다" },
+        { status: 401 }
+      );
+    }
+    
+    const supabase = createServerOnlyClient();
+    
     // 최근 테스트 활동 가져오기
     const { data: activities, error } = await supabase
       .from('user_test_activities')
@@ -28,7 +27,7 @@ export async function GET(req: NextRequest) {
     if (error) {
       console.error('테스트 활동 조회 오류:', error);
       return NextResponse.json(
-        { error: '데이터를 불러오는 중 오류가 발생했습니다' },
+        { error: '데이터를 불러오는 중 오류가 발생했습니다: ' + error.message },
         { status: 500 }
       );
     }
@@ -43,7 +42,7 @@ export async function GET(req: NextRequest) {
     if (countError) {
       console.error('테스트 카운트 오류:', countError);
       return NextResponse.json(
-        { error: '통계를 계산하는 중 오류가 발생했습니다' },
+        { error: '통계를 계산하는 중 오류가 발생했습니다: ' + countError.message },
         { status: 500 }
       );
     }
@@ -67,43 +66,60 @@ export async function GET(req: NextRequest) {
     // 가장 많이 한 테스트 정보 가져오기
     let favoriteTest = null;
     if (favoriteTestId) {
-      const { data: testData } = await supabase
+      const { data: testData, error: testError } = await supabase
         .from('test_card_stats')
         .select('title, category')
         .eq('id', favoriteTestId)
         .single();
       
-      favoriteTest = testData;
+      if (testError) {
+        console.error('테스트 정보 조회 오류:', testError);
+        // 이 오류는 중요하지 않으므로 계속 진행
+      } else {
+        favoriteTest = testData;
+      }
     }
     
-    return NextResponse.json({
-      activities,
-      statistics: {
-        totalTests,
-        favoriteTest,
-        testCount: Object.keys(testCounts).length
+    // 캐시 방지 헤더 추가
+    return NextResponse.json(
+      {
+        activities,
+        statistics: {
+          totalTests,
+          favoriteTest,
+          testCount: Object.keys(testCounts).length
+        }
+      },
+      { 
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, max-age=0, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
       }
-    });
+    );
   } catch (error) {
     console.error('API 오류:', error);
+    const errorMessage = error instanceof Error ? error.message : '서버 오류가 발생했습니다';
     return NextResponse.json(
-      { error: '서버 오류가 발생했습니다' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  
-  if (!session?.user) {
-    return NextResponse.json(
-      { error: "인증이 필요합니다" },
-      { status: 401 }
-    );
-  }
-  
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: "인증이 필요합니다" },
+        { status: 401 }
+      );
+    }
+    
     const body = await req.json();
     const { testId, testTitle, resultSummary, imageUrl } = body;
     
@@ -114,7 +130,7 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createServerOnlyClient();
     
     const { error } = await supabase
       .from('user_test_activities')
@@ -129,16 +145,25 @@ export async function POST(req: NextRequest) {
     if (error) {
       console.error('테스트 활동 저장 오류:', error);
       return NextResponse.json(
-        { error: '활동을 저장하는 중 오류가 발생했습니다' },
+        { error: '활동을 저장하는 중 오류가 발생했습니다: ' + error.message },
         { status: 500 }
       );
     }
     
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      { success: true },
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, max-age=0, must-revalidate'
+        }
+      }
+    );
   } catch (error) {
     console.error('API 오류:', error);
+    const errorMessage = error instanceof Error ? error.message : '서버 오류가 발생했습니다';
     return NextResponse.json(
-      { error: '서버 오류가 발생했습니다' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

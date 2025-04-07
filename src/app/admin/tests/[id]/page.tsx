@@ -24,32 +24,40 @@ const TEST_DURATIONS = [
   "1분 미만", "1-3분", "3-5분", "5-10분", "10분 이상"
 ];
 
-interface FormData {
+interface TestCardFormData {
   id: string;
   title: string;
   description: string;
   category: string;
   duration: string;
-  thumbnail_url: string;
-  is_active: boolean;
+  imageUrl: string;
+  isPopular: boolean;
+  isNew: boolean;
+  isActive: boolean;
   participation_count: number;
   like_count: number;
+  popular_order: number;
+  new_order: number;
 }
 
 export default function EditTestCardPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<TestCardFormData>({
     id: params.id,
     title: "",
     description: "",
     category: "",
     duration: "",
-    thumbnail_url: "",
-    is_active: true,
+    imageUrl: "",
+    isPopular: false,
+    isNew: false,
+    isActive: true,
     participation_count: 0,
-    like_count: 0
+    like_count: 0,
+    popular_order: 0,
+    new_order: 0
   });
 
   // 데이터 가져오기
@@ -76,10 +84,14 @@ export default function EditTestCardPage({ params }: { params: { id: string } })
             description: data.description || "",
             category: data.category || "",
             duration: data.duration || "",
-            thumbnail_url: data.thumbnail_url || "",
-            is_active: data.is_active || false,
+            imageUrl: data.image_url || "",
+            isPopular: data.is_popular || false,
+            isNew: data.is_new || false,
+            isActive: data.is_active || false,
             participation_count: data.participation_count || 0,
-            like_count: data.like_count || 0
+            like_count: data.like_count || 0,
+            popular_order: data.popular_order || 0,
+            new_order: data.new_order || 0
           });
         }
       } catch (error) {
@@ -117,10 +129,14 @@ export default function EditTestCardPage({ params }: { params: { id: string } })
         .update({
           title: formData.title,
           description: formData.description || null,
-          thumbnail_url: formData.thumbnail_url || null,
-          is_active: formData.is_active,
+          image_url: formData.imageUrl || null,
+          is_popular: formData.isPopular,
+          is_new: formData.isNew,
+          is_active: formData.isActive,
           category: formData.category,
           duration: formData.duration,
+          popular_order: formData.popular_order,
+          new_order: formData.new_order,
           updated_at: new Date().toISOString(),
         })
         .eq('id', params.id);
@@ -266,23 +282,41 @@ export default function EditTestCardPage({ params }: { params: { id: string } })
               </div>
               
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="thumbnail_url">썸네일 URL</Label>
+                <Label htmlFor="imageUrl">썸네일 URL</Label>
                 <Input
-                  id="thumbnail_url"
-                  name="thumbnail_url"
+                  id="imageUrl"
+                  name="imageUrl"
                   placeholder="https://example.com/image.jpg"
-                  value={formData.thumbnail_url}
+                  value={formData.imageUrl}
                   onChange={handleChange}
                 />
               </div>
               
               <div className="flex items-center space-x-2">
                 <Switch
-                  checked={formData.is_active}
-                  onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, is_active: checked }))}
-                  id="is_active"
+                  checked={formData.isPopular}
+                  onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, isPopular: checked }))}
+                  id="isPopular"
                 />
-                <Label htmlFor="is_active">활성 상태</Label>
+                <Label htmlFor="isPopular">인기 테스트</Label>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={formData.isNew}
+                  onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, isNew: checked }))}
+                  id="isNew"
+                />
+                <Label htmlFor="isNew">새 테스트</Label>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={formData.isActive}
+                  onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, isActive: checked }))}
+                  id="isActive"
+                />
+                <Label htmlFor="isActive">활성 상태</Label>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
@@ -294,6 +328,55 @@ export default function EditTestCardPage({ params }: { params: { id: string } })
                   <p className="text-sm text-gray-500">좋아요 수</p>
                   <p className="text-xl font-bold">{formData.like_count.toLocaleString()}</p>
                 </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 mt-4 border-t">
+              <div className="md:col-span-2">
+                <h3 className="text-lg font-medium mb-2">테스트 노출 순서 관리</h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  숫자가 작을수록 먼저 표시됩니다. 0은 기본값이며, 같은 값일 경우 생성일 순으로 정렬됩니다.
+                </p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="popular_order">인기 테스트 순서</Label>
+                <Input
+                  id="popular_order"
+                  name="popular_order"
+                  type="number"
+                  min="0"
+                  value={formData.popular_order}
+                  onChange={(e) => 
+                    setFormData((prev) => ({ 
+                      ...prev, 
+                      popular_order: parseInt(e.target.value) || 0 
+                    }))
+                  }
+                />
+                <p className="text-xs text-gray-500">
+                  인기 테스트 목록에서의 표시 순서 (숫자가 작을수록 먼저 표시)
+                </p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="new_order">새 테스트 순서</Label>
+                <Input
+                  id="new_order"
+                  name="new_order"
+                  type="number"
+                  min="0"
+                  value={formData.new_order}
+                  onChange={(e) => 
+                    setFormData((prev) => ({ 
+                      ...prev, 
+                      new_order: parseInt(e.target.value) || 0 
+                    }))
+                  }
+                />
+                <p className="text-xs text-gray-500">
+                  새 테스트 목록에서의 표시 순서 (숫자가 작을수록 먼저 표시)
+                </p>
               </div>
             </div>
             

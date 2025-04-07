@@ -1,9 +1,8 @@
 "use server";
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { createServerOnlyClient } from "@/lib/supabase-server";
 
 export interface UserActivity {
   id: string;
@@ -23,7 +22,7 @@ export async function recordUserTestActivity(
   resultSummary: string,
   imageUrl: string
 ) {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerOnlyClient();
   const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {
@@ -57,7 +56,7 @@ export async function recordUserTestActivity(
  * 사용자의 테스트 활동 기록을 가져오는 함수
  */
 export async function getUserTestActivities() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerOnlyClient();
   const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {
@@ -87,7 +86,7 @@ export async function getUserTestActivities() {
  * 사용자의 테스트 통계를 가져오는 함수
  */
 export async function getUserTestStatistics() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerOnlyClient();
   const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {

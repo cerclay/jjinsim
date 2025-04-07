@@ -20,14 +20,13 @@ export default function Error({
     <div className="flex flex-col items-center justify-center min-h-[50vh] p-6">
       <div className="max-w-lg mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-800">
         <h2 className="text-lg font-semibold mb-2">오류가 발생했습니다</h2>
-        <p className="text-sm opacity-90 mb-4">
-          페이지를 표시하는 중에 문제가 발생했습니다.
-          {process.env.NODE_ENV === "development" && (
-            <div className="mt-2 p-2 bg-white border border-red-200 rounded text-xs font-mono overflow-auto">
-              {error.message}
-            </div>
-          )}
-        </p>
+        <div className="text-sm opacity-90 mb-4">
+          <div
+            className="mt-2 p-2 bg-white border border-red-200 rounded text-xs font-mono overflow-auto"
+          >
+            {error?.message || "알 수 없는 오류가 발생했습니다."}
+          </div>
+        </div>
       </div>
       
       <div className="flex gap-3">

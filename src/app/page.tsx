@@ -15,14 +15,6 @@ import { TestCard } from '@/components/home/test-card';
 // 인기 테스트 데이터
 const popularTests = [
   {
-    id: 'travel-match',
-    title: '나랑 잘 맞는 여행지는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
-    participants: 25432,
-    isPopular: true,
-    isNew: true,
-  },
-  {
     id: 'iq-test',
     title: '나의 진짜 IQ는? 유머버전!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
@@ -31,18 +23,41 @@ const popularTests = [
     isNew: true,
   },
   {
-    id: 'polsok-character',
-    title: '내가 폭싹 속았수다 케릭터라면?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
-    participants: 1043,
+    id: 'color-blindness',
+    title: '색맹테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
+    participants: 97842,
+    isPopular: true,
+  },
+  {
+    id: 'pet-match',
+    title: '나랑 찰떡인 반려동물은?',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    participants: 78456,
     isPopular: true,
     isNew: true,
   },
   {
-    id: 'past-life-character',
-    title: '나의 전생 케릭터는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
-    participants: 154321,
+    id: 'memory-test',
+    title: '기억력 지수 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgIHM2zFl3lLs-BmIXmAVVjDhSuC6nEFWe3sLwWcaqJ_cncNc6mcU-C9Cfx1a6i0QynhivQrId5Gp4Q-bMiO_mVZ6ZURPsjYqk0wItse9EjvH5UPCe0ATr9NsQinLSCRqo5FqpqHEEwdoxj_4pRU9IZjm18JjgkVqwIr4z9Xtk5jQLTemvXukF-xgKYAJw',
+    participants: 87500,
+    isPopular: true,
+    isNew: true,
+  },
+  {
+    id: 'life-genre',
+    title: '내 인생 장르는 뭘까?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
+    participants: 65436,
+    isPopular: true,
+    isNew: true,
+  },
+  {
+    id: 'travel-match',
+    title: '나랑 잘 맞는 여행지는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
+    participants: 25432,
     isPopular: true,
     isNew: true,
   },
@@ -55,10 +70,18 @@ const popularTests = [
     isNew: true,
   },
   {
-    id: 'marriage-type',
-    title: '나의 결혼 이상형은?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
-    participants: 145632,
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 케릭터라면?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
+    participants: 71043,
+    isPopular: true,
+    isNew: true,
+  },
+  {
+    id: 'attachment-style',
+    title: '나의 애착 유형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhSeBAqi0jvBtxRfKdRluimJJDwueigV1ENX5edBTxkWYhxLqjQuAzFj9vzsZxWUkuRI8ydD7EW_wwmudAYU3blDm87VmF0_5-QU7bwagpMxyz9uzJv1n4OcUM2Fv74AaxFWEViUpPGm09eyckvZhBYVxeJvSe_nmbiy-6ILyyTWyXvLPhJ_0D0vn8_MfQ',
+    participants: 98452,
     isPopular: true,
   },
   {
@@ -66,6 +89,21 @@ const popularTests = [
     title: '나의 T발력 수치는?',
     imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
     participants: 132589,
+    isPopular: true,
+  },
+  {
+    id: 'past-life-character',
+    title: '나의 전생 케릭터는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+    participants: 154321,
+    isPopular: true,
+    isNew: true,
+  },
+  {
+    id: 'marriage-type',
+    title: '나의 결혼 이상형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
+    participants: 145632,
     isPopular: true,
   },
   {
@@ -83,13 +121,6 @@ const popularTests = [
     isPopular: true,
   },
   {
-    id: 'color-blindness',
-    title: '색맹테스트',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
-    participants: 97842,
-    isPopular: true,
-  },
-  {
     id: 'mbti',
     title: 'MBTI 빠르고 정확하게!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgTe9x3WFzi7SUAvTqEvnThlLpoEqxtEV9l7IxRByB6KacW6PnSNu8YdDmXloWzuME_v7G8cPpe1ftCjfLU9qoXj_4k87eNgna8u8NEPTVvhDU-aHheaQbQgcqTeEilvFLGor-oQ8FWro_3pbb96PIvQJE6Orc7HsrxFr0h3eg824EhoPLibzDsDkyfPOE',
@@ -97,13 +128,6 @@ const popularTests = [
     likes: 1247,
     isNew: false,
     isPopular: true
-  },
-  {
-    id: 'attachment-style',
-    title: '애착 유형 테스트',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhSeBAqi0jvBtxRfKdRluimJJDwueigV1ENX5edBTxkWYhxLqjQuAzFj9vzsZxWUkuRI8ydD7EW_wwmudAYU3blDm87VmF0_5-QU7bwagpMxyz9uzJv1n4OcUM2Fv74AaxFWEViUpPGm09eyckvZhBYVxeJvSe_nmbiy-6ILyyTWyXvLPhJ_0D0vn8_MfQ',
-    participants: 98452,
-    isPopular: true,
   },
   {
     id: 'color-personality',
@@ -137,6 +161,14 @@ const popularTests = [
 
 // 신규 테스트 데이터
 const newTests = [
+  {
+    id: 'boomer-test',
+    title: '나의 꼰대력은?!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfl5eqh5bGdKTYkWyK02Pd4nfeBnOaRGmKtdu-gNVVxmUbNa9RHOd1J4nPPBEhj-agPWoeFWNb02RKdUmz9Fb6miGtzq9tEQO4tKawQLyyr7JGMOS5c_SzUZC6JecRRfYosDV18Fll38q0jCtjq6AObiUI5cReNXaLYU4uFia4k-gAZ8C5vpT6FRtuBq4/s320/ChatGPT%20Image%202025%EB%85%84%204%EC%9B%94%207%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_14_18.png',
+    participants: 7845,
+    isNew: true,
+    description: '12문항으로 확인하는 내 속에 잠재된 꼰대 기질! 재미로만 참고하세요.'
+  },
   {
     id: 'travel-match',
     title: '나랑 잘 맞는 여행지는?',

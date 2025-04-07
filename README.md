@@ -232,3 +232,81 @@ export default function MyPage() {
 
 추가 설정이 필요한 경우 `next-sitemap.config.js` 파일을 수정하세요.
 자세한 내용은 [next-sitemap 공식 문서](https://github.com/iamvishnusankar/next-sitemap)를 참조하세요.
+
+# Supabase 마이그레이션 가이드
+
+## 개요
+
+이 문서는 `user_test_activities`와 관련된 데이터베이스 오류를 해결하기 위한 마이그레이션 가이드입니다. 또한 테스트 카드 순서 관리 기능을 위한 스키마 변경사항을 포함합니다.
+
+## 마이그레이션 파일 구성
+
+총 3개의 마이그레이션 파일로 구성되어 있습니다:
+
+1. `0001_initial_tables.sql` - 필요한 테이블 생성 및 기본 구조 설정
+2. `0002_data_fixes.sql` - 데이터 마이그레이션 및 초기 데이터 설정
+3. `0003_api_functions.sql` - API 함수 및 인증 관련 기능 추가
+
+## 실행 방법
+
+### 1. Supabase 대시보드에서 실행
+
+1. Supabase 프로젝트 대시보드 접속
+2. 좌측 메뉴에서 "SQL Editor" 선택
+3. "New Query" 버튼 클릭
+4. 마이그레이션 파일 내용을 복사하여 붙여넣기
+5. "Run" 버튼 클릭
+6. 순서대로 `0001_initial_tables.sql`, `0002_data_fixes.sql`, `0003_api_functions.sql` 실행
+
+### 2. Supabase CLI를 통한 실행 (개발 환경)
+
+```bash
+# Supabase CLI가 설치되어 있어야 합니다
+# 로컬 Supabase 인스턴스 시작
+supabase start
+
+# 마이그레이션 파일 적용
+supabase db push
+
+# 또는 개별 파일 적용
+supabase db execute --file ./migrations/0001_initial_tables.sql
+supabase db execute --file ./migrations/0002_data_fixes.sql
+supabase db execute --file ./migrations/0003_api_functions.sql
+```
+
+## 주요 변경사항
+
+### 1. 테이블 생성
+- `user_test_activities` - 사용자 테스트 활동 기록
+- `test_card_stats` - 테스트 카드 통계 및 메타데이터
+
+### 2. 순서 관리 필드
+테스트 카드의 순서 관리를 위한 필드가 추가되었습니다:
+- `popular_order` - 인기 테스트 표시 순서
+- `new_order` - 새 테스트 표시 순서
+
+각 필드는 숫자가 작을수록 먼저 표시되며, 기본값인 0은 가장 낮은 우선순위입니다.
+
+### 3. API 함수
+테스트 관리를 위한 다양한 SQL 함수가 추가되었습니다:
+- `get_popular_tests()` - 인기 테스트 목록 
+- `get_new_tests()` - 새 테스트 목록
+- `get_tests_by_category()` - 카테고리별 테스트
+- `get_user_activities()` - 사용자 활동 내역
+- `get_user_statistics()` - 사용자 통계 정보
+- `register_test_completion()` - 테스트 완료 등록
+
+## 주의사항
+
+1. 실행 전 데이터베이스 백업을 권장합니다
+2. 실제 프로덕션 환경에서는 실행 계획과 영향을 확인한 후 실행하세요
+3. 트러블슈팅이 필요한 경우 마이그레이션 로그를 확인하세요
+
+## 테스트 카드 순서 관리
+
+관리자 페이지에서 테스트 카드 편집 시 다음 필드를 통해 순서를 관리할 수 있습니다:
+
+- **인기 테스트 순서** (popular_order): 숫자가 작을수록 인기 테스트 목록에서 먼저 표시됩니다
+- **새 테스트 순서** (new_order): 숫자가 작을수록 새 테스트 목록에서 먼저 표시됩니다
+
+이를 통해 관리자 페이지에서 쉽게 테스트 카드의 표시 순서를 조정할 수 있습니다.

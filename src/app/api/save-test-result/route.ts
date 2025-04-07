@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createServerOnlyClient } from '@/lib/supabase-server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,7 +16,7 @@ export async function POST(req: NextRequest) {
     }
     
     const session = await getServerSession(authOptions);
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createServerOnlyClient();
     
     // 결과 저장
     const result = {

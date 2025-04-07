@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { Menu, Search, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const menuItems = [
     { href: "/", label: "홈" },
@@ -19,6 +22,12 @@ export default function Header() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push('/');
+    router.refresh();
   };
 
   return (
@@ -45,12 +54,21 @@ export default function Header() {
               <Search size={22} />
             </Link>
             
-            <Link
-              href="/login"
-              className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
-            >
-              로그인
-            </Link>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-gray-600 h-8 px-4 py-2 hover:bg-gray-700 transition-colors"
+              >
+                로그아웃
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-full text-sm font-medium text-white bg-purple-600 h-8 px-4 py-2 hover:bg-purple-700 transition-colors"
+              >
+                로그인
+              </Link>
+            )}
           </div>
         </div>
 
@@ -76,6 +94,15 @@ export default function Header() {
                       {item.label}
                     </Link>
                   ))}
+                  {user && (
+                    <Link
+                      href="/auth/dashboard"
+                      className="py-3 px-2 text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      마이페이지
+                    </Link>
+                  )}
                 </nav>
               </div>
             </motion.div>
