@@ -22,7 +22,11 @@ const nextConfig = {
       'media3.giphy.com',
       'media4.giphy.com',
       'picturesque-ox-876.notion.site',
-      'prod-files-secure.s3.us-west-2.amazonaws.com'
+      'prod-files-secure.s3.us-west-2.amazonaws.com',
+      'lh3.googleusercontent.com',
+      'avatars.githubusercontent.com',
+      'k.kakaocdn.net',
+      'blogger.googleusercontent.com'
     ],
   },
   env: {
@@ -37,6 +41,9 @@ const nextConfig = {
         destination: '/api/auth/:path*',
       },
     ];
+  },
+  experimental: {
+    serverActions: true,
   },
 };
 
