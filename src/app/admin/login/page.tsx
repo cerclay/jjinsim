@@ -1,13 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
-import { setCookie } from "cookies-next";
 import { Spinner } from "@/components/ui/spinner";
 
 export default function AdminLoginPage() {
@@ -24,6 +23,29 @@ export default function AdminLoginPage() {
   const [changePasswordError, setChangePasswordError] = useState("");
   const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
 
+  // 관리자 로그인 상태 체크
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const response = await fetch('/api/admin/auth/check', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isAdmin) {
+            router.push('/admin');
+          }
+        }
+      } catch (error) {
+        console.error('관리자 상태 확인 중 오류:', error);
+      }
+    };
+    
+    checkAdminStatus();
+  }, [router]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -35,9 +57,8 @@ export default function AdminLoginPage() {
     
     try {
       setLoading(true);
-      console.log('로그인 시도:', username);
       
-      // 서버 API를 통한 로그인 검증
+      // 서버 API를 통한 로그인
       const response = await fetch('/api/admin/auth/login', {
         method: 'POST',
         headers: {
@@ -52,7 +73,6 @@ export default function AdminLoginPage() {
         throw new Error(errorData.error || "로그인에 실패했습니다.");
       }
       
-      console.log('로그인 성공, 서버에서 쿠키 설정 완료');
       setSuccess(true);
       
       // 즉시 리다이렉트
