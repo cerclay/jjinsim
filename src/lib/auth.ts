@@ -10,6 +10,11 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
       redirectUri: process.env.KAKAO_REDIRECT_URI || `${process.env.NEXTAUTH_URL}/api/auth/callback/kakao`,
+      authorization: {
+        params: {
+          logout_redirect_uri: `${process.env.NEXTAUTH_URL}/auth/logout`
+        }
+      },
       profile(profile) {
         // 카카오 프로필 로그
         console.log('카카오 프로필 데이터:', JSON.stringify(profile, null, 2));

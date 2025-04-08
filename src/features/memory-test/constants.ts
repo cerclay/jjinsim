@@ -117,16 +117,102 @@ const QUESTION_TYPES = [
 // 12개의 랜덤 문제 생성
 export const generateQuestions = (): Question[] => {
   const questions: Question[] = [];
+  const usedImageIndexes: number[] = []; // 사용된 이미지 인덱스 추적
+  const usedTextTypeIndexes: {[key: number]: number[]} = {}; // 사용된 텍스트 타입 및 내부 인덱스 추적
+  
+  // 문제 유형을 셔플하여 다양하게 선택
+  const shuffledTypes = [...Array(12).keys()].map(i => i % QUESTION_TYPES.length).sort(() => Math.random() - 0.5);
+  
   for (let i = 0; i < 12; i++) {
-    const questionType = QUESTION_TYPES[Math.floor(Math.random() * QUESTION_TYPES.length)];
-    const question = questionType.generate();
-    questions.push({
-      id: i + 1,
-      ...question
-    });
+    const typeIndex = shuffledTypes[i];
+    const questionType = QUESTION_TYPES[typeIndex];
+    
+    // 이미지 타입인 경우 중복 확인
+    if (questionType.type === 'image') {
+      const availableImageIndexes = Array.from(
+        { length: (questionType.generate as any).images?.length || 4 },
+        (_, idx) => idx
+      ).filter(idx => !usedImageIndexes.includes(idx));
+      
+      if (availableImageIndexes.length === 0) {
+        // 모든 이미지가 사용된 경우, 다른 유형의 문제 선택
+        continue;
+      }
+      
+      // 사용되지 않은 랜덤 이미지 선택
+      const randomImageIndex = availableImageIndexes[Math.floor(Math.random() * availableImageIndexes.length)];
+      usedImageIndexes.push(randomImageIndex);
+      
+      // generateWithIndex 함수 사용 (원래 generate 함수를 오버라이드하지 않고)
+      const question = generateImageQuestion(randomImageIndex);
+      
+      questions.push({
+        id: i + 1,
+        ...question
+      });
+    } else {
+      // 텍스트 타입 문제의 경우
+      if (!usedTextTypeIndexes[typeIndex]) {
+        usedTextTypeIndexes[typeIndex] = [];
+      }
+      
+      const question = questionType.generate();
+      
+      // 이미 사용한 텍스트 문제와 비슷한지 확인할 수 있지만 여기서는 단순화
+      questions.push({
+        id: i + 1,
+        ...question
+      });
+    }
+    
+    // 12개의 문제가 모두 채워질 때까지 계속
+    if (questions.length < i + 1) {
+      i--; // 이번 반복에서 문제를 추가하지 못했으면 다시 시도
+    }
   }
+  
   return questions;
 };
+
+// 특정 인덱스의 이미지 문제 생성 함수
+function generateImageQuestion(imageIndex: number): Omit<Question, 'id'> {
+  const images = [
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEiO90DVkHnCwjbZ5RxXm-acaxOGFQDHhXKv_vRJ_d3oXdE9hdbQjqIvRDc45-v7C_eGmg94E6tveJYsSeU2jS1kqPTeGuliRyZL0g8jm2q30Plqp08SjAxwUqbwH5zhj3tDFEZyO8b2XcvceI-ZfvZn-Teu3J3yYkw47oI_A4pslcIOGQ97h1IVOuVAMLU",
+      question: "방금 본 사무실 이미지에서 없었던 물건은?",
+      items: ["양복입은남자", "컴퓨터", "서류", "서류철"],
+      wrong: "커피잔"
+    },
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEgeKYRMsI9L28ivT1LZMG76sraG1f3JrdXqdasQgbX-QqfmKMjWTmZ8Pcjj3i8wOqDSLu7KNGMnME7kELRHZNPA7jRgsBxaQVCna8x1RO_lhRk8_qh_b_BAXEQKBZ9lIZWyuqDLwirfKh8I2eLnLrbocdtv0KyMUW8qnB_85hAKiS3tZC75RaacX0B3-GY",
+      question: "방금 본 방 이미지에서 없었던 물건은?",
+      items: ["책상", "커피잔", "노트북", "침대"],
+      wrong: "책"
+    },
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEhDswL4VIdCWFPBZG1KJHMDQf6CBeCKrjv4RcQYabgtqIMRThIsPh74wIgE2BmsWkbq_b8xODufA9yVobRbMzML6mTvejlAUPxpWcVuIDzx2pYtPQYGEMNuIPHsT4bAbD92BQgdMneTEGdvF4rUqxTCuB29EoyFEZqXfUuBIm6vEkbwnLYxLfd-YyN8EFo",
+      question: "방금 본 주방 이미지에서 없었던 물건은?",
+      items: ["냉장고", "전자레인지", "식기류", "창문"],
+      wrong: "커피머신"
+    },
+    {
+      url: "https://blogger.googleusercontent.com/img/a/AVvXsEhzxL__9zSALUKhrrIWGF7fC4T48mZvqtT2eYnXXB3EtuooS2qVCbEMTQP4Uw-a-6LW0A5bOhNKioLUYhaqqKSJuamzdicErJw7Gtp1K5drzrZEN77vu0081sJxMpTjhLebAH8hWyO2NIc11gf6FvzeV8MD9zP8HuDfgpo9k6mjcnUrHf1WR-PMy8mGjaE",
+      question: "방금 본 공원 이미지에서 없었던 것은?",
+      items: ["벤치", "분수대", "나무", "산책로"],
+      wrong: "다람쥐"
+    }
+  ];
+  
+  const selected = images[imageIndex % images.length];
+  
+  return {
+    type: "image",
+    imageUrl: selected.url,
+    question: selected.question,
+    choices: [...selected.items.slice(0, 3), selected.wrong],
+    answer_index: 3
+  };
+}
 
 export const QUESTIONS = generateQuestions();
 

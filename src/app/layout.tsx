@@ -4,26 +4,21 @@ import Clarity from '@/third-parties/Clarity';
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { GA_MEASUREMENT_ID } from './gtag';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Noto_Sans_KR, Roboto } from 'next/font/google';
+import { Noto_Sans_KR, Roboto, Inter } from 'next/font/google';
 import './globals.css';
 import Providers from './providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { AuthProvider } from '@/components/auth/auth-provider';
-import { Inter, Caveat } from 'next/font/google';
+import { Caveat } from 'next/font/google';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
 const notoSansKr = Noto_Sans_KR({
@@ -37,8 +32,6 @@ const roboto = Roboto({
   weight: ['400', '500', '700'],
   variable: '--font-roboto',
 });
-
-const inter = Inter({ subsets: ['latin'] });
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -101,7 +94,9 @@ export default function RootLayout({
         />
         {/* 카카오톡 공유 SDK */}
         <script 
-          src="https://developers.kakao.com/sdk/js/kakao.js"
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+          integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8"
+          crossOrigin="anonymous"
           async
         ></script>
         <script
@@ -110,8 +105,10 @@ export default function RootLayout({
               window.addEventListener('load', () => {
                 if (window.Kakao) {
                   // 카카오 SDK 초기화
-                  window.Kakao.init('PASTE_YOUR_KAKAO_APP_KEY_HERE');
-                  console.log('Kakao SDK initialized');
+                  if (!window.Kakao.isInitialized()) {
+                    window.Kakao.init('PASTE_YOUR_KAKAO_APP_KEY_HERE');
+                    console.log('Kakao SDK initialized');
+                  }
                 }
               });
             `
@@ -240,11 +237,9 @@ export default function RootLayout({
   </head>
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
-        geistSans.variable,
-        geistMono.variable,
+        inter.className,
         notoSansKr.variable,
         roboto.variable,
-        inter.className,
         caveat.variable
       )}>
         <Toaster position="top-center" />
