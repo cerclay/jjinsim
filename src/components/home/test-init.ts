@@ -34,6 +34,7 @@ const getDefaultImage = (id: string) => {
     'color-blindness': 'https://picsum.photos/seed/color-blindness/400/200',
     'polsok-character': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
     'tarot-consultation': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_7N_eT25_Yi5_tZb_FvGd2JAO7rI2yGjykBbAh8o1QB5fZaTeQAM4xGkYujRq0c_pXz1UonPdzt46gZ32G2dyKAvmPQVohYBZ3UiQxvJaoIAN-evV6eLiguC1LOqbUMhgvzyKRSsRfOuF9rn7oNFb-SLfVhadZYxHjUEmZVkC9UlF862CsP9THrhCD5o/s320/MBTI.jpg',
+    'dementia-test': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx7gG9KZiFpyBn66ujf8mAjnN9qIxIU8wO8le3WavHIofz-9LuYLeMUnd10ZWQc68ZYE32LOKdPIhak4dr83bWwQesN4lW4IF2CC8y3AVvWipNEFm-EYF4f7IfrpmiV3mvPeUaE7-yALTQz4CJ2bmCeN3iZLzPhFLDg6ofqYPm8LGaYyadNvJ1r6Oa4V4/s1280/MBTI.jpg',
   };
   return imageMap[id] || `https://picsum.photos/seed/${id}/400/200`;
 };
@@ -49,6 +50,17 @@ export const popularTests: TestCardData[] = [
     isNew: true,
     isPopular: true,
     description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'dementia-test',
+    title: '3분 치매 간이 테스트',
+    imageUrl: getDefaultImage('dementia-test'),
+    participants: 9843,
+    likes: 1532,
+    isNew: true,
+    isPopular: true,
+    description: '다양한 인지 기능을 평가하는 3분짜리 간이 치매 테스트입니다. 기억력, 지남력, 계산력 등 7가지 인지 영역을 검사합니다.',
     createdAt: new Date().toISOString(),
   },
   {

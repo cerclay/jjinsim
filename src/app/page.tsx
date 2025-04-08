@@ -7,10 +7,12 @@ import { FeaturedColorBlindness } from '@/components/home/featured-color-blindne
 import { FeaturedPersonalColor } from '@/components/home/featured-personal-color';
 import { HeroSection } from '@/components/home/hero-section';
 import Link from 'next/link';
-import { Star, ChevronRight } from 'lucide-react';
+import { Star, ChevronRight, ArrowRight, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { TestCard } from '@/components/home/test-card';
+import { DementiaTestCard, DementiaVideosPreview } from "@/features/dementia-test/components/DementiaTestCard";
+import { Button } from "@/components/ui/button";
 
 // 인기 테스트 데이터
 const popularTests = [
@@ -436,8 +438,8 @@ export default function Home() {
   const [displayNewTests] = React.useState(() => newTests);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pb-10">
-      <div className="max-w-[500px] mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-[500px] mx-auto px-4 py-8 space-y-8">
         <HeroSection />
         
         {/* 인기 테스트 섹션 */}
@@ -488,50 +490,89 @@ export default function Home() {
           </div>
         </section>
         
-        {/* MBTI 유형별 테스트 섹션 */}
+        {/* 치매 테스트 섹션 */}
         <section className="py-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">MBTI 유형별 테스트</h2>
-            <Link href="/tests/mbti" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
+            <h2 className="text-xl font-bold text-gray-900">치매 테스트</h2>
+            <Link href="/dementia-test" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
               더보기 <ChevronRight className="h-4 w-4 ml-1" />
             </Link>
           </div>
           
-          <div className="space-y-4">
-            {Object.entries(mbtiGroups).map(([category, types]) => (
-              <div key={category} className="bg-white rounded-lg p-4 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">{category}</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {types.map((type) => (
-                    <Link
-                      key={type.type}
-                      href={`/tests/mbti/${type.type.toLowerCase()}`}
-                      className="block"
-                    >
-                      <motion.div
-                        className={`p-3 rounded-lg bg-gradient-to-br ${type.lightColor} hover:shadow-md transition-all duration-300`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <div className={`inline-block px-2 py-1 rounded text-white text-xs font-bold mb-1 ${type.color}`}>
-                          {type.type}
-                        </div>
-                        <h4 className="text-sm font-medium text-gray-900">{type.name}</h4>
-                      </motion.div>
-                    </Link>
-                  ))}
+          <div className="space-y-6">
+            <DementiaTestCard />
+            <DementiaVideosPreview />
+          </div>
+        </section>
+
+        {/* 두뇌 훈련 영상 섹션 */}
+        <section className="py-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-gray-900">두뇌 훈련 영상</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6">
+            {/* 첫 번째 영상 */}
+            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="relative w-[280px] mx-auto">
+                <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/0HhL46yuqdA"
+                    title="단기 기억력 테스트"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  ></iframe>
                 </div>
               </div>
-            ))}
+              <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
+                <h3 className="font-semibold text-gray-900 mb-2 text-lg">단기 기억력 테스트</h3>
+                <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
+                  <Youtube className="w-4 h-4 mr-1.5" />
+                  <span className="text-sm font-medium">YouTube</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 두 번째 영상 */}
+            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="relative w-[280px] mx-auto">
+                <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/myWRuZFZGVk"
+                    title="직관력 테스트"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  ></iframe>
+                </div>
+              </div>
+              <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
+                <h3 className="font-semibold text-gray-900 mb-2 text-lg">직관력 테스트</h3>
+                <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
+                  <Youtube className="w-4 h-4 mr-1.5" />
+                  <span className="text-sm font-medium">YouTube</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Link 
+              href="/videos" 
+              className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl hover:from-purple-700 hover:to-blue-700 focus:ring-4 focus:ring-purple-300 transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              모든 영상 보기
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
           </div>
         </section>
 
         {/* 푸터 영역 */}
-        <footer className="mt-10 mb-4 text-center text-gray-500 text-sm">
-          <Link href="/admin/login" className="text-rose-500 hover:underline">
+        <footer className="text-center text-gray-500 text-sm mt-8">
+          <Link href="/admin/login" className="hover:text-gray-700">
             관리자 로그인
           </Link>
-          <p>© 2024 찐심테스트. All rights reserved.</p>
+          <p>© 2024 진심테스트. All rights reserved.</p>
         </footer>
       </div>
     </div>

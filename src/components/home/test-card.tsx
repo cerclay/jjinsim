@@ -59,6 +59,7 @@ export function TestCard({
       'mbti': '/tests/mbti',
       'flirting-style': '/tests/flirting-style',
       'pet-match': '/tests/pet-match',
+      'dementia-test': '/dementia-test',
       // 다른 테스트 경로들 추가...
     };
 
