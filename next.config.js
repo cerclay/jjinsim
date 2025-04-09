@@ -47,7 +47,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'k.kakaocdn.net'
       }
-    ]
+    ],
+    domains: [
+      'blogger.googleusercontent.com',
+      'images.unsplash.com',
+      'picsum.photos',
+      'img.youtube.com'
+    ],
   },
   env: {
     NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
@@ -62,8 +68,9 @@ const nextConfig = {
       },
     ];
   },
+  output: 'standalone',
   experimental: {
-    serverActions: true,
+    instrumentationHook: true
   },
 };
 

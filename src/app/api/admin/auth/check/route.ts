@@ -1,35 +1,39 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    // 쿠키나 로컬 스토리지를 통한 인증 체크 로직
-    const adminUserCookie = req.cookies.get('adminUser');
-    
-    if (!adminUserCookie) {
-      return NextResponse.json({ isAdmin: false }, { status: 200 });
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
     }
-    
-    try {
-      const decodedCookie = decodeURIComponent(adminUserCookie.value);
-      const adminUser = JSON.parse(decodedCookie);
-      
-      if (!adminUser || adminUser.role !== 'admin') {
-        return NextResponse.json({ isAdmin: false }, { status: 200 });
-      }
-      
-      return NextResponse.json({ 
-        isAdmin: true,
-        user: {
-          username: adminUser.username,
-          role: adminUser.role
-        }
-      }, { status: 200 });
-    } catch (parseError) {
-      console.error('[API] 관리자 쿠키 파싱 오류:', parseError);
-      return NextResponse.json({ isAdmin: false }, { status: 200 });
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile || profile.role !== 'admin') {
+      return NextResponse.json(
+        { error: 'Forbidden' },
+        { status: 403 }
+      )
     }
+
+    return NextResponse.json({ isAdmin: true })
   } catch (error) {
-    console.error('[API] 관리자 상태 확인 중 오류:', error);
-    return NextResponse.json({ isAdmin: false }, { status: 200 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
   }
 } 

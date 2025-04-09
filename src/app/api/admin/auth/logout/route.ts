@@ -1,22 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
-    // 응답 생성
-    const response = NextResponse.json({
-      success: true,
-      message: '로그아웃 성공'
-    });
-    
-    // 관리자 쿠키 삭제
-    response.cookies.delete('adminUser');
-    
-    return response;
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    await supabase.auth.signOut()
+
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('로그아웃 처리 중 오류:', error);
     return NextResponse.json(
-      { error: '로그아웃 처리 중 오류가 발생했습니다.' },
+      { error: 'Internal Server Error' },
       { status: 500 }
-    );
+    )
   }
 } 

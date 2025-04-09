@@ -3,112 +3,53 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { Database } from "@/lib/supabase/database.types";
 import { compare } from "bcryptjs";
+import { createClient } from '@/lib/supabase/server'
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
-    const { username, password, isLocalStorageAuth, adminUser } = body;
-    
-    let userData;
-    
-    // 로컬 스토리지 기반 인증 (레거시 지원)
-    if (isLocalStorageAuth && adminUser) {
-      if (adminUser.role === 'admin') {
-        userData = adminUser;
-      } else {
-        return NextResponse.json(
-          { error: "관리자 권한이 없습니다." },
-          { status: 403 }
-        );
-      }
-    }
-    // 일반 로그인 처리
-    else if (username && password) {
-      // 실제 DB 로그인 처리
-      const cookieStore = cookies();
-      const supabase = createServerComponentClient<Database>({ cookies: () => cookieStore });
-      
-      // account 테이블에서 사용자 정보 조회
-      const { data: account, error: accountError } = await supabase
-        .from('account')
-        .select('*')
-        .eq('username', username)
-        .eq('is_active', true)
-        .single();
-      
-      if (accountError || !account) {
-        return NextResponse.json(
-          { error: "아이디 또는 비밀번호가 올바르지 않습니다." },
-          { status: 401 }
-        );
-      }
-      
-      // 비밀번호 검증
-      const isPasswordValid = await compare(password, account.password);
-      
-      if (!isPasswordValid) {
-        return NextResponse.json(
-          { error: "아이디 또는 비밀번호가 올바르지 않습니다." },
-          { status: 401 }
-        );
-      }
-      
-      // 관리자 권한 확인
-      if (account.role !== 'admin') {
-        return NextResponse.json(
-          { error: "관리자 권한이 없습니다." },
-          { status: 403 }
-        );
-      }
-      
-      userData = {
-        id: account.id,
-        username: account.username,
-        role: account.role,
-      };
-    } else {
+    const { email, password } = await request.json()
+
+    if (!email || !password) {
       return NextResponse.json(
-        { error: "로그인 정보가 잘못되었습니다." },
+        { error: 'Missing required fields' },
         { status: 400 }
-      );
+      )
     }
-    
-    if (!userData) {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data: { user }, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (authError) {
       return NextResponse.json(
-        { error: "인증 처리 중 오류가 발생했습니다." },
-        { status: 500 }
-      );
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      )
     }
-    
-    // JSON 문자열로 변환 및 인코딩
-    const jsonString = JSON.stringify(userData);
-    const encodedJsonString = encodeURIComponent(jsonString);
-    
-    // 응답 객체 생성
-    const response = NextResponse.json({ 
-      success: true,
-      message: "로그인 성공",
-    });
-    
-    // 응답에 HTTP-Only 쿠키 추가
-    response.cookies.set({
-      name: 'adminUser',
-      value: encodedJsonString,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24, // 24시간
-      path: '/',
-      sameSite: 'lax',
-    });
-    
-    console.log('서버에서 관리자 쿠키 설정 완료');
-    
-    return response;
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile || profile.role !== 'admin') {
+      await supabase.auth.signOut()
+      return NextResponse.json(
+        { error: 'Forbidden' },
+        { status: 403 }
+      )
+    }
+
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('로그인 처리 중 오류 발생:', error);
     return NextResponse.json(
-      { error: "서버 오류가 발생했습니다." },
+      { error: 'Internal Server Error' },
       { status: 500 }
-    );
+    )
   }
 } 

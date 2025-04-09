@@ -11,7 +11,7 @@ import { Star, ChevronRight, ArrowRight, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { TestCard } from '@/components/home/test-card';
-import { DementiaTestCard, DementiaVideosPreview } from "@/features/dementia-test/components/DementiaTestCard";
+import { DementiaTestCard } from "@/features/dementia-test/components/DementiaTestCard";
 import { Button } from "@/components/ui/button";
 
 // 인기 테스트 데이터
@@ -501,7 +501,6 @@ export default function Home() {
           
           <div className="space-y-6">
             <DementiaTestCard />
-            <DementiaVideosPreview />
           </div>
         </section>
 
