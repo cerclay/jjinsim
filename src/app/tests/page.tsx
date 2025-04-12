@@ -1,11 +1,7 @@
 import React from 'react';
 import { Container } from '@/components/ui/container';
 import { TestsContent } from '@/components/tests/tests-content';
-
-export const metadata = {
-  title: '테스트 모음 | 찐심테스트',
-  description: '다양한 심리 테스트와 MBTI 테스트를 즐겨보세요. 인기 테스트와 새로운 테스트를 한눈에!',
-};
+import { metadata, viewport } from './metadata';
 
 export default function TestsPage() {
   return (

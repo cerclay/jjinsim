@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, LockKeyhole, Mail, User, AlertCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import { hashSync } from 'bcryptjs';
 
 // 수정된 코드: Supabase 서비스 클라이언트 가져오기
 import { createServerOnlyClient } from '@/lib/supabase/server';
@@ -132,10 +131,7 @@ export default function RegisterPage() {
         }
       }
       
-      // 비밀번호 해시화
-      const hashedPassword = hashSync(formData.password, 10);
-      
-      // 서버 측 API 호출로 변경
+      // 서버 측 API 호출로 변경 - 비밀번호 해싱을 서버에서 처리
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
@@ -144,7 +140,7 @@ export default function RegisterPage() {
         body: JSON.stringify({
           username: formData.username,
           email: formData.email,
-          password: hashedPassword,
+          password: formData.password, // 원본 비밀번호 전송 (HTTPS로 암호화됨)
         }),
       });
       

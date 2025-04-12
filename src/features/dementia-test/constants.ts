@@ -203,7 +203,7 @@ export const DEMENTIA_TEST_SECTIONS: DementiaTestSection[] = [
         questionText: '다음 도형을 보고 같은 모양을 찾으세요.',
         imageUrl: '/images/dementia-test/shape-matching.png', // 로컬 이미지 경로로 변경
         options: ['A', 'B', 'C', 'D'],
-        answerIndex: 0,
+        answerIndex: 2,
         score: 1,
         hint: '도형의 모양과 방향을 주의 깊게 비교해보세요.'
       },

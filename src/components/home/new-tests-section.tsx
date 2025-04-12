@@ -38,7 +38,7 @@ const newTests = [
   {
     id: 'dog-compatibility',
     title: '나랑 잘 맞는 강아지는?',
-    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
     participants: 12456,
     isNew: true,
     description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'

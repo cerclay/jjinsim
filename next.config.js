@@ -58,7 +58,6 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
   },
-  serverExternalPackages: ['bcryptjs'],
   // 외부 URL 설정
   async rewrites() {
     return [
@@ -69,22 +68,11 @@ const nextConfig = {
     ];
   },
   output: 'standalone',
-  experimental: {
-    instrumentationHook: true
-  },
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  }
 };
 
-const { withSentryConfig } = require("@sentry/nextjs");
-
-module.exports = withSentryConfig(
-  nextConfig,
-  {
-    org: "jjinsim",
-    project: "javascript-nextjs",
-    silent: true,
-    widenClientFileUpload: true,
-    tunnelRoute: "/monitoring",
-    disableLogger: true,
-    automaticVercelMonitors: true,
-  }
-);
+// Sentry 설정 비활성화
+module.exports = nextConfig;

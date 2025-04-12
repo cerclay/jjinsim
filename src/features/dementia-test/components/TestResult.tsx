@@ -44,7 +44,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
   const [showShareToast, setShowShareToast] = useState(false);
 
   // 치매 예방 관련 유튜브 플레이리스트 URL
-  const dementiaPreventionUrl = "https://www.youtube.com/playlist?list=PLhOyPBxPiTkiT-1xFzQOL9t0cKJQr7ZUC";
+  const dementiaPreventionUrl = "https://www.youtube.com/@todayohquiz/shorts";
   
   // 두뇌 훈련 쇼츠 목록
   const brainTrainingShorts: YoutubeShort[] = [
@@ -300,7 +300,13 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
             <h3 className="text-base font-bold mb-3">인지 영역별 점수</h3>
             
             <div className="space-y-2">
-              {resultData.cognitiveAreas && Object.entries(resultData.cognitiveAreas).map(([areaId, data]) => (
+              {resultData.cognitiveAreas && Object.entries(resultData.cognitiveAreas).map(([areaId, data]) => {
+                // 디버그: 지연회상 영역 데이터 출력
+                if (areaId === 'recall') {
+                  console.log("지연회상 영역 점수 데이터:", data);
+                }
+                
+                return (
                 <div key={areaId} className="bg-gray-50 p-2 rounded-lg">
                   <div className="flex justify-between items-center mb-1">
                     <div className="flex items-center">
@@ -321,7 +327,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
                     ></div>
                   </div>
                 </div>
-              ))}
+              )})}
             </div>
             
             <div className="mt-3 pt-3 border-t border-gray-200">

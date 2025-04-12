@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "next build",
-  "installCommand": "npm install --legacy-peer-deps",
-  "framework": "nextjs"
+  "buildCommand": "npm install --omit=optional --no-audit --no-fund --force && npm run build",
+  "installCommand": "npm install --omit=optional --no-audit --no-fund --force",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
 } 

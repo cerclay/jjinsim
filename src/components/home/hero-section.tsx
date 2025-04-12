@@ -1,197 +1,100 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useI18n } from '@/hooks/useI18n';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function HeroSection() {
   const { t } = useI18n();
-  const [currentIndex, setCurrentIndex] = React.useState(0);
   
-  // 히어로 카드 데이터
-  const heroCards = [
-    {
-      id: 'iq-test',
-      titleKey: 'hero_iq_humor_title',
-      title: '나의 진짜 IQ는? 유머버전!',
-      descriptionKey: 'hero_iq_humor_description',
-      description: '15개의 재미있는 문제로 당신의 IQ를 측정해 보세요. 결과는 진지 반, 유쾌 반!',
-      categoryKey: 'hero_iq_humor_category',
-      category: '인기 테스트',
-      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
-      color: 'from-purple-500/40 via-purple-500/30 to-black/80',
-      badge: '신규'
-    },
-    {
-      id: 'tarot-consultation',
-      titleKey: 'hero_tarot_title',
-      title: '타로 상담가',
-      descriptionKey: 'hero_tarot_description',
-      description: 'AI 타로 상담사가 당신의 운명을 풀어드립니다.',
-      categoryKey: 'hero_tarot_category',
-      category: '인기 테스트',
-      imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3dtfDOlVVV30R395Ai_CnkjxBG7iRWfZla8NZZao6YfhPeArjHout5LLw8NCaZIwZNfxvaDgOJYtyw-AzYhoumEfS1-ByQTJg8YCPZMX9d1GW8Kl13OZBpj-prZKVsGSvbd96INhVQxK42BPEeJKbKiwMsdVvwqBKlZI5es1CB-TBTIArsMqX9Q53l3I/s320/Colorful%20%20Color%20theory%20Vocabulary%20Worksheet%20(YouTube%20%EC%8D%B8%EB%84%A4%EC%9D%BC).jpg',
-      color: 'from-purple-500/40 via-purple-500/30 to-black/80'
-    },
-    {
-      id: 'personal-color',
-      titleKey: 'hero_personal_color_title',
-      title: '퍼스널 컬러 테스트',
-      descriptionKey: 'hero_personal_color_description',
-      description: '당신에게 어울리는 색상을 찾아보세요.',
-      categoryKey: 'hero_personal_color_category',
-      category: '인기 테스트',
-      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
-      color: 'from-pink-500/40 via-pink-500/30 to-black/80'
-    },
-    {
-      id: 'color-blindness',
-      titleKey: 'hero_color_blindness_title',
-      title: '색맹 테스트',
-      descriptionKey: 'hero_color_blindness_description',
-      description: '당신의 색상 인식 능력을 테스트해보세요.',
-      categoryKey: 'hero_color_blindness_category',
-      category: '인기 테스트',
-      imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgeGzcb_BdpyZNglZW24ioN_ptB5ch7PZbw3nQQDDcWbnRcgupVnP2vGS3n6ijlPS4VTkF1PuqhceicDn-63UyyWBBbo6dGyj33az_VDC_4N7m9qersQPY-7H--tzwfE3CWB_wTyeBgys5KR6oz2IB3JFiKx7RQaVFm8q-POW9-Ae-EfrLGpr8WLMdYOho',
-      color: 'from-blue-500/40 via-blue-500/30 to-black/80'
-    }
-  ];
-
-  // 자동 회전 효과
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % heroCards.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [heroCards.length]);
-
   return (
-    <motion.div 
-      className="py-3 max-w-[500px] mx-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* 카드 슬라이더 */}
-      <div className="relative h-[350px] w-full overflow-hidden rounded-xl shadow-xl mb-6">
-        {heroCards.map((card, index) => {
-          const isActive = index === currentIndex;
-          const isPrev = (index === currentIndex - 1) || (currentIndex === 0 && index === heroCards.length - 1);
-          const isNext = (index === currentIndex + 1) || (currentIndex === heroCards.length - 1 && index === 0);
-          
-          return (
+    <section className="relative overflow-hidden">
+      {/* 배경 효과 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-50 to-white -z-10" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 to-transparent -z-10" />
+      
+      {/* 메인 히어로 섹션 */}
+      <div className="container mx-auto px-4 pt-12 pb-24 md:pt-24 md:pb-32 max-w-7xl">
+        <div className="flex justify-center">
+          {/* 콘텐츠 영역 */}
+          <div className="max-w-3xl text-center">
             <motion.div
-              key={card.id}
-              className="absolute inset-0 w-full h-full"
-              initial={false}
-              animate={{
-                x: isActive ? 0 : isPrev ? '-100%' : isNext ? '100%' : (index < currentIndex ? '-100%' : '100%'),
-                opacity: isActive ? 1 : 0.5,
-                scale: isActive ? 1 : 0.9,
-                zIndex: isActive ? 10 : 0
-              }}
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.5 },
-                scale: { duration: 0.5 }
-              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-6"
             >
-              <Link href={`/tests/${card.id}`}>
-                <div className="relative w-full h-full cursor-pointer">
-                  <div className="absolute inset-0">
-                    <Image 
-                      src={card.imageUrl} 
-                      alt={card.title || t[card.titleKey]}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 500px"
-                      priority={index === currentIndex}
-                    />
-                  </div>
-                  
-                  <div className={`absolute inset-0 bg-gradient-to-b ${card.color}`} />
-                  
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-white text-xs font-medium inline-block w-fit"
-                      >
-                        {card.category || t[card.categoryKey]}
-                      </motion.div>
-                      
-                      {card.badge && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.3 }}
-                          className="bg-purple-600 px-3 py-1.5 rounded-full text-white text-xs font-medium inline-flex items-center gap-1"
-                        >
-                          <Sparkles className="w-3 h-3" />
-                          {card.badge}
-                        </motion.div>
-                      )}
-                    </div>
-                    
-                    <h2 className="text-white font-extrabold text-3xl drop-shadow-lg">{card.title || t[card.titleKey]}</h2>
-                    <p className="text-white/90 text-sm mt-2 drop-shadow-md">{card.description || t[card.descriptionKey]}</p>
-                    
-                    <div className="mt-5">
-                      <motion.span 
-                        className="inline-flex items-center gap-2 bg-white/30 text-white px-5 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm border border-white/20 shadow-lg"
-                        whileHover={{ 
-                          scale: 1.10, 
-                          backgroundColor: "rgba(255, 255, 255, 0.7)",
-                          color: "#6029C1",
-                          textShadow: "0 0 10px rgba(255,255,255,0.8)",
-                          boxShadow: "0 0 20px rgba(255,255,255,0.4), 0 8px 20px rgba(0,0,0,0.3)"
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {t.start_test || '테스트 시작하기'}
-                        <ArrowRight className="w-4 h-4" />
-                      </motion.span>
-                    </div>
-                  </div>
+              <div className="inline-flex items-center py-1 px-3 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4">
+                <Sparkles className="w-4 h-4 mr-1.5" />
+                당신의 내면을 비추는 심리테스트
+              </div>
+              
+              <h1 className="flex flex-col gap-2 md:gap-3 lg:gap-4 text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900">
+                <span className="leading-none">나를</span>
+                <span className="leading-none">발견하는</span>
+                <span className="leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-indigo-500 to-pink-500">
+                  새로운 방법
+                </span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mt-6 md:mt-8">
+                찐심과 함께라면 나의 숨겨진 모습, 잠재력, 그리고 진짜 모습을 발견할 수 있어요. 
+                간단한 테스트로 놀라운 인사이트를 얻어보세요!
+              </p>
+              
+              <div className="flex flex-wrap gap-4 pt-4 justify-center">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    href="/tests" 
+                    className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    테스트 시작하기
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    href="/about"
+                    className="inline-flex items-center gap-2 bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-medium px-8 py-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                  >
+                    찐심 소개 보기
+                  </Link>
+                </motion.div>
+              </div>
+              
+              {/* 통계 정보 */}
+              <div className="flex flex-wrap gap-12 pt-12 justify-center">
+                <div className="flex flex-col items-center">
+                  <span className="text-4xl font-bold text-purple-600">100만+</span>
+                  <span className="text-gray-600 text-lg">참여자</span>
                 </div>
-              </Link>
+                <div className="flex flex-col items-center">
+                  <span className="text-4xl font-bold text-indigo-600">30+</span>
+                  <span className="text-gray-600 text-lg">테스트</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-4xl font-bold text-pink-600">95%</span>
+                  <span className="text-gray-600 text-lg">만족도</span>
+                </div>
+              </div>
+              
+              {/* 장식 요소 */}
+              <div className="absolute -z-10 top-1/4 left-0 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl"></div>
+              <div className="absolute -z-10 bottom-1/4 right-0 w-80 h-80 bg-indigo-200/30 rounded-full blur-3xl"></div>
             </motion.div>
-          );
-        })}
-        
-        {/* 페이지네이션 인디케이터 */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-          {heroCards.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-white w-6' : 'bg-white/50'
-              }`}
-              aria-label={`${t.move_to_card || '카드로 이동'} ${index + 1}`}
-            />
-          ))}
+          </div>
         </div>
       </div>
-      
-      {/* 상단 제목 섹션 */}
-      <div className="text-center">
-        <motion.h1 
-          className="text-3xl md:text-4xl font-extrabold text-gray-900"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          재미있는 테스트를
-        </motion.h1>
-      </div>
-    </motion.div>
+    </section>
   );
 } 

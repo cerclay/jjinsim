@@ -2,7 +2,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { Database } from "@/lib/supabase/database.types";
-import { compare } from "bcryptjs";
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,10 +34,18 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // 비밀번호 검증 (서버에서 해시 비교)
-    const isPasswordValid = await compare(password, account.password);
+    // 직접 bcryptjs 비교 대신 Supabase 인증 시스템 활용
+    // 임시 이메일 형식 생성 (실제 이메일이 필요한 경우 계정 테이블에 추가 필요)
+    const tempEmail = `${username}@admin.internal`;
     
-    if (!isPasswordValid) {
+    // Supabase 내장 로그인 메서드 사용
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: tempEmail,
+      password: password,
+    });
+    
+    // 로그인 성공 여부 확인
+    if (error || !data.user) {
       return NextResponse.json(
         { error: "아이디 또는 비밀번호가 올바르지 않습니다." },
         { status: 401 }

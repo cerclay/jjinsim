@@ -34,7 +34,7 @@ const popularTests = [
   {
     id: 'pet-match',
     title: '나랑 찰떡인 반려동물은?',
-    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEg0j8Ns1GMihqct6xNAHgzooZ7aWqWnTPGUL0ZyHCeN8Hl3zRO2eLM3XrD0HZFeRnVG4HF1t7hB6zdqS_3Q_FGJw3zfXgfuIdZnlt1CSwicip9l-OfypNyR-l0_-GvFhCIFpi6vCqm4cBFrpUqhsUaOIbTI9RGCNG756ig-Dg2IqGfN2Tz6bxfUtfWjn9s',
     participants: 78456,
     isPopular: true,
     isNew: true,
@@ -207,7 +207,7 @@ const newTests = [
   {
     id: 'dog-compatibility',
     title: '나랑 잘 맞는 강아지는?',
-    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1000&auto=format&fit=crop',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhsht18O01e59gK9-0VT-R8DrBYYeIhmX8WAHsAZT1WlceTLF6nqWo6bzGMx3vtC9QZP0hOQ2jXmeSIM7FIZ44Fm1xxZXZFLV2S1UjWcm_ltxFH7SVqBDqv6w7Zck_5-xCg8jGU0GcyEhgJ9WWryfvypKQnnIj659iOtRIUvcYSRkWTEvWGHlX77FVjmLc',
     participants: 12456,
     isNew: true,
     description: '당신의 성격과 생활 패턴에 맞는 최고의 반려견을 찾아보세요!'
@@ -557,8 +557,10 @@ export default function Home() {
 
           <div className="mt-6">
             <Link 
-              href="/videos" 
+              href="https://www.youtube.com/@todayohquiz/shorts" 
               className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl hover:from-purple-700 hover:to-blue-700 focus:ring-4 focus:ring-purple-300 transition-all duration-300 shadow-md hover:shadow-lg"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               모든 영상 보기
               <ArrowRight className="w-4 h-4 ml-2" />

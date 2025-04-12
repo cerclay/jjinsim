@@ -3,18 +3,19 @@ import { ChannelIO } from '@/third-parties/Channelio';
 import Clarity from '@/third-parties/Clarity';
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { GA_MEASUREMENT_ID } from './gtag';
-import type { Metadata } from 'next';
 import { Noto_Sans_KR, Roboto, Inter } from 'next/font/google';
+import { Caveat } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Providers from './providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { AuthProvider } from '@/components/auth/auth-provider';
-import { Caveat } from 'next/font/google';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import { metadata, viewport } from './metadata';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,34 +40,27 @@ const caveat = Caveat({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
-  description: '다양한 카테고리의 심리 테스트로 자신의 성격, 연애 스타일, 심리 상태를 탐색해보세요.',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  themeColor: '#ffffff',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: '찐심(JJinSim)',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon.png', type: 'image/png' }
-    ],
-    apple: [
-      { url: '/favicon.png' }
-    ],
-    shortcut: [
-      { url: '/favicon.ico' }
-    ],
-  },
-};
+const gmarketSans = localFont({
+  src: [
+    {
+      path: '../fonts/GmarketSansOTF/GmarketSansLight.otf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/GmarketSansOTF/GmarketSansMedium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/GmarketSansOTF/GmarketSansBold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-gmarket-sans',
+  display: 'swap',
+});
 
 export default function RootLayout({
   children,
@@ -238,7 +232,7 @@ export default function RootLayout({
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
         inter.className,
-        notoSansKr.variable,
+        gmarketSans.variable,
         roboto.variable,
         caveat.variable
       )}>

@@ -2,7 +2,6 @@ import { NextAuthOptions } from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createServerOnlyClient } from "./supabase/server";
-import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -64,10 +63,16 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
           
-          // 비밀번호 검증
-          const isPasswordValid = await compare(credentials.password, data.password);
+          // Supabase Auth API를 사용하여 비밀번호 검증
+          // 임시 이메일 형식 생성
+          const tempEmail = `${credentials.id}@internal.auth`;
           
-          if (!isPasswordValid) {
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: tempEmail,
+            password: credentials.password,
+          });
+          
+          if (signInError) {
             console.error("비밀번호가 일치하지 않음");
             return null;
           }

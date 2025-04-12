@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerOnlyClient } from '@/lib/supabase/server';
-import { hash, compare } from 'bcryptjs';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,23 +33,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 현재 비밀번호 확인
-    const isPasswordValid = await compare(currentPassword, user.password);
-    if (!isPasswordValid) {
+    // Supabase Auth를 사용하여 인증 (관리자용 임시 이메일 생성)
+    const tempEmail = `${username}@admin.internal`;
+    
+    // 현재 비밀번호로 로그인 시도
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: tempEmail,
+      password: currentPassword,
+    });
+
+    if (signInError) {
       return NextResponse.json(
         { error: '현재 비밀번호가 일치하지 않습니다.' },
         { status: 401 }
       );
     }
 
-    // 새 비밀번호 해싱
-    const hashedPassword = await hash(newPassword, 10);
-
-    // 비밀번호 업데이트
-    const { error: updateError } = await supabase
-      .from('account')
-      .update({ password: hashedPassword })
-      .eq('id', user.id);
+    // 비밀번호 업데이트 - Supabase Auth API 사용
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
 
     if (updateError) {
       console.error('비밀번호 업데이트 오류:', updateError);

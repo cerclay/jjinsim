@@ -2,8 +2,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { Database } from "@/lib/supabase/database.types";
-import { compare } from "bcryptjs";
 import { createClient } from '@/lib/supabase/server'
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {

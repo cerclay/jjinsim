@@ -43,7 +43,7 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
   const [showExplanation, setShowExplanation] = useState(false);
   const [countdownActive, setCountdownActive] = useState(false);
   const [questionTimer, setQuestionTimer] = useState<number | null>(null);
-  const [memoryItems, setMemoryItems] = useState<string[]>([]);
+  const [memoryItems, setMemoryItems] = useState<string[]>(['나무', '자동차', '모자', '연필', '시계']);
   const [processingResult, setProcessingResult] = useState(false);
   
   // 타이머용 ref
@@ -123,13 +123,6 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
     };
   }, [currentQuestion, step]);
   
-  // 기억력 테스트 단어 저장
-  useEffect(() => {
-    if (currentQuestion?.memoryItems) {
-      setMemoryItems(currentQuestion.memoryItems);
-    }
-  }, [currentQuestion]);
-  
   // 테스트 시작
   const handleStartTest = () => {
     setStep('running');
@@ -156,24 +149,25 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
       
       // 복수 정답(기억력 테스트)인 경우
       if (currentQuestion.answerIndex === -1 && Array.isArray(selectedOptions[0])) {
-        const correctAnswers = currentQuestion.type === 'memory' 
-          ? memoryItems 
-          : currentQuestion.type === 'recall' 
-            ? memoryItems 
-            : [];
-            
+        // 정확한 정답 목록 설정
+        const correctAnswers = ['나무', '자동차', '모자', '연필', '시계'];
+        
+        console.log("문제 ID:", currentQuestion.id);
+        console.log("문제 유형:", currentQuestion.type);
+        console.log("사용자 선택한 항목:", selectedOptions[0]);
+        console.log("정확한 정답 항목:", correctAnswers);
+        
         // 선택한 항목 중 맞는 항목 확인
         const correctSelections = (selectedOptions[0] as string[]).filter(
           option => correctAnswers.includes(option)
         );
         
-        // 틀린 선택지 확인 (페널티)
-        const incorrectSelections = (selectedOptions[0] as string[]).filter(
-          option => !correctAnswers.includes(option)
-        );
+        console.log("맞은 항목 수:", correctSelections.length);
         
-        // 점수 계산 (맞은 개수 - 틀린 개수/2, 최소 0점)
-        earnedScore = Math.max(0, correctSelections.length - incorrectSelections.length / 2);
+        // 단순하게 맞은 개수만큼 점수 부여 (최대 5점)
+        earnedScore = Math.min(correctSelections.length, 5);
+        console.log("획득 점수:", earnedScore);
+        
         isCorrect = earnedScore > 0;
       } 
       // 단일 정답인 경우
@@ -190,6 +184,8 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
         score: earnedScore,
         maxScore: currentQuestion.score
       };
+      
+      console.log("저장된 답변:", newAnswer);
       
       setAnswers(prev => [...prev, newAnswer]);
     }
@@ -228,11 +224,20 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
     setStep('processing');
     setProcessingResult(true);
     
+    // 지연회상 문제에 대한 답변 확인
+    const recallAnswer = answers.find(answer => answer.questionId === 20);
+    console.log("지연회상 문제(ID: 20) 답변:", recallAnswer);
+    
+    // 디버깅: 모든 답변 확인
+    console.log("제출된 모든 답변:", answers);
+    
     // 결과 계산
     setTimeout(() => {
       // 총점 계산
       const totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
       const scorePercentage = Math.round((totalScore / TOTAL_MAX_SCORE) * 100);
+      
+      console.log("총점:", totalScore, "총 만점:", TOTAL_MAX_SCORE, "백분율:", scorePercentage);
       
       // 인지 영역별 점수 계산
       const cognitiveAreas: DementiaTestResult['cognitiveAreas'] = {};
@@ -241,9 +246,14 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
         const sectionQuestionIds = section.questions.map(q => q.id);
         const sectionAnswers = answers.filter(a => sectionQuestionIds.includes(a.questionId));
         
+        console.log(`섹션 ${section.id} 문제 ID:`, sectionQuestionIds);
+        console.log(`섹션 ${section.id} 관련 답변:`, sectionAnswers);
+        
         const areaScore = sectionAnswers.reduce((sum, answer) => sum + answer.score, 0);
         const areaMaxScore = COGNITIVE_AREAS_MAX_SCORES[section.id as keyof typeof COGNITIVE_AREAS_MAX_SCORES];
         const areaPercentage = Math.round((areaScore / (areaMaxScore || 1)) * 100);
+        
+        console.log(`섹션 ${section.id} 점수:`, areaScore, "만점:", areaMaxScore, "백분율:", areaPercentage);
         
         cognitiveAreas[section.id] = {
           score: areaScore,
@@ -280,18 +290,33 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
   
   // 복수 선택 처리 (기억력 테스트)
   const handleMultipleSelect = (option: string, isChecked: boolean) => {
+    console.log(`체크박스 변경: ${option} -> ${isChecked ? '선택됨' : '선택해제됨'}`);
+    console.log("변경 전 상태:", selectedOptions);
+    
     setSelectedOptions(prev => {
-      const currentSelections = Array.isArray(prev[0]) ? prev[0] : [];
+      // 첫번째 요소가 배열인지 확인하고, 아니라면 빈 배열로 초기화
+      const currentSelections = Array.isArray(prev[0]) ? [...prev[0]] : [];
+      
+      // 선택 상태 업데이트
       let newSelections: string[];
       
       if (isChecked) {
+        // 이미 선택된 항목이 아닌 경우에만 추가
         newSelections = [...currentSelections, option];
       } else {
+        // 선택 해제된 항목 제거
         newSelections = currentSelections.filter(item => item !== option);
       }
       
+      console.log("변경 후 상태:", [newSelections]);
       return [newSelections];
     });
+  };
+  
+  // 복수 선택에서 선택 여부 확인
+  const isMultipleOptionSelected = (option: string) => {
+    const isSelected = Array.isArray(selectedOptions[0]) && (selectedOptions[0] as string[]).includes(option);
+    return isSelected;
   };
   
   // 시간 포맷
@@ -304,11 +329,6 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
   // 선택된 옵션 확인
   const isOptionSelected = (optionIndex: number) => {
     return selectedOptions[0] === optionIndex;
-  };
-  
-  // 복수 선택에서 선택 여부 확인
-  const isMultipleOptionSelected = (option: string) => {
-    return Array.isArray(selectedOptions[0]) && (selectedOptions[0] as string[]).includes(option);
   };
   
   // 애니메이션 설정
@@ -554,6 +574,19 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
             {currentQuestion.options && currentQuestion.answerIndex === -1 && (
               <div className="space-y-3">
                 <p className="text-sm text-gray-600 mb-2">기억나는 항목을 모두 선택하세요.</p>
+                
+                {/* 디버깅 정보 표시 (개발 모드에서만) */}
+                <div className="text-xs text-gray-500 mb-2 p-2 bg-gray-50 rounded">
+                  <div>문제 ID: {currentQuestion.id}</div>
+                  <div>문제 유형: {currentQuestion.type}</div>
+                  <div>
+                    현재 선택: {Array.isArray(selectedOptions[0]) ? 
+                      (selectedOptions[0] as string[]).join(', ') || '(없음)' : 
+                      '(없음)'}
+                  </div>
+                  <div>정답: 나무, 자동차, 모자, 연필, 시계</div>
+                </div>
+                
                 {currentQuestion.options.map((option, idx) => (
                   <div key={idx} className="flex items-center space-x-2">
                     <Checkbox

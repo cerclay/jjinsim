@@ -96,5 +96,6 @@ export const config = {
     '/my-results/:path*',
     '/tests/popular',
     '/tests/new',
+    '/api/:path*',
   ],
 }; 
