@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, Search, User, X, ChevronRight } from "lucide-react";
+import { Menu, Search, X, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +12,10 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Brain, Heart, Sparkles, Users, Briefcase } from 'lucide-react';
+import { Brain, Heart, Sparkles, Users, Briefcase, LogOut, UserCircle } from 'lucide-react';
 import { motion } from "framer-motion";
 import { useSession, signOut } from "next-auth/react";
-import { LogOut } from 'lucide-react'
-import Image from 'next/image'
+import Image from 'next/image';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +26,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
-import { UserCircle } from 'lucide-react'
 
 const menuItems = [
   { href: "/", label: "홈" },
@@ -47,8 +45,11 @@ const categories = [
 ];
 
 export function Header() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
+
+  // 로그인 상태 확인 - authenticated 상태이고 session이 존재할 때만 로그인으로 간주
+  const isAuthenticated = status === 'authenticated' && !!session;
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
@@ -64,7 +65,7 @@ export function Header() {
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"></div>
       <div className="container h-14 flex items-center justify-between px-4 max-w-md mx-auto">
         <div className="flex items-center">
-          <MobileNav session={session} />
+          <MobileNav />
           <Link href="/" className="ml-2">
             <motion.span 
               className="text-lg font-extrabold jjinsim-logo-vertical"
@@ -87,9 +88,10 @@ export function Header() {
               <Search className="h-5 w-5" />
             </motion.button>
           </Link>
+          
           {/* 로그인 관련 버튼 */}
-          <div className="hidden md:flex items-center gap-2">
-            {session ? (
+          <div className="flex items-center gap-2">
+            {isAuthenticated ? (
               <>
                 <Link href="/auth/dashboard">
                   <Button variant="outline" size="sm" className="text-sm">
@@ -123,8 +125,12 @@ export function Header() {
   );
 }
 
-function MobileNav({ session }: { session: any }) {
+function MobileNav() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { data: session, status } = useSession();
+  
+  // 로그인 상태 확인
+  const isAuthenticated = status === 'authenticated' && !!session;
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: '/' });
@@ -134,7 +140,7 @@ function MobileNav({ session }: { session: any }) {
   // 로그인 상태에 따른 메뉴 필터링
   const filteredMenuItems = menuItems.filter(item => {
     if (item.authRequired === undefined) return true;
-    return item.authRequired ? !!session : !session;
+    return item.authRequired ? isAuthenticated : !isAuthenticated;
   });
 
   return (
@@ -204,7 +210,7 @@ function MobileNav({ session }: { session: any }) {
                     onClick={() => setIsOpen(false)}
                   >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1 ${category.color}`}>
-                      <Icon className="h-5 w-5 text-white" />
+                      <Icon className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-medium text-center text-black">{category.label}</span>
                   </Link>
@@ -220,7 +226,7 @@ function MobileNav({ session }: { session: any }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.3 }}
         >
-          {session ? (
+          {isAuthenticated ? (
             <div className="flex justify-between">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
@@ -266,60 +272,4 @@ function MobileNav({ session }: { session: any }) {
       </SheetContent>
     </Sheet>
   );
-}
-
-function UserNav({ session }: { session: any }) {
-  const router = useRouter()
-
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/auth/signin' })
-  }
-
-  const userImage = session?.user?.image || null;
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative rounded-full h-8 w-8 bg-muted p-0 overflow-hidden">
-          {userImage ? (
-            <Image
-              src={userImage}
-              alt={`${session.user.name || '사용자'} 프로필 이미지`}
-              width={32}
-              height={32}
-              className="h-8 w-8 rounded-full object-cover"
-              priority
-            />
-          ) : (
-            <UserCircle className="h-6 w-6" />
-          )}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel>
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{session?.user?.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {session?.user?.email}
-            </p>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/profile" className="cursor-pointer">프로필</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/my-results" className="cursor-pointer">내 결과</Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={handleSignOut}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>로그아웃</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
 }

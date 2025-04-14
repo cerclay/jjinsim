@@ -142,31 +142,39 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
       setQuestionTimer(null);
     }
     
+    // 현재 질문 정보와 선택 옵션
+    let currentAnswers = [...answers];
+    let isCurrentQuestion20 = currentQuestion?.id === 20;
+    
     // 현재 질문에 대한 응답이 있을 경우만 답변 저장
     if (currentQuestion && selectedOptions.length > 0) {
       let isCorrect = false;
       let earnedScore = 0;
       
-      // 복수 정답(기억력 테스트)인 경우
+      // 복수 정답(기억력 테스트 및 지연회상)인 경우
       if (currentQuestion.answerIndex === -1 && Array.isArray(selectedOptions[0])) {
         // 정확한 정답 목록 설정
         const correctAnswers = ['나무', '자동차', '모자', '연필', '시계'];
-        
-        console.log("문제 ID:", currentQuestion.id);
-        console.log("문제 유형:", currentQuestion.type);
-        console.log("사용자 선택한 항목:", selectedOptions[0]);
-        console.log("정확한 정답 항목:", correctAnswers);
         
         // 선택한 항목 중 맞는 항목 확인
         const correctSelections = (selectedOptions[0] as string[]).filter(
           option => correctAnswers.includes(option)
         );
         
-        console.log("맞은 항목 수:", correctSelections.length);
-        
-        // 단순하게 맞은 개수만큼 점수 부여 (최대 5점)
+        // 맞은 개수만큼 점수 부여 (최대 5점)
         earnedScore = Math.min(correctSelections.length, 5);
-        console.log("획득 점수:", earnedScore);
+        
+        // 20번 문제(지연회상)인 경우 특별 처리
+        if (isCurrentQuestion20) {
+          console.log("지연회상 문제(20번) 처리:");
+          console.log(`- 선택한 항목: ${JSON.stringify(selectedOptions[0])}`);
+          console.log(`- 정답 수: ${correctSelections.length}`);
+          console.log(`- 획득 점수: ${earnedScore}`);
+        } else {
+          console.log(`기억력 문제(${currentQuestion.id}번) 처리:`);
+          console.log(`- 정답 맞춘 개수: ${correctSelections.length}`);
+          console.log(`- 획득 점수: ${earnedScore}`);
+        }
         
         isCorrect = earnedScore > 0;
       } 
@@ -185,9 +193,22 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
         maxScore: currentQuestion.score
       };
       
-      console.log("저장된 답변:", newAnswer);
+      // 디버깅: 저장되는 답변 정보
+      console.log(`문제 ID: ${currentQuestion.id} 저장 데이터:`, newAnswer);
       
-      setAnswers(prev => [...prev, newAnswer]);
+      // 이전에 동일한 문제에 대한 답변이 있는지 확인하고 제거 후 새 답변 추가
+      const filteredAnswers = currentAnswers.filter(a => a.questionId !== currentQuestion.id);
+      currentAnswers = [...filteredAnswers, newAnswer];
+      
+      // answers 상태 업데이트
+      setAnswers(currentAnswers);
+
+      // 지연회상 문제(20번) 처리 시 특별 로그
+      if (isCurrentQuestion20) {
+        console.log("지연회상 문제(20번) 처리 완료:", newAnswer);
+      }
+    } else if (currentQuestion) {
+      console.log(`문제 ID: ${currentQuestion.id} - 선택된 옵션이 없어 답변 저장하지 않음`);
     }
     
     // 다음 문제 또는 섹션으로 이동
@@ -203,7 +224,14 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
         setCurrentQuestionIndex(0);
       } else {
         // 테스트 완료
-        handleTestComplete();
+        console.log("테스트 종료: 모든 섹션 완료");
+        
+        // 20번 문제에 대한 답변이 있는지 마지막으로 확인
+        const has20Answer = currentAnswers.some(a => a.questionId === 20);
+        console.log(`테스트 완료 - 20번 문제 답변 여부: ${has20Answer ? '있음' : '없음'}`);
+        
+        // 완성된 답변 배열을 사용하여 테스트 완료 처리
+        handleTestComplete(currentAnswers);
       }
     }
     
@@ -212,7 +240,7 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
   };
   
   // 테스트 완료 처리
-  const handleTestComplete = () => {
+  const handleTestComplete = (finalAnswers = answers) => {
     // 타이머 정리
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -224,36 +252,61 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
     setStep('processing');
     setProcessingResult(true);
     
-    // 지연회상 문제에 대한 답변 확인
-    const recallAnswer = answers.find(answer => answer.questionId === 20);
-    console.log("지연회상 문제(ID: 20) 답변:", recallAnswer);
-    
-    // 디버깅: 모든 답변 확인
-    console.log("제출된 모든 답변:", answers);
-    
     // 결과 계산
     setTimeout(() => {
       // 총점 계산
-      const totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
+      const totalScore = finalAnswers.reduce((sum, answer) => sum + answer.score, 0);
       const scorePercentage = Math.round((totalScore / TOTAL_MAX_SCORE) * 100);
       
-      console.log("총점:", totalScore, "총 만점:", TOTAL_MAX_SCORE, "백분율:", scorePercentage);
+      console.log("모든 답변 목록:", JSON.stringify(finalAnswers, null, 2));
+      console.log("총점:", totalScore, "총 만점:", TOTAL_MAX_SCORE);
       
       // 인지 영역별 점수 계산
       const cognitiveAreas: DementiaTestResult['cognitiveAreas'] = {};
       
+      // 여기서 답변이 있는지 확인 - 일부 섹션이 누락되었을 수도 있음
+      const answeredQuestionIds = finalAnswers.map(a => a.questionId);
+      console.log("답변한 문제 ID:", answeredQuestionIds);
+      
+      // 특별히 지연회상 문제(20번)가 있는지 확인
+      const has20Question = answeredQuestionIds.includes(20);
+      if (!has20Question) {
+        console.log("주의: 20번 문제(지연회상)에 대한 답변이 없습니다!");
+      }
+      
       DEMENTIA_TEST_SECTIONS.forEach(section => {
         const sectionQuestionIds = section.questions.map(q => q.id);
-        const sectionAnswers = answers.filter(a => sectionQuestionIds.includes(a.questionId));
         
-        console.log(`섹션 ${section.id} 문제 ID:`, sectionQuestionIds);
-        console.log(`섹션 ${section.id} 관련 답변:`, sectionAnswers);
+        // 지연회상 섹션인 경우 특별 처리 (문제 20)
+        if (section.id === 'recall') {
+          console.log("지연회상 섹션 문제 ID:", sectionQuestionIds);
+          console.log("지연회상 섹션 문제 타입:", section.questions.map(q => q.type));
+          
+          // 20번 문제 답변 찾기
+          const recallAnswer = finalAnswers.find(a => a.questionId === 20);
+          
+          if (recallAnswer) {
+            console.log("20번 문제 답변 확인:", recallAnswer);
+            console.log("20번 문제 선택된 정답:", recallAnswer.selectedAnswer);
+            console.log("20번 문제 점수:", recallAnswer.score);
+          } else {
+            console.log("20번 문제 답변이 없습니다!");
+          }
+        }
         
-        const areaScore = sectionAnswers.reduce((sum, answer) => sum + answer.score, 0);
+        const sectionAnswers = finalAnswers.filter(a => sectionQuestionIds.includes(a.questionId));
+        
+        console.log(`섹션 ${section.id} (문제 ID: ${sectionQuestionIds.join(', ')}) 답변:`, sectionAnswers);
+        
+        // 섹션 점수 계산
+        const areaScore = sectionAnswers.length > 0 
+          ? sectionAnswers.reduce((sum, answer) => sum + answer.score, 0)
+          : 0;
+        
         const areaMaxScore = COGNITIVE_AREAS_MAX_SCORES[section.id as keyof typeof COGNITIVE_AREAS_MAX_SCORES];
         const areaPercentage = Math.round((areaScore / (areaMaxScore || 1)) * 100);
         
-        console.log(`섹션 ${section.id} 점수:`, areaScore, "만점:", areaMaxScore, "백분율:", areaPercentage);
+        console.log(`섹션 ${section.id} 점수: ${areaScore}/${areaMaxScore} (${areaPercentage}%)`);
         
         cognitiveAreas[section.id] = {
           score: areaScore,
@@ -272,11 +325,56 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
         totalScore,
         maxScore: TOTAL_MAX_SCORE,
         scorePercentage,
-        answers,
+        answers: finalAnswers,
         cognitiveAreas,
         resultCategory,
         date: new Date().toISOString()
       };
+      
+      // 지연회상 문제 점수 처리 확인
+      const recallSection = result.cognitiveAreas['recall'];
+      const recallAnswer = finalAnswers.find(a => a.questionId === 20);
+      
+      // 지연회상 문제가 답변됐는데 점수가 반영되지 않은 경우, 강제로 반영
+      if (recallAnswer) {
+        console.log("지연회상 답변 정보:", recallAnswer);
+        
+        // 지연회상 섹션 점수 직접 설정
+        if (recallSection) {
+          // 현재 점수가 올바르게 반영되지 않은 경우에만 수정
+          if (recallSection.score !== recallAnswer.score) {
+            console.log(`지연회상 점수 불일치 - 섹션: ${recallSection.score}, 답변: ${recallAnswer.score}`);
+            console.log("지연회상 문제 점수를 강제로 반영합니다:", recallAnswer.score);
+            
+            // 이전 총점에서 지연회상 점수를 뺀 값 계산
+            const prevTotalScoreWithoutRecall = result.totalScore - recallSection.score;
+            
+            // 지연회상 점수 업데이트
+            recallSection.score = recallAnswer.score;
+            recallSection.percentage = Math.round((recallAnswer.score / recallSection.maxScore) * 100);
+            
+            // 총점 재계산
+            result.totalScore = prevTotalScoreWithoutRecall + recallAnswer.score;
+            result.scorePercentage = Math.round((result.totalScore / result.maxScore) * 100);
+            
+            // 결과 카테고리 재계산
+            result.resultCategory = RESULT_CATEGORIES.find(
+              category => result.scorePercentage >= category.minPercentage && 
+                          result.scorePercentage <= category.maxPercentage
+            ) || RESULT_CATEGORIES[0];
+            
+            console.log("최종 총점 및 지연회상 점수:", {
+              totalScore: result.totalScore,
+              recallScore: recallSection.score,
+              percentage: result.scorePercentage
+            });
+          } else {
+            console.log("지연회상 점수가 이미 올바르게 반영되었습니다:", recallSection.score);
+          }
+        }
+      } else {
+        console.log("주의: 20번 문제(지연회상)에 대한 답변이 없어 점수에 반영되지 않습니다.");
+      }
       
       // 결과 전달
       onComplete(result);
@@ -290,9 +388,6 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
   
   // 복수 선택 처리 (기억력 테스트)
   const handleMultipleSelect = (option: string, isChecked: boolean) => {
-    console.log(`체크박스 변경: ${option} -> ${isChecked ? '선택됨' : '선택해제됨'}`);
-    console.log("변경 전 상태:", selectedOptions);
-    
     setSelectedOptions(prev => {
       // 첫번째 요소가 배열인지 확인하고, 아니라면 빈 배열로 초기화
       const currentSelections = Array.isArray(prev[0]) ? [...prev[0]] : [];
@@ -302,20 +397,32 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
       
       if (isChecked) {
         // 이미 선택된 항목이 아닌 경우에만 추가
-        newSelections = [...currentSelections, option];
+        if (!currentSelections.includes(option)) {
+          newSelections = [...currentSelections, option];
+        } else {
+          newSelections = [...currentSelections];
+        }
       } else {
         // 선택 해제된 항목 제거
         newSelections = currentSelections.filter(item => item !== option);
       }
       
-      console.log("변경 후 상태:", [newSelections]);
+      // 선택항목 변경 확인 로그
+      console.log(`복수 선택 항목 변경 - 현재 선택: ${JSON.stringify(newSelections)}`);
+      
+      // 현재 문제가 20번 문제인지 확인
+      if (currentQuestion?.id === 20) {
+        console.log(`20번 문제 선택 항목 업데이트: ${JSON.stringify(newSelections)}`);
+      }
+      
       return [newSelections];
     });
   };
   
   // 복수 선택에서 선택 여부 확인
   const isMultipleOptionSelected = (option: string) => {
-    const isSelected = Array.isArray(selectedOptions[0]) && (selectedOptions[0] as string[]).includes(option);
+    const isSelected = Array.isArray(selectedOptions[0]) && 
+                       (selectedOptions[0] as string[]).includes(option);
     return isSelected;
   };
   
@@ -574,18 +681,6 @@ export const DementiaTest: React.FC<DementiaTestProps> = ({ onComplete, onBack }
             {currentQuestion.options && currentQuestion.answerIndex === -1 && (
               <div className="space-y-3">
                 <p className="text-sm text-gray-600 mb-2">기억나는 항목을 모두 선택하세요.</p>
-                
-                {/* 디버깅 정보 표시 (개발 모드에서만) */}
-                <div className="text-xs text-gray-500 mb-2 p-2 bg-gray-50 rounded">
-                  <div>문제 ID: {currentQuestion.id}</div>
-                  <div>문제 유형: {currentQuestion.type}</div>
-                  <div>
-                    현재 선택: {Array.isArray(selectedOptions[0]) ? 
-                      (selectedOptions[0] as string[]).join(', ') || '(없음)' : 
-                      '(없음)'}
-                  </div>
-                  <div>정답: 나무, 자동차, 모자, 연필, 시계</div>
-                </div>
                 
                 {currentQuestion.options.map((option, idx) => (
                   <div key={idx} className="flex items-center space-x-2">

@@ -143,20 +143,20 @@ export function UserActivityList() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {activities.map((activity) => (
         <Card key={activity.id} className="overflow-hidden hover:shadow-md transition-shadow">
-          <CardHeader className="pb-2">
-            <CardDescription className="flex items-center text-xs">
+          <CardHeader className="p-3 sm:p-4 pb-1 sm:pb-2">
+            <CardDescription className="flex items-center text-[10px] sm:text-xs">
               <CalendarDays className="h-3 w-3 mr-1" />
               {format(new Date(activity.created_at), 'yyyy년 MM월 dd일 HH:mm', { locale: ko })}
             </CardDescription>
-            <CardTitle className="text-lg">{activity.test_title}</CardTitle>
+            <CardTitle className="text-sm sm:text-lg">{activity.test_title}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 sm:p-4 pt-0 sm:pt-0">
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
               {activity.image_url && (
-                <div className="h-20 w-20 sm:h-16 sm:w-16 rounded-md overflow-hidden bg-gray-100 flex-shrink-0 mx-auto sm:mx-0">
+                <div className="h-16 w-16 sm:h-16 sm:w-16 rounded-md overflow-hidden bg-gray-100 flex-shrink-0 mx-auto sm:mx-0">
                   <Image
                     src={activity.image_url}
                     alt={activity.test_title}
@@ -171,15 +171,15 @@ export function UserActivityList() {
                 </div>
               )}
               <div className="flex-1">
-                <p className="text-sm text-gray-700 text-center sm:text-left">
+                <p className="text-xs sm:text-sm text-gray-700 text-center sm:text-left line-clamp-3">
                   {activity.result_summary || '결과가 저장되지 않았습니다.'}
                 </p>
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-center sm:justify-start">
+          <CardFooter className="flex justify-center sm:justify-start p-2 sm:p-4 pt-0 sm:pt-0">
             <Link href={`/tests/${activity.test_id}`}>
-              <Button variant="outline" size="sm" className="text-xs">
+              <Button variant="outline" size="sm" className="text-[10px] sm:text-xs h-7 sm:h-8">
                 <ExternalLink className="h-3 w-3 mr-1" />
                 테스트 다시하기
               </Button>

@@ -8,7 +8,7 @@ export const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
-      redirectUri: process.env.KAKAO_REDIRECT_URI || `${process.env.NEXTAUTH_URL}/api/auth/callback/kakao`,
+      redirectUri: 'http://127.0.0.1:3000/api/auth/callback/kakao',
       authorization: {
         params: {
           logout_redirect_uri: `${process.env.NEXTAUTH_URL}/auth/logout`
@@ -197,10 +197,31 @@ export const authOptions: NextAuthOptions = {
       name: process.env.NODE_ENV === 'production' ? `__Secure-next-auth.session-token` : `next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: 'none',
         path: '/',
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
+        domain: process.env.NODE_ENV === 'development' ? '127.0.0.1' : undefined,
       },
+    },
+    callbackUrl: {
+      name: 'next-auth.callback-url',
+      options: {
+        httpOnly: true,
+        sameSite: 'none',
+        path: '/',
+        secure: true,
+        domain: process.env.NODE_ENV === 'development' ? '127.0.0.1' : undefined,
+      }
+    },
+    csrfToken: {
+      name: 'next-auth.csrf-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'none',
+        path: '/',
+        secure: true,
+        domain: process.env.NODE_ENV === 'development' ? '127.0.0.1' : undefined,
+      }
     },
   },
   logger: {

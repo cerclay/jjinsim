@@ -25,6 +25,14 @@ const popularTests = [
     isNew: true,
   },
   {
+    id: 'dementia-test',
+    title: '치매 조기 진단 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx7gG9KZiFpyBn66ujf8mAjnN9qIxIU8wO8le3WavHIofz-9LuYLeMUnd10ZWQc68ZYE32LOKdPIhak4dr83bWwQesN4lW4IF2CC8y3AVvWipNEFm-EYF4f7IfrpmiV3mvPeUaE7-yALTQz4CJ2bmCeN3iZLzPhFLDg6ofqYPm8LGaYyadNvJ1r6Oa4V4/s320/MBTI.jpg',
+    participants: 90215,
+    isPopular: true,
+    isNew: true,
+  },
+  {
     id: 'color-blindness',
     title: '색맹테스트',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
@@ -186,6 +194,14 @@ const newTests = [
     participants: 3521,
     isNew: true,
     description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!'
+  },
+  {
+    id: 'dementia-test',
+    title: '치매 조기 진단 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx7gG9KZiFpyBn66ujf8mAjnN9qIxIU8wO8le3WavHIofz-9LuYLeMUnd10ZWQc68ZYE32LOKdPIhak4dr83bWwQesN4lW4IF2CC8y3AVvWipNEFm-EYF4f7IfrpmiV3mvPeUaE7-yALTQz4CJ2bmCeN3iZLzPhFLDg6ofqYPm8LGaYyadNvJ1r6Oa4V4/s320/MBTI.jpg',
+    participants: 90215,
+    isNew: true,
+    description: '20문항으로 알아보는 인지 기능 평가 테스트. 지남력, 기억력, 주의력 등 다양한 영역을 종합적으로 테스트합니다.'
   },
   {
     id: 'polsok-character',

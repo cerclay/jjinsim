@@ -22,7 +22,7 @@ export type DementiaTestSection = {
 
 export type UserAnswer = {
   questionId: number;
-  selectedAnswer: string | number | null;
+  selectedAnswer: string | string[] | number | null;
   isCorrect: boolean;
   score: number;
   maxScore: number;

@@ -42,6 +42,59 @@ type YoutubeShort = {
 
 export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) => {
   const [showShareToast, setShowShareToast] = useState(false);
+  // 지연회상 점수 확인을 위한 상태 추가
+  const [fixedResultData, setFixedResultData] = useState<DementiaTestResult>(resultData);
+
+  // 컴포넌트 마운트 시 결과 데이터 확인 및 수정
+  React.useEffect(() => {
+    // 깊은 복사를 통해 결과 데이터 복제
+    const processedResultData = JSON.parse(JSON.stringify(resultData)) as DementiaTestResult;
+
+    // 지연회상 문제(20번) 데이터 확인
+    const recall20Answer = processedResultData.answers.find(a => a.questionId === 20);
+    const recallArea = processedResultData.cognitiveAreas['recall'];
+    
+    console.log("결과 화면: 지연회상 문제 답변", recall20Answer);
+    console.log("결과 화면: 지연회상 영역 데이터", recallArea);
+    
+    // 지연회상 문제가 있는데 영역 점수에 반영되지 않은 경우 수정
+    if (recall20Answer && recallArea && recall20Answer.score !== recallArea.score) {
+      console.warn("지연회상 문제 점수와 영역 점수가 일치하지 않습니다. 수정합니다:", {
+        문제점수: recall20Answer.score,
+        영역점수: recallArea.score
+      });
+
+      // 이전 총점에서 지연회상 점수를 뺀 값 계산
+      const prevTotalScoreWithoutRecall = processedResultData.totalScore - recallArea.score;
+      
+      // 지연회상 점수 업데이트
+      recallArea.score = recall20Answer.score;
+      recallArea.percentage = Math.round((recall20Answer.score / recallArea.maxScore) * 100);
+      
+      // 총점 재계산
+      processedResultData.totalScore = prevTotalScoreWithoutRecall + recall20Answer.score;
+      processedResultData.scorePercentage = Math.round((processedResultData.totalScore / processedResultData.maxScore) * 100);
+      
+      // 결과 카테고리 재계산
+      processedResultData.resultCategory = RESULT_CATEGORIES.find(
+        category => processedResultData.scorePercentage >= category.minPercentage && 
+                    processedResultData.scorePercentage <= category.maxPercentage
+      ) || RESULT_CATEGORIES[0];
+      
+      console.log("수정된 결과 데이터:", {
+        totalScore: processedResultData.totalScore,
+        recallScore: recallArea.score,
+        percentage: processedResultData.scorePercentage,
+        category: processedResultData.resultCategory.label
+      });
+
+      // 수정된 결과 데이터로 상태 업데이트
+      setFixedResultData(processedResultData);
+    } else {
+      // 수정 필요 없는 경우 그대로 사용
+      setFixedResultData(processedResultData);
+    }
+  }, [resultData]);
 
   // 치매 예방 관련 유튜브 플레이리스트 URL
   const dementiaPreventionUrl = "https://www.youtube.com/@todayohquiz/shorts";
@@ -61,7 +114,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
   // 결과 공유 함수
   const handleShare = () => {
     // 결과 메시지 생성
-    const shareText = `치매 조기 진단 테스트 결과: ${resultData.scorePercentage}점 (${resultData.resultCategory.label})
+    const shareText = `치매 조기 진단 테스트 결과: ${fixedResultData.scorePercentage}점 (${fixedResultData.resultCategory.label})
 인지기능 테스트 결과를 확인해보세요!`;
     
     // 클립보드에 복사
@@ -151,7 +204,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
             <div>
               <h2 className="text-lg font-bold">테스트 결과</h2>
               <p className="text-xs text-gray-600">
-                {format(new Date(resultData.date), 'yyyy년 MM월 dd일 HH:mm')}에 완료
+                {format(new Date(fixedResultData.date), 'yyyy년 MM월 dd일 HH:mm')}에 완료
               </p>
             </div>
             <Button 
@@ -185,12 +238,12 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
                   cy="50"
                   r="45"
                   fill="none"
-                  stroke={resultData.resultCategory.color === 'green' ? '#10b981' : 
-                          resultData.resultCategory.color === 'yellow' ? '#f59e0b' :
-                          resultData.resultCategory.color === 'orange' ? '#f97316' : '#ef4444'}
+                  stroke={fixedResultData.resultCategory.color === 'green' ? '#10b981' : 
+                          fixedResultData.resultCategory.color === 'yellow' ? '#f59e0b' :
+                          fixedResultData.resultCategory.color === 'orange' ? '#f97316' : '#ef4444'}
                   strokeWidth="8"
                   strokeLinecap="round"
-                  strokeDasharray={`${2 * Math.PI * 45 * (resultData.scorePercentage / 100)} ${2 * Math.PI * 45}`}
+                  strokeDasharray={`${2 * Math.PI * 45 * (fixedResultData.scorePercentage / 100)} ${2 * Math.PI * 45}`}
                   transform="rotate(-90 50 50)"
                 />
                 {/* 중앙 텍스트 */}
@@ -203,7 +256,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
                   fontWeight="bold"
                   fill="#1f2937"
                 >
-                  {resultData.scorePercentage}%
+                  {fixedResultData.scorePercentage}%
                 </text>
                 <text
                   x="50"
@@ -220,13 +273,13 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
           </div>
           
           {/* 진단 결과 */}
-          <div className={`p-3 rounded-lg border ${getCategoryColorClass(resultData.resultCategory)} mb-3`}>
+          <div className={`p-3 rounded-lg border ${getCategoryColorClass(fixedResultData.resultCategory)} mb-3`}>
             <div className="flex items-center gap-1.5 mb-1">
-              {getCategoryIcon(resultData.resultCategory)}
-              <h3 className="font-semibold text-sm">{resultData.resultCategory.label}</h3>
+              {getCategoryIcon(fixedResultData.resultCategory)}
+              <h3 className="font-semibold text-sm">{fixedResultData.resultCategory.label}</h3>
             </div>
-            <p className="text-xs mb-1">{resultData.resultCategory.description}</p>
-            <p className="text-xs font-medium">{resultData.resultCategory.recommendation}</p>
+            <p className="text-xs mb-1">{fixedResultData.resultCategory.description}</p>
+            <p className="text-xs font-medium">{fixedResultData.resultCategory.recommendation}</p>
           </div>
           
           {/* 두뇌 훈련 영상 섹션 */}
@@ -300,13 +353,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
             <h3 className="text-base font-bold mb-3">인지 영역별 점수</h3>
             
             <div className="space-y-2">
-              {resultData.cognitiveAreas && Object.entries(resultData.cognitiveAreas).map(([areaId, data]) => {
-                // 디버그: 지연회상 영역 데이터 출력
-                if (areaId === 'recall') {
-                  console.log("지연회상 영역 점수 데이터:", data);
-                }
-                
-                return (
+              {fixedResultData.cognitiveAreas && Object.entries(fixedResultData.cognitiveAreas).map(([areaId, data]) => (
                 <div key={areaId} className="bg-gray-50 p-2 rounded-lg">
                   <div className="flex justify-between items-center mb-1">
                     <div className="flex items-center">
@@ -327,20 +374,20 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
                     ></div>
                   </div>
                 </div>
-              )})}
+              ))}
             </div>
             
             <div className="mt-3 pt-3 border-t border-gray-200">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm font-medium">종합 점수</span>
                 <span className="text-sm font-bold text-blue-700">
-                  {resultData.totalScore}/{resultData.maxScore} 점
+                  {fixedResultData.totalScore}/{fixedResultData.maxScore} 점
                 </span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className={`h-full ${getScoreColorClass(resultData.scorePercentage)}`}
-                  style={{ width: `${resultData.scorePercentage}%` }}
+                  className={`h-full ${getScoreColorClass(fixedResultData.scorePercentage)}`}
+                  style={{ width: `${fixedResultData.scorePercentage}%` }}
                 ></div>
               </div>
             </div>
@@ -356,7 +403,7 @@ export const TestResult: React.FC<TestResultProps> = ({ resultData, onRetake }) 
             <div className="space-y-2">
               {RESULT_CATEGORIES.map((category, idx) => (
                 <div key={idx} className={`p-2 rounded-lg ${
-                  category.label === resultData.resultCategory.label 
+                  category.label === fixedResultData.resultCategory.label 
                     ? getCategoryColorClass(category) + ' border' 
                     : 'bg-gray-50 border border-gray-200'
                 }`}>
