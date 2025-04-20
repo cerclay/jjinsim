@@ -23,7 +23,7 @@ export default function Footer() {
   
   const socialLinks = [
     { icon: <InstagramIcon size={20} />, href: "https://instagram.com/jjinsim", label: "인스타그램" },
-    { icon: <YoutubeIcon size={20} />, href: "https://youtube.com/c/jjinsim", label: "유튜브" },
+    { icon: <YoutubeIcon size={20} />, href: "https://www.youtube.com/@todayohquiz/shorts", label: "유튜브" },
     { icon: <MailIcon size={20} />, href: "mailto:support@jjinsim.com", label: "이메일" },
     { icon: <GithubIcon size={20} />, href: "https://github.com/jjinsim", label: "GitHub" }
   ];

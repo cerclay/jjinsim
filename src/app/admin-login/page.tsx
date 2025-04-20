@@ -7,6 +7,7 @@ export default function AdminLoginRedirect() {
   const router = useRouter();
 
   useEffect(() => {
+    // 관리자 로그인 페이지로 바로 이동
     router.replace('/admin/login');
   }, [router]);
 

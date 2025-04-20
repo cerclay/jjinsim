@@ -9,7 +9,7 @@ const protectedPaths = [
 ];
 
 // 관리자 로그인 경로
-const ADMIN_LOGIN_PATH = '/admin-login';
+const ADMIN_LOGIN_PATH = '/admin/login';
 
 export async function middleware(req: NextRequest) {
   try {
