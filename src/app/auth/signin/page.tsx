@@ -12,19 +12,38 @@ function SignInContent() {
   const callbackUrl = searchParams.get('callbackUrl') || '/profile';
   const [loading, setLoading] = useState({ credentials: false, kakao: false });
   const [error, setError] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const handleKakaoSignIn = async () => {
     setLoading(prev => ({ ...prev, kakao: true }));
-    setError(null);
+    
     try {
-      console.log('카카오 로그인 시도... 콜백 URL:', callbackUrl);
-      await signIn("kakao", { 
-        callbackUrl, 
-        redirect: true
+      console.log('카카오 로그인 시도...');
+      console.log('현재 브라우저 URL:', window.location.href);
+      console.log('NEXTAUTH_URL 환경변수:', window.__ENV__?.NEXT_PUBLIC_NEXTAUTH_URL || '설정되지 않음');
+      
+      // redirect: false로 변경하여 수동으로 리다이렉트 처리
+      const result = await signIn("kakao", {
+        redirect: false,
+        callbackUrl: searchParams.get("callbackUrl") || "/"
       });
-    } catch (err) {
-      console.error("카카오 로그인 오류:", err);
-      setError("로그인 처리 중 오류가 발생했습니다.");
+      
+      if (result?.error) {
+        console.error('카카오 로그인 응답 오류:', result.error);
+        setStatusMessage('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+      } else if (result?.url) {
+        // 성공적으로 로그인되었을 때 리다이렉트
+        console.log('카카오 로그인 성공, 리다이렉트:', result.url);
+        router.push(result.url);
+      } else {
+        // 예상치 못한 응답 처리
+        console.error('예상치 못한 로그인 응답:', result);
+        setStatusMessage('로그인 처리 중 문제가 발생했습니다.');
+      }
+    } catch (error) {
+      console.error("카카오 로그인 오류:", error);
+      setStatusMessage("로그인 중 오류가 발생했습니다");
+    } finally {
       setLoading(prev => ({ ...prev, kakao: false }));
     }
   };
@@ -41,6 +60,11 @@ function SignInContent() {
         {error && (
           <div className="mt-3 sm:mt-4 p-2 sm:p-3 bg-red-100 text-red-700 rounded-md text-xs sm:text-sm">
             {error}
+          </div>
+        )}
+        {statusMessage && (
+          <div className="mt-3 sm:mt-4 p-2 sm:p-3 bg-yellow-100 text-yellow-700 rounded-md text-xs sm:text-sm">
+            {statusMessage}
           </div>
         )}
       </div>

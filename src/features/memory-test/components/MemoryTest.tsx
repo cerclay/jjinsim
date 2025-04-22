@@ -157,7 +157,7 @@ ${result.range.tags.join(" ")}
           <img 
             src={question.imageUrl} 
             alt="기억할 이미지" 
-            className="w-full h-48 object-cover rounded-lg mb-4"
+            className="w-full max-h-[400px] h-auto object-contain rounded-lg mb-4"
           />
         </div>
       )
@@ -193,7 +193,7 @@ ${result.range.tags.join(" ")}
                 <img
                   src={`https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGVmMjM5YTQtZDM4Ny00YjFkLWE5MDUtNmRiZjM5ZWY1YzRkMiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/3o7TKTDn976rzVgky4/giphy.gif`}
                   alt="결과 이미지"
-                  className="w-full rounded-lg"
+                  className="w-full max-h-[300px] object-contain rounded-lg"
                 />
               </div>
               
@@ -302,7 +302,9 @@ ${result.range.tags.join(" ")}
               </div>
 
               {showQuestion ? (
-                renderQuestion(currentQuestion)
+                <div className={`${currentQuestion.type === 'image' ? 'min-h-[350px] flex items-center justify-center' : ''}`}>
+                  {renderQuestion(currentQuestion)}
+                </div>
               ) : (
                 <>
                   {showQuestionText && (

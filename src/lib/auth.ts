@@ -8,7 +8,6 @@ export const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
-      redirectUri: process.env.KAKAO_REDIRECT_URI,
       authorization: {
         url: 'https://kauth.kakao.com/oauth/authorize',
         params: {

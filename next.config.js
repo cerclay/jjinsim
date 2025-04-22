@@ -63,6 +63,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+    NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXTAUTH_URL
   },
   // 외부 URL 설정
   async rewrites() {

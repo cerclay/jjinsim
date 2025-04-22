@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function KakaoLoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/auth/dashboard';
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -23,14 +23,30 @@ export default function KakaoLoginPage() {
       setError('');
       console.log('카카오 로그인 시도... 콜백 URL:', callbackUrl);
       
+      // 먼저 NEXTAUTH_URL 환경변수와 현재 브라우저 위치를 로깅
+      console.log('현재 브라우저 URL:', window.location.href);
+      console.log('NEXTAUTH_URL 환경변수:', window.__ENV__?.NEXT_PUBLIC_NEXTAUTH_URL || '설정되지 않음');
+      
       // NextAuth의 signIn 함수를 사용하여 카카오 로그인
-      // redirect: true로 변경하여 NextAuth가 직접 리다이렉트 처리하도록 함
-      await signIn('kakao', { 
+      const result = await signIn('kakao', { 
         callbackUrl, 
-        redirect: true 
+        redirect: false 
       });
       
-      // redirect: true를 사용하면 아래 코드는 실행되지 않음
+      if (result?.error) {
+        console.error('카카오 로그인 응답 오류:', result.error);
+        setError('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+        setLoading(false);
+      } else if (result?.url) {
+        // 성공적으로 로그인되었을 때 리다이렉트
+        console.log('카카오 로그인 성공, 리다이렉트:', result.url);
+        router.push(result.url);
+      } else {
+        // 예상치 못한 응답 처리
+        console.error('예상치 못한 로그인 응답:', result);
+        setError('로그인 처리 중 문제가 발생했습니다.');
+        setLoading(false);
+      }
     } catch (error) {
       setError('로그인 중 오류가 발생했습니다.');
       console.error('카카오 로그인 오류:', error);

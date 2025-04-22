@@ -77,6 +77,17 @@ export default function RootLayout({
       <ChannelIO />
       <head>
         <meta name="naver-site-verification" content="68df3cca1368ab0533c08b01ae13d42b63bfc12a" />
+        {/* 환경변수 설정 스크립트 - Next.js 15 호환성 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.__ENV__ = {
+                NEXT_PUBLIC_KAKAO_CLIENT_ID: '${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID || ''}',
+                NEXT_PUBLIC_NEXTAUTH_URL: '${process.env.NEXT_PUBLIC_NEXTAUTH_URL || ''}'
+              };
+            `
+          }}
+        />
         <link 
           rel="icon" 
           href="/favicon.ico" 
@@ -105,7 +116,9 @@ export default function RootLayout({
                 if (window.Kakao) {
                   // 카카오 SDK 초기화
                   if (!window.Kakao.isInitialized()) {
-                    window.Kakao.init('PASTE_YOUR_KAKAO_APP_KEY_HERE');
+                    // Next.js 15 이상에서는 process.env 직접 접근 불가
+                    const kakaoAppKey = window.__ENV__?.NEXT_PUBLIC_KAKAO_CLIENT_ID || '';
+                    window.Kakao.init(kakaoAppKey);
                     console.log('Kakao SDK initialized');
                   }
                 }
