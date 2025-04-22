@@ -1,5 +1,4 @@
-'use client';
-
+import { Metadata, Viewport } from 'next';
 import AdSense from '@/third-parties/AdSense';
 import { ChannelIO } from '@/third-parties/Channelio';
 import Clarity from '@/third-parties/Clarity';
@@ -9,18 +8,18 @@ import { Noto_Sans_KR, Roboto, Inter } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import Providers from './providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { AuthProvider } from '@/components/auth/auth-provider';
-import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/components/ui/theme-provider';
-import { metadata, viewport } from './metadata';
+import { metadata as baseMetadata, viewport } from './metadata';
 import { SessionProvider } from '@/components/auth/session-provider';
 import { SessionProvider as NextAuthSessionProvider } from 'next-auth/react';
 import { RootLayoutClient } from '@/components/layout/root-layout-client';
+import { ThemeProvider } from '@/components/ui/theme-provider';
+import Providers from './providers';
+import { AuthProvider } from '@/components/auth/auth-provider';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,14 +66,17 @@ const gmarketSans = localFont({
   display: 'swap',
 });
 
-export default function RootLayout({
+// 메타데이터와 뷰포트 내보내기
+export const metadata: Metadata = baseMetadata;
+export const viewportExport: Viewport = viewport;
+
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html suppressHydrationWarning lang="ko" className="light">
-      <ChannelIO />
       <head>
         <meta name="naver-site-verification" content="68df3cca1368ab0533c08b01ae13d42b63bfc12a" />
         {/* 환경변수 설정 스크립트 - Next.js 15 호환성 */}
@@ -245,19 +247,46 @@ export default function RootLayout({
             `
           }}
         />
-        <AdSense />
       </head>
-      <RootLayoutClient
+      <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.className,
-          gmarketSans.variable,
+          'min-h-screen font-sans antialiased',
+          inter.variable,
+          notoSansKr.variable,
           roboto.variable,
-          caveat.variable
+          caveat.variable,
+          gmarketSans.variable,
         )}
       >
-        {children}
-      </RootLayoutClient>
+        <NextAuthSessionProvider>
+          <SessionProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Providers>
+                <AuthProvider>
+                  <RootLayoutClient>
+                    <div className="flex min-h-screen flex-col">
+                      <Header />
+                      <main className="flex-1">{children}</main>
+                      <Footer />
+                    </div>
+                    <Toaster richColors />
+                  </RootLayoutClient>
+                </AuthProvider>
+              </Providers>
+            </ThemeProvider>
+          </SessionProvider>
+        </NextAuthSessionProvider>
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+        <AdSense />
+        <Clarity />
+      </body>
     </html>
   );
 }
+
+export default RootLayout;
