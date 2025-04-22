@@ -10,6 +10,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -56,7 +57,8 @@ const nextConfig = {
       'blogger.googleusercontent.com',
       'images.unsplash.com',
       'picsum.photos',
-      'img.youtube.com'
+      'img.youtube.com',
+      'k.kakaocdn.net'
     ],
   },
   env: {

@@ -8,7 +8,6 @@ import {
 } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/components/auth/auth-provider';
 import { useState, useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react';
 
@@ -43,20 +42,18 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
-        <AuthProvider>
-          <ClientOnly>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-              suppressHydrationWarning
-            >
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </ClientOnly>
-        </AuthProvider>
+        <ClientOnly>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            suppressHydrationWarning
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </ClientOnly>
       </SessionProvider>
     </QueryClientProvider>
   );

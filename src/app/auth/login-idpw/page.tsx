@@ -47,25 +47,16 @@ export default function LoginPage() {
       setKakaoLoading(true);
       console.log('카카오 로그인 시도...');
       
-      // NextAuth의 signIn 함수를 사용하여 카카오 로그인
-      const result = await signIn('kakao', { 
+      // NextAuth의 signIn 함수를 사용하여 카카오 로그인 (redirect: true로 변경)
+      await signIn('kakao', { 
         callbackUrl: '/auth/dashboard',
-        redirect: false 
+        redirect: true 
       });
       
-      console.log('카카오 로그인 결과:', result);
-      
-      if (result?.error) {
-        setError('카카오 로그인 중 오류가 발생했습니다.');
-        console.error('카카오 로그인 오류:', result.error);
-      } else if (result?.url) {
-        // 성공 시 리다이렉트
-        router.push(result.url);
-      }
+      // redirect: true를 사용하면 아래 코드는 실행되지 않음
     } catch (error) {
       console.error('카카오 로그인 오류:', error);
       setError('카카오 로그인 중 오류가 발생했습니다.');
-    } finally {
       setKakaoLoading(false);
     }
   };

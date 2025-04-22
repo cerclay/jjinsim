@@ -8,9 +8,13 @@ export const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || '',
       clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
-      redirectUri: process.env.KAKAO_REDIRECT_URI || '',
+      redirectUri: process.env.KAKAO_REDIRECT_URI,
       authorization: {
+        url: 'https://kauth.kakao.com/oauth/authorize',
         params: {
+          prompt: 'login',
+          response_type: 'code',
+          auto_approve: true,
           logout_redirect_uri: `${process.env.NEXTAUTH_URL}/auth/logout`
         }
       },
@@ -92,7 +96,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth/login-idpw",
+    signIn: "/auth/signin",
     error: "/auth/error",
   },
   callbacks: {
@@ -123,6 +127,7 @@ export const authOptions: NextAuthOptions = {
                 provider_id: kakaoId,
                 access_token: account.access_token || null,
                 refresh_token: account.refresh_token || null,
+                last_login_at: new Date().toISOString(),
               })
               .eq('id', existingAccount.id);
             
@@ -131,6 +136,7 @@ export const authOptions: NextAuthOptions = {
             user.name = existingAccount.username || '카카오사용자';
             user.email = virtualEmail;
             user.role = existingAccount.role;
+            user.image = existingAccount.profile_image_url || (profile as any).properties?.profile_image;
           } else {
             // 새 계정 생성 (최소한의 정보만)
             const { data: newAccount, error: insertError } = await supabase
@@ -144,6 +150,8 @@ export const authOptions: NextAuthOptions = {
                 provider_id: kakaoId,
                 access_token: account.access_token || null,
                 refresh_token: account.refresh_token || null,
+                last_login_at: new Date().toISOString(),
+                profile_image_url: (profile as any).properties?.profile_image,
               }])
               .select()
               .single();
@@ -153,6 +161,7 @@ export const authOptions: NextAuthOptions = {
               user.name = newAccount.username;
               user.email = newAccount.email;
               user.role = newAccount.role;
+              user.image = newAccount.profile_image_url;
             } else if (insertError) {
               console.error("계정 생성 오류:", insertError);
             }

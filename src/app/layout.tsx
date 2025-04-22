@@ -1,3 +1,5 @@
+'use client';
+
 import AdSense from '@/third-parties/AdSense';
 import { ChannelIO } from '@/third-parties/Channelio';
 import Clarity from '@/third-parties/Clarity';
@@ -16,6 +18,9 @@ import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { metadata, viewport } from './metadata';
+import { SessionProvider } from '@/components/auth/session-provider';
+import { SessionProvider as NextAuthSessionProvider } from 'next-auth/react';
+import { RootLayoutClient } from '@/components/layout/root-layout-client';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -227,34 +232,19 @@ export default function RootLayout({
             `
           }}
         />
-          <AdSense />
-  </head>
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        inter.className,
-        gmarketSans.variable,
-        roboto.variable,
-        caveat.variable
-      )}>
-        <Toaster position="top-center" />
-        <Clarity />
-        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <Providers>
-            <AuthProvider>
-              <Header />
-              {/* 언어 전환 버튼 */}
-              <div className="fixed top-4 right-4 z-[9999]">
-                <LanguageSwitcher />
-              </div>
-              <main className="flex-grow flex flex-col bg-white">
-                {children}
-              </main>
-              <Footer />
-            </AuthProvider>
-          </Providers>
-        </ThemeProvider>
-      </body>
+        <AdSense />
+      </head>
+      <RootLayoutClient
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.className,
+          gmarketSans.variable,
+          roboto.variable,
+          caveat.variable
+        )}
+      >
+        {children}
+      </RootLayoutClient>
     </html>
   );
 }

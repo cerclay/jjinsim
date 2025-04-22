@@ -11,6 +11,11 @@ const protectedPaths = [
 // 관리자 로그인 경로
 const ADMIN_LOGIN_PATH = '/admin/login';
 
+// 프로덕션 환경에서 리다이렉션할 경로
+const productionRedirectPaths = [
+  '/profile',
+];
+
 export async function middleware(req: NextRequest) {
   try {
     // 현재 경로 확인
@@ -24,6 +29,11 @@ export async function middleware(req: NextRequest) {
     // 정적 자원은 체크에서 제외
     if (pathname.match(/\.(css|js|png|jpg|jpeg|svg|ico|json|txt|woff|woff2|ttf|eot)$/)) {
       return NextResponse.next();
+    }
+    
+    // 프로덕션 환경에서 특정 경로 리다이렉션 처리
+    if (process.env.NODE_ENV === 'production' && productionRedirectPaths.includes(pathname)) {
+      return NextResponse.redirect(new URL('/', req.url));
     }
     
     // 테스트 페이지 리디렉션 처리 (인기 테스트와 신규 테스트를 모든 테스트로 통합)
@@ -65,16 +75,21 @@ export async function middleware(req: NextRequest) {
     }
 
     // 일반 사용자 인증이 필요한 경로 체크
-    if (!pathname.startsWith('/admin') && protectedPaths.some(path => pathname.startsWith(path))) {
+    if (!pathname.startsWith('/admin') && protectedPaths.some(path => pathname === path || pathname.startsWith(`${path}/`))) {
       try {
         // Next-Auth 토큰 확인
         const token = await getToken({ req });
         
         if (!token) {
+          console.log(`[Middleware] 인증 필요: ${pathname} 페이지 접근 시도, 로그인으로 리다이렉트`);
           const redirectUrl = new URL('/auth/signin', req.url);
           redirectUrl.searchParams.set('callbackUrl', pathname);
           return NextResponse.redirect(redirectUrl);
         }
+        
+        // 인증된 사용자, 정상 접근 허용
+        console.log(`[Middleware] 인증된 사용자: ${pathname} 접근 허용`);
+        return NextResponse.next();
       } catch (authError) {
         console.error('[Middleware] 인증 확인 중 오류:', authError);
         return NextResponse.redirect(new URL('/auth/error', req.url));
@@ -91,6 +106,7 @@ export async function middleware(req: NextRequest) {
 // 미들웨어가 실행될 경로 설정
 export const config = {
   matcher: [
+    '/',
     '/admin/:path*', 
     '/profile/:path*', 
     '/my-results/:path*',

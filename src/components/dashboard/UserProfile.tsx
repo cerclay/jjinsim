@@ -94,6 +94,7 @@ export function UserProfile({ name, email, image }: UserProfileProps) {
                 priority
                 className="object-cover rounded-full"
                 onError={() => setImageError(true)}
+                unoptimized={image.includes('k.kakaocdn.net')}
               />
             ) : (
               <div className="flex items-center justify-center h-full text-gray-500 bg-gray-100 rounded-full">

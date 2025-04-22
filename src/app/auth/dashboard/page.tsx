@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { redirect, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useAppSession } from '@/components/auth/session-provider';
 import { UserActivityList } from '@/features/user-activity/components/UserActivityList';
 import { UserStatistics } from '@/features/user-activity/components/UserStatistics';
 import { DashboardIntro } from '@/features/user-activity/components/DashboardIntro';
@@ -13,17 +13,17 @@ import { BarChart, Clock, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Dashboard() {
-  const { data: session, status } = useSession();
+  const { isLoading, isAuthenticated, user } = useAppSession();
   const router = useRouter();
   
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!isLoading && !isAuthenticated) {
       router.push('/auth/signin');
     }
-  }, [status, router]);
+  }, [isLoading, isAuthenticated, router]);
   
   // 로딩 상태일 때 표시
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -32,77 +32,47 @@ export default function Dashboard() {
   }
   
   // 인증되지 않은 경우
-  if (status === 'unauthenticated') {
+  if (!isAuthenticated) {
     return null; // useEffect에서 리다이렉트 처리
   }
   
-  const userName = session?.user?.name || '사용자';
-  const userEmail = session?.user?.email;
-  const userImage = session?.user?.image;
-  
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 모바일 백 버튼 */}
-      <div className="lg:hidden p-3 flex items-center border-b bg-white">
-        <Link href="/" className="flex items-center text-sm text-gray-700">
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          <span>홈으로</span>
-        </Link>
-      </div>
-      
-      <div className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">
-        {/* 대시보드 소개 */}
-        <DashboardIntro username={userName} />
-        
-        {/* 모바일 최적화된 레이아웃 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-          {/* 왼쪽 사이드바: 프로필 및 통계 */}
-          <div className="space-y-4 sm:space-y-6">
-            {/* 프로필 카드 */}
-            <UserProfile 
-              name={userName}
-              email={userEmail}
-              image={userImage}
-            />
-            
-            {/* 통계 컴포넌트 */}
-            <UserStatistics />
-          </div>
-          
-          {/* 오른쪽 메인 콘텐츠: 차트 및 활동 내역 */}
-          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-            {/* 차트 섹션 */}
-            <UserActivityChart />
-            
-            {/* 활동 내역 섹션 */}
-            <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4">
-              <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 flex items-center">
-                <Clock className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-indigo-500" />
-                최근 테스트 활동
-              </h2>
-              
-              <Tabs defaultValue="recent" className="w-full">
-                <TabsList className="mb-3 sm:mb-4 w-full max-w-md grid grid-cols-2">
-                  <TabsTrigger value="recent" className="flex items-center gap-1 text-xs sm:text-sm">
-                    <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span>최근 활동</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="all" className="flex items-center gap-1 text-xs sm:text-sm">
-                    <BarChart className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span>모든 활동</span>
-                  </TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="recent" className="mt-0">
-                  <UserActivityList />
-                </TabsContent>
-                
-                <TabsContent value="all" className="mt-0">
-                  <UserActivityList />
-                </TabsContent>
-              </Tabs>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-gray-700 hover:text-rose-600 transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            <span className="text-sm">홈으로 돌아가기</span>
+          </Link>
+        </div>
+
+        <DashboardIntro userName={user?.name || '사용자'} />
+
+        <div className="mt-8">
+          <Tabs defaultValue="activity" className="w-full">
+            <TabsList>
+              <TabsTrigger value="activity" className="flex items-center">
+                <Clock className="w-4 h-4 mr-2" />
+                활동 내역
+              </TabsTrigger>
+              <TabsTrigger value="statistics" className="flex items-center">
+                <BarChart className="w-4 h-4 mr-2" />
+                통계
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="activity" className="mt-6">
+              <UserActivityList />
+            </TabsContent>
+            <TabsContent value="statistics" className="mt-6">
+              <div className="grid gap-6">
+                <UserStatistics />
+                <UserActivityChart />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
