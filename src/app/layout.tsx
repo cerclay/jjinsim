@@ -1,25 +1,14 @@
 import { Metadata, Viewport } from 'next';
 import AdSense from '@/third-parties/AdSense';
-import { ChannelIO } from '@/third-parties/Channelio';
-import Clarity from '@/third-parties/Clarity';
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { GA_MEASUREMENT_ID } from './gtag';
 import { Noto_Sans_KR, Roboto, Inter } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
-import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
 import { metadata as baseMetadata, viewport } from './metadata';
-import { SessionProvider } from '@/components/auth/session-provider';
-import { SessionProvider as NextAuthSessionProvider } from 'next-auth/react';
-import { RootLayoutClient } from '@/components/layout/root-layout-client';
-import { ThemeProvider } from '@/components/ui/theme-provider';
-import Providers from './providers';
-import { AuthProvider } from '@/components/auth/auth-provider';
-import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { ClientLayout } from '@/components/layout/client-layout';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -70,7 +59,7 @@ const gmarketSans = localFont({
 export const metadata: Metadata = baseMetadata;
 export const viewportExport: Viewport = viewport;
 
-function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -90,6 +79,7 @@ function RootLayout({
             `
           }}
         />
+        
         <link 
           rel="icon" 
           href="/favicon.ico" 
@@ -258,35 +248,10 @@ function RootLayout({
           gmarketSans.variable,
         )}
       >
-        <NextAuthSessionProvider>
-          <SessionProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Providers>
-                <AuthProvider>
-                  <RootLayoutClient>
-                    <div className="flex min-h-screen flex-col">
-                      <Header />
-                      <main className="flex-1">{children}</main>
-                      <Footer />
-                    </div>
-                    <Toaster richColors />
-                  </RootLayoutClient>
-                </AuthProvider>
-              </Providers>
-            </ThemeProvider>
-          </SessionProvider>
-        </NextAuthSessionProvider>
+        <ClientLayout>{children}</ClientLayout>
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         <AdSense />
-        <Clarity />
       </body>
     </html>
   );
 }
-
-export default RootLayout;

@@ -4,11 +4,46 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import TestIntroduction from "@/features/tests/components/TestIntroduction";
 import { recordTestParticipation } from "@/features/tests/api";
+import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const supabase = createServerComponentClient({ cookies });
+  
+  // 테스트 카드 정보 가져오기
+  const { data: test, error } = await supabase
+    .from("test_card_stats")
+    .select("*")
+    .eq("id", params.id)
+    .single();
+
+  if (error || !test) {
+    return {
+      title: "테스트를 찾을 수 없습니다",
+      description: "요청하신 테스트를 찾을 수 없습니다."
+    };
+  }
+  
   return {
-    title: `테스트 - ${params.id}`,
-    description: "다양한 재미있는 온라인 심리 테스트를 즐겨보세요."
+    title: `${test.title} - 찐심(JJinSim)`,
+    description: test.description || "다양한 재미있는 온라인 심리 테스트를 즐겨보세요.",
+    openGraph: {
+      title: `${test.title} - 찐심(JJinSim)`,
+      description: test.description || "다양한 재미있는 온라인 심리 테스트를 즐겨보세요.",
+      images: [
+        {
+          url: test.thumbnail_url || 'https://mysimli.com/images/og-preview.jpg',
+          width: 1200,
+          height: 630,
+          alt: test.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${test.title} - 찐심(JJinSim)`,
+      description: test.description || "다양한 재미있는 온라인 심리 테스트를 즐겨보세요.",
+      images: [test.thumbnail_url || 'https://mysimli.com/images/og-preview.jpg'],
+    },
   };
 }
 

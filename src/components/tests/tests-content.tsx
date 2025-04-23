@@ -15,14 +15,24 @@ import { supabase } from '@/lib/supabase/client'; // supabase 클라이언트 �
 // 기본 테스트 데이터 (API에서 데이터를 가져오지 못할 경우 사용)
 const defaultTests = [
   {
-    id: 'boomer-test',
-    title: '나의 꼰대력은?!',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfl5eqh5bGdKTYkWyK02Pd4nfeBnOaRGmKtdu-gNVVxmUbNa9RHOd1J4nPPBEhj-agPWoeFWNb02RKdUmz9Fb6miGtzq9tEQO4tKawQLyyr7JGMOS5c_SzUZC6JecRRfYosDV18Fll38q0jCtjq6AObiUI5cReNXaLYU4uFia4k-gAZ8C5vpT6FRtuBq4/s320/ChatGPT%20Image%202025%EB%85%84%204%EC%9B%94%207%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_14_18.png',
-    participants: 8210,
+    id: 'iq-test',
+    title: '나의 진짜 IQ테스트 - 유머버전',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
+    participants: 8752,
     isNew: true,
     isPopular: true,
-    description: '12문항으로 확인하는 내 속에 잠재된 꼰대 기질! 재미로만 참고하세요.',
-    category: 'psychology'
+    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!',
+    category: 'iq'
+  },
+  {
+    id: 'dementia-test',
+    title: '치매 조기 진단 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx7gG9KZiFpyBn66ujf8mAjnN9qIxIU8wO8le3WavHIofz-9LuYLeMUnd10ZWQc68ZYE32LOKdPIhak4dr83bWwQesN4lW4IF2CC8y3AVvWipNEFm-EYF4f7IfrpmiV3mvPeUaE7-yALTQz4CJ2bmCeN3iZLzPhFLDg6ofqYPm8LGaYyadNvJ1r6Oa4V4/s320/MBTI.jpg',
+    participants: 9215,
+    isNew: true,
+    isPopular: true,
+    description: '20문항으로 알아보는 인지 기능 평가 테스트. 지남력, 기억력, 주의력 등 다양한 영역을 종합적으로 테스트합니다.',
+    category: 'ability'
   },
   {
     id: 'memory-test',
@@ -35,6 +45,35 @@ const defaultTests = [
     category: 'ability'
   },
   {
+    id: 'color-blindness',
+    title: '색맹 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
+    participants: 7842,
+    isPopular: true,
+    description: '당신의 색각 능력을 테스트하는 간단한 검사입니다. 시간을 두고 천천히 확인해보세요.',
+    category: 'ability'
+  },
+  {
+    id: 'polsok-character',
+    title: '내가 폭싹 속았수다 속 케릭터라면?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT73s19GNbOYJlSm_Kj3d06jvPIiNFMgL0qswmuXRH4DAbx-ZTJYa4dMfColxZuajof_pKKUMhfxgL15bknTXbjyi-LAx_Y4gwrO7R0-asgLdpdycOzjcGg-Sc4Pa_k7ozVgZxUNxEgV10rRhf0lcA_oPrwUzk4ypvv4dy3Be5OSpQUMYpGkjlM14iRjw/s320/MBTI%20(1).jpg',
+    participants: 1043,
+    isNew: true,
+    isPopular: true,
+    description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!',
+    category: 'fun'
+  },
+  {
+    id: 'boomer-test',
+    title: '나의 꼰대력은?!',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfl5eqh5bGdKTYkWyK02Pd4nfeBnOaRGmKtdu-gNVVxmUbNa9RHOd1J4nPPBEhj-agPWoeFWNb02RKdUmz9Fb6miGtzq9tEQO4tKawQLyyr7JGMOS5c_SzUZC6JecRRfYosDV18Fll38q0jCtjq6AObiUI5cReNXaLYU4uFia4k-gAZ8C5vpT6FRtuBq4/s320/ChatGPT%20Image%202025%EB%85%84%204%EC%9B%94%207%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_14_18.png',
+    participants: 8210,
+    isNew: true,
+    isPopular: true,
+    description: '12문항으로 확인하는 내 속에 잠재된 꼰대 기질! 재미로만 참고하세요.',
+    category: 'psychology'
+  },
+  {
     id: 'pet-match',
     title: '나랑 찰떡인 반려동물은?',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEg0j8Ns1GMihqct6xNAHgzooZ7aWqWnTPGUL0ZyHCeN8Hl3zRO2eLM3XrD0HZFeRnVG4HF1t7hB6zdqS_3Q_FGJw3zfXgfuIdZnlt1CSwicip9l-OfypNyR-l0_-GvFhCIFpi6vCqm4cBFrpUqhsUaOIbTI9RGCNG756ig-Dg2IqGfN2Tz6bxfUtfWjn9s',
@@ -45,24 +84,13 @@ const defaultTests = [
     category: 'relationship'
   },
   {
-    id: 'iq-test',
-    title: '나의 진짜 IQ테스트 - 유머버전',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEiN0SY7FdaplgijMIumf2Xhh-jZLlpV8fJ38sjYwTjppuSiua0ejcE9tKuvZY4m1LCbCuzDVJEv8n0dsNMyHmObOD-IroqR2I6_EoHEOJCGaHhWEAQW5VaGjfIMpmQvpcVBqxqAvdUSWj1BAfeAqNBvLJbu95ji1Nx1jMnoh1ogpQp_GluGh0n3c5nv7wQ',
-    participants: 8752,
-    isNew: true,
+    id: 'past-life-character',
+    title: '나의 전생 케릭터는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
+    participants: 154321,
     isPopular: true,
-    description: '15문제로 당신의 두뇌를 가볍게 흔들어봅니다. 과연 당신의 숨겨진 지능은? 결과는 진지 반, 유쾌 반!',
-    category: 'iq'
-  },
-  {
-    id: 'flirting-style',
-    title: '나의 썸탈때 유형은?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEi3RsaJfXF348yQXIqPu854ExsUJHbCOWRIaJl8WAN5CB2Hd2LonZlL2JeivUUfqmaeB_uHstCYJkZK5RMMFTO9qK1Xj3JatGqyP-0JcbeCapr4-ithvuIYG4I2ESQBKVudfMbK_buO4WB3SwhFt21UY0QaosOv8Zso0a_t7nqU1wyzALTriopSDnkL_LY',
-    participants: 12543,
     isNew: true,
-    isPopular: true,
-    description: '12개의 질문으로 당신이 관심 있는 사람에게 어떻게 다가가는지 알아보세요! 당신만의 썸 스타일은?',
-    category: 'relationship'
+    category: 'fun'
   },
   {
     id: 'stress-check',
@@ -75,13 +103,51 @@ const defaultTests = [
     category: 'psychology'
   },
   {
-    id: 'past-life-character',
-    title: '나의 전생 케릭터는?',
-    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisr4Au3C02KUYl7WSPC1BB2E__wgmGtxPmYA8B24-JmVWww39tGGY9sJ9H34T8FIDPm3f9rdUSXW4P7BynJusxZMx_DwrBqEzUjcJM_q8JWHkEZrYm2iuMY8Dv7vYuiwtEQH9OI_HzKKQNyijQimxdmQLZ234wPPb_eMuh6cep0uFp4sjgNQfNM7EiJRU/s320/Adobe%20Express%20-%20file.png',
-    participants: 154321,
+    id: 'multiple-personality',
+    title: '다중인격 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
+    participants: 4895,
+    isNew: true,
+    category: 'personality'
+  },
+  {
+    id: 'life-genre',
+    title: '내 인생 장르는 뭘까?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
+    participants: 65436,
     isPopular: true,
     isNew: true,
+    description: '12문제로 알아보는 당신의 인생 영화 장르. 당신의 삶은 코미디? 스릴러? 좀비물?!',
     category: 'fun'
+  },
+  {
+    id: 'adhd-test',
+    title: '당신의 ADHD 성향 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEjtiEJUudqPTaxJfPOpVctjo16rNKVmqbKfBtgmvFUxvOhndLKS0x66cX6AXp4UFigEFH2cJ_J953Pbrch9fTeSfM1-nc0_7b_eLw600zHXyOt58P9sEVEpfrKWLHMiNtb9_YJrzrdk5wCywGcWU8BwQ77AVWGAbKM1q4gQkcpe-wq__a1q9vpiZcPgu-g',
+    participants: 6842,
+    isNew: true,
+    description: '주의력결핍 과잉행동장애(ADHD) 성향을 측정하는 간단한 테스트입니다.',
+    category: 'psychology'
+  },
+  {
+    id: 'flirting-style',
+    title: '나의 썸탈때 유형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEi3RsaJfXF348yQXIqPu854ExsUJHbCOWRIaJl8WAN5CB2Hd2LonZlL2JeivUUfqmaeB_uHstCYJkZK5RMMFTO9qK1Xj3JatGqyP-0JcbeCapr4-ithvuIYG4I2ESQBKVudfMbK_buO4WB3SwhFt21UY0QaosOv8Zso0a_t7nqU1wyzALTriopSDnkL_LY',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신이 관심 있는 사람에게 어떻게 다가가는지 알아보세요! 당신만의 썸 스타일은?',
+    category: 'relationship'
+  },
+  {
+    id: 'marriage-type',
+    title: '나의 결혼 이상형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhoFMZ4NDds4QlotYXL6hLGY4LnRTtVJMGYvTboKMfBGfV5ztssGPqSoTLjRk-KJUUvu7ZK0I8pE7UhcXxqbJTJ0Tfb31EMatXaWJPV-9aEa13MyZ1l4sUDHucVECx0JHi_2JfKUfMqvUwEMQZish5xBUunUU6sn3wqnCgBGlqaXtfWZ8sfQHiqJ8d2sdY',
+    participants: 1043,
+    isNew: true,
+    isPopular: true,
+    description: '당신은 폭싹 속았수다에 등장했다면 어떤 캐릭터일까요? 12개의 질문으로 알아보는 나만의 폭싹 캐릭터 테스트!',
+    category: 'relationship'
   },
   {
     id: 'dog-compatibility',
@@ -109,20 +175,54 @@ const defaultTests = [
     category: 'social'
   },
   {
-    id: 'multiple-personality',
-    title: '다중인격 테스트',
-    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
-    participants: 4895,
-    isNew: true,
-    category: 'personality'
-  },
-  {
     id: 'healing-moment',
     title: '내가 가장 힐링 되는 순간은?!',
     imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
-    participants: 3764,
+    participants: 7329,
     isNew: true,
+    isPopular: true,
+    description: '당신을 가장 힐링시키는 순간은 언제인가요? 10개의 질문으로 당신만의 힐링 모먼트를 찾아보세요!',
     category: 'psychology'
+  },
+  {
+    id: 'attachment-style',
+    title: '나의 애착 유형은?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhSeBAqi0jvBtxRfKdRluimJJDwueigV1ENX5edBTxkWYhxLqjQuAzFj9vzsZxWUkuRI8ydD7EW_wwmudAYU3blDm87VmF0_5-QU7bwagpMxyz9uzJv1n4OcUM2Fv74AaxFWEViUpPGm09eyckvZhBYVxeJvSe_nmbiy-6ILyyTWyXvLPhJ_0D0vn8_MfQ',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신이 관심 있는 사람에게 어떻게 다가가는지 알아보세요! 당신만의 썸 스타일은?',
+    category: 'relationship'
+  },
+  {
+    id: 't-power',
+    title: '나의 T발력 수치는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신의 T발력 수치를 테스트합니다. 당신의 삶은 활력적인가, 침체된 것인가?',
+    category: 'personality'
+  },
+  {
+    id: 'personal-color',
+    title: '퍼스널컬러 테스트',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신의 퍼스널컬러를 테스트합니다. 당신의 삶은 어떤 색으로 물들었는가?',
+    category: 'personality'
+  },
+  {
+    id: 'travel-match-new',
+    title: '나랑 잘 맞는 여행지는?',
+    imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
+    participants: 12543,
+    isNew: true,
+    isPopular: true,
+    description: '12개의 질문으로 당신과 잘 맞는 여행지를 찾아보세요!',
+    category: 'personality'
   },
   {
     id: 'mbti',
@@ -190,27 +290,28 @@ export const TestsContent = () => {
         // src/app/tests 디렉토리에 있는 모든 테스트 폴더를 기반으로 테스트 데이터 생성
         const testDirectories = [
           'iq-test',
-          'color-blindness',
-          'pet-match',
+          'dementia-test',
           'memory-test',
-          'life-genre',
-          'travel-match',
-          'personal-color',
+          'color-blindness',
           'polsok-character',
+          'boomer-test',
+          'pet-match',
+          'past-life-character',
+          'stress-check',
+          'multiple-personality',
+          'life-genre',
+          'adhd-test',
+          'travel-match-new',
+          'personal-color',
           'attachment-style',
           't-power',
-          'boomer-test',
-          'past-life-character',
           'marriage-type',
           'mbti',
-          'stress-check',
           'tarot-consultation',
           'social-character',
-          'multiple-personality',
           'healing-moment',
           'flirting-style',
           'dog-compatibility',
-          'adhd-test'
         ];
 
         // 테스트 제목 보정
@@ -236,7 +337,7 @@ export const TestsContent = () => {
             't-power': '나의 T발력 수치는?',
             'personal-color': '퍼스널컬러 테스트',
             'color-blindness': '색맹 테스트',
-            'travel-match': '나랑 잘 맞는 여행지는?',
+            'travel-match-new': '나랑 잘 맞는 여행지는?',
             'adhd-test': '당신의 ADHD 성향 테스트'
           };
           return titleMap[id] || generateTitle(id);
@@ -271,7 +372,7 @@ export const TestsContent = () => {
             't-power': 'personality',
             'personal-color': 'personality',
             'color-blindness': 'ability',
-            'travel-match': 'personality',
+            'travel-match-new': 'personality',
             'adhd-test': 'psychology'
           };
           return categoryMap[id] || 'fun';
@@ -294,11 +395,7 @@ export const TestsContent = () => {
             't-power': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioHGHTA0AoTM6sqxO3tC36NBmwC3t3a8W5vBIQ0w89EZtHigOlVhczMVKcJwXVBz7goXdoiP2nCmxN9F9dA-25EZDXgTpm6iaABCxOjPFXliwPA1z7ygMC_eHNTR3k8De0QkQZNa7dbuAIvvLOMddKSs6QJUfHWswBc0hDsNbWUft-gnICshMwmvLDSvo/s320/MBTI.jpg',
             'personal-color': 'https://blogger.googleusercontent.com/img/a/AVvXsEib9elWcJ4_sC5ENKPjDkjscxFX2YrL7m9PMSoUEgEYzNsoZUz6s22_LoxNAHVZvY_5xMtMf4enhMT9y5BC7mwBhzm-ZUykWVjP47kHBrxUFP1j2P1Sw0X50YvL0TyvteDFLzCJ-IH1H3kmJ2sEiR2SDNkZ3TjS9SH_0dg-7X2_c7-uAT6DoXnyQJJDHC0',
             'color-blindness': 'https://blogger.googleusercontent.com/img/a/AVvXsEhbZPeJZcuqhy8KNugCWNoi105MZOwUaWEoo5w2hiYj57QuYHhHaZ3jhquUQIrtj3hwXri3U4TefQdiFu07hT5ksrtwrAjmSKatGhWCpb1t-W5o_6ogCOOGfatfnYnYlZQg8p_s1QMoF0QSjjA0MNQtoDQ7nD0WH2zMQlYpkLu8tP62qpwQjcLx-ujH-Mg',
-            'life-genre': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8espUA4MrjiXU6KBHlF4mD6ejAM4T4gPK7_aNIHqe8biWYKAMhreLYSYdPgRhubf0Io486DjiSqZAxZ6j4G7fcX0aXnUjU2Y_sIzV_peGUszaTX-EdZ_eEcT7av9cyqVt_ki8cEa6Y_h6km9NtQKtgzIkIJQYqxX0fACetB9gGnoOk_peOYC7JscbH5A/s320/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2026%EC%9D%BC%20%EC%98%A4%ED%9B%84%2011_28_36.png',
-            'social-character': 'https://blogger.googleusercontent.com/img/a/AVvXsEgClS6uwKav_V1RFcqw_RrMysUA_FPrTiEnqNjTcQtlGLVTTYQEToJAmga7KravDN-2LzuBS3I8kmiDCewHN5lmRN92bGDo1x43X0gFLol0zYXLK_bW-xXhPEJ33ZhHRTofJf80hDC8FVHppVWl3QAyhY6Rv6-RVhoFZHzMICCmjC0xio-V-FmEOgs_us8',
-            'multiple-personality': 'https://blogger.googleusercontent.com/img/a/AVvXsEhU3wrcHO-e6KiGc0GRRHy84f4s5KgSnpwdMdRhVJsUeJ58MkmUezL-BDhT0reEmNcAOAGPEyXtRIwl9dA6Lf53ZIHarjdxj3vT2WXbcKAe5uOw9e0IvmIGRdRUr7B-fHxJHDtWhYKcUYRnqu5Q7QymnFFziMCUphi59i-a7J17gVXCqb5n997QcjDnz30',
-            'healing-moment': 'https://blogger.googleusercontent.com/img/a/AVvXsEgyhxrwEezD7F9ZCCY18n0dYhXZT2zu2bz0y_eAq9WjH0HfOXK0fqL3JDfz1tJQ7AmgtSJvekEJhkPEcNLeDstBHKmkNtf7vmx7XIQLWUAJRo1D9SV3xvYapc2MWyyaTRq-9tYDMGc8Hlf5fPVfSsrVT3mKEAFE8uXpkjkV52APJOii-IEPdZARJoPmR3k',
-            'travel-match': 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwcZecDbw2Psrma7voRO7iGbZjQNKvtDmiPraoGk2yGTDCpbOhz-XrvsVyhoCJEgECUJJgUCnOEiwK_IPzQZcFCu6ALZnc_Mm_hk8iO_Ut7OBvl2q85B4rM9m6W9zYQDfDOMEw9vZnUixe5kTFMq1vdmNF0CYRhlCh69D2fPB2OimP7wPwbZVN1z8jZfo/s320/travel-match.jpg',
+            'travel-match-new': 'https://blogger.googleusercontent.com/img/a/AVvXsEhe1IJZbi1eDWkyySuXPE5BVSa844H6IDBOn8uTdHQA5oaktH1WRxcd5BZE7EoPsvKbLYJHOIqQbjvEhVWjY4BUObiEwozxFgj7ocnDrWRc7NDP8zpebJAJ8bE7vahDnYD9X45kW78WqK5VIfIttMhj1wYliJWm3_ZC-3UO6nwiK7cPx_jycBhBCqoyYd4',
             'adhd-test': 'https://blogger.googleusercontent.com/img/a/AVvXsEjtiEJUudqPTaxJfPOpVctjo16rNKVmqbKfBtgmvFUxvOhndLKS0x66cX6AXp4UFigEFH2cJ_J953Pbrch9fTeSfM1-nc0_7b_eLw600zHXyOt58P9sEVEpfrKWLHMiNtb9_YJrzrdk5wCywGcWU8BwQ77AVWGAbKM1q4gQkcpe-wq__a1q9vpiZcPgu-g'
           };
           
@@ -336,28 +433,172 @@ export const TestsContent = () => {
           
           // 두 데이터를 합친 후 정렬
           const allTests = [...formattedTests, ...uniqueDirectoryTests];
-          const sortedTests = allTests.sort((a, b) => b.participants - a.participants);
+          
+          // 인기 테스트 순서 정의
+          const popularOrder = [
+            'iq-test',
+            'dementia-test',
+            'memory-test',
+            'color-blindness',
+            'polsok-character',
+            'boomer-test',
+            'pet-match',
+            'past-life-character',
+            'attachment-style',
+            't-power'
+          ];
+          
+          // 신규 테스트 순서 정의
+          const newOrder = [
+            'pet-match',
+            'past-life-character',
+            'stress-check',
+            'multiple-personality',
+            'life-genre',
+            'adhd-test',
+            'boomer-test',
+            'travel-match-new'
+          ];
+          
+          // 인기 테스트 순서에 따라 정렬
+          const sortedTests = [...allTests].sort((a, b) => {
+            const aIndex = popularOrder.indexOf(a.id);
+            const bIndex = popularOrder.indexOf(b.id);
+            
+            // 둘 다 순서 목록에 있으면 순서대로 정렬
+            if (aIndex !== -1 && bIndex !== -1) {
+              return aIndex - bIndex;
+            }
+            // a만 목록에 있으면 a 우선
+            else if (aIndex !== -1) {
+              return -1;
+            }
+            // b만 목록에 있으면 b 우선
+            else if (bIndex !== -1) {
+              return 1;
+            }
+            // 둘 다 없으면 참여자 수로 정렬
+            else {
+              return b.participants - a.participants;
+            }
+          });
           
           setPopularTests(sortedTests);
           
           // 신규 테스트는 isNew가 true인 테스트만 필터링하여 사용
-          const newTestsData = sortedTests.filter(test => test.isNew);
+          const newTestsData = allTests.filter(test => test.isNew);
+          
+          // 정의된 순서에 따라 신규 테스트 정렬
+          const sortedNewTests = [...newTestsData].sort((a, b) => {
+            const aIndex = newOrder.indexOf(a.id);
+            const bIndex = newOrder.indexOf(b.id);
             
-          if (newTestsData.length > 0) {
-            setNewTests(newTestsData);
+            // 둘 다 순서 목록에 있으면 순서대로 정렬
+            if (aIndex !== -1 && bIndex !== -1) {
+              return aIndex - bIndex;
+            }
+            // a만 목록에 있으면 a 우선
+            else if (aIndex !== -1) {
+              return -1;
+            }
+            // b만 목록에 있으면 b 우선
+            else if (bIndex !== -1) {
+              return 1;
+            }
+            // 둘 다 없으면 참여자 수로 정렬
+            else {
+              return b.participants - a.participants;
+            }
+          });
+            
+          if (sortedNewTests.length > 0) {
+            setNewTests(sortedNewTests);
           } else {
             // 신규 테스트가 없으면 최근에 추가된 테스트를 신규로 표시
             setNewTests(sortedTests.slice(0, 10));
           }
         } else {
           // API 데이터 없을 경우 디렉토리 기반 데이터만 사용
-          const sortedTests = directoryTests.sort((a, b) => b.participants - a.participants);
+          
+          // 인기 테스트 순서 정의
+          const popularOrder = [
+            'iq-test',
+            'dementia-test',
+            'memory-test',
+            'color-blindness',
+            'polsok-character',
+            'boomer-test',
+            'pet-match',
+            'past-life-character',
+            'attachment-style',
+            't-power'
+          ];
+          
+          // 신규 테스트 순서 정의
+          const newOrder = [
+            'pet-match',
+            'past-life-character',
+            'stress-check',
+            'multiple-personality',
+            'life-genre',
+            'adhd-test',
+            'boomer-test',
+            'travel-match-new'
+          ];
+          
+          // 인기 테스트 순서에 따라 정렬
+          const sortedTests = [...directoryTests].sort((a, b) => {
+            const aIndex = popularOrder.indexOf(a.id);
+            const bIndex = popularOrder.indexOf(b.id);
+            
+            // 둘 다 순서 목록에 있으면 순서대로 정렬
+            if (aIndex !== -1 && bIndex !== -1) {
+              return aIndex - bIndex;
+            }
+            // a만 목록에 있으면 a 우선
+            else if (aIndex !== -1) {
+              return -1;
+            }
+            // b만 목록에 있으면 b 우선
+            else if (bIndex !== -1) {
+              return 1;
+            }
+            // 둘 다 없으면 참여자 수로 정렬
+            else {
+              return b.participants - a.participants;
+            }
+          });
+          
           setPopularTests(sortedTests);
           
-          // 신규 테스트
-          const newTestsData = sortedTests.filter(test => test.isNew);
-          if (newTestsData.length > 0) {
-            setNewTests(newTestsData);
+          // 신규 테스트는 isNew가 true인 테스트만 필터링하여 사용
+          const newTestsData = directoryTests.filter(test => test.isNew);
+          
+          // 정의된 순서에 따라 신규 테스트 정렬
+          const sortedNewTests = [...newTestsData].sort((a, b) => {
+            const aIndex = newOrder.indexOf(a.id);
+            const bIndex = newOrder.indexOf(b.id);
+            
+            // 둘 다 순서 목록에 있으면 순서대로 정렬
+            if (aIndex !== -1 && bIndex !== -1) {
+              return aIndex - bIndex;
+            }
+            // a만 목록에 있으면 a 우선
+            else if (aIndex !== -1) {
+              return -1;
+            }
+            // b만 목록에 있으면 b 우선
+            else if (bIndex !== -1) {
+              return 1;
+            }
+            // 둘 다 없으면 참여자 수로 정렬
+            else {
+              return b.participants - a.participants;
+            }
+          });
+          
+          if (sortedNewTests.length > 0) {
+            setNewTests(sortedNewTests);
           } else {
             setNewTests(sortedTests.slice(0, 10));
           }
@@ -368,27 +609,28 @@ export const TestsContent = () => {
         // 오류 발생 시 디렉토리 기반 테스트 데이터 생성
         const testDirectories = [
           'iq-test',
-          'color-blindness',
-          'pet-match',
+          'dementia-test',
           'memory-test',
-          'life-genre',
-          'travel-match',
-          'personal-color',
+          'color-blindness',
           'polsok-character',
+          'boomer-test',
+          'pet-match',
+          'past-life-character',
+          'stress-check',
+          'multiple-personality',
+          'life-genre',
+          'adhd-test',
+          'travel-match-new',
+          'personal-color',
           'attachment-style',
           't-power',
-          'boomer-test',
-          'past-life-character',
           'marriage-type',
           'mbti',
-          'stress-check',
           'tarot-consultation',
           'social-character',
-          'multiple-personality',
           'healing-moment',
           'flirting-style',
           'dog-compatibility',
-          'adhd-test'
         ];
 
         // 테스트 제목 보정
@@ -414,7 +656,7 @@ export const TestsContent = () => {
             't-power': '나의 T발력 수치는?',
             'personal-color': '퍼스널컬러 테스트',
             'color-blindness': '색맹 테스트',
-            'travel-match': '나랑 잘 맞는 여행지는?',
+            'travel-match-new': '나랑 잘 맞는 여행지는?',
             'adhd-test': '당신의 ADHD 성향 테스트'
           };
           return titleMap[id] || generateTitle(id);

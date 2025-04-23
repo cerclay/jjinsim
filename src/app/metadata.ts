@@ -2,23 +2,24 @@ import type { Metadata, Viewport } from 'next';
 
 // 제목과 설명은 한글로 작성하는 것이 한국 SEO에 더 효과적입니다
 export const baseMetadata: Metadata = {
+  metadataBase: new URL('https://mysimli.com'),
   title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
   description: '찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!',
   keywords: ['심리테스트', '성격테스트', '무료테스트', 'MBTI', '심리검사', '성격검사', '적성검사', '연애테스트', '찐심', 'jjinsim'],
-  authors: [{ name: '찐심', url: 'https://jjinsim.com' }],
+  authors: [{ name: '찐심', url: 'https://www.mysimli.com' }],
   creator: '찐심 테스트',
   publisher: '찐심 테스트',
   applicationName: '찐심',
   category: '심리테스트',
   openGraph: {
     type: 'website',
-    url: 'https://jjinsim.com',
+    url: 'https://mysimli.com',
     title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
     description: '찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!',
     siteName: '찐심 심리테스트',
     images: [
       {
-        url: '/images/og-image.png', // OpenGraph 이미지 경로 설정
+        url: 'https://mysimli.com/images/og-preview.jpg',
         width: 1200,
         height: 630,
         alt: '찐심 심리테스트',
@@ -30,7 +31,7 @@ export const baseMetadata: Metadata = {
     card: 'summary_large_image',
     title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
     description: '찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!',
-    images: ['/images/twitter-image.png'], // 트위터 카드 이미지 경로 설정
+    images: ['https://mysimli.com/images/og-preview.jpg'],
   },
   robots: {
     index: true,
@@ -43,10 +44,10 @@ export const baseMetadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://jjinsim.com',
+    canonical: 'https://mysimli.com',
     languages: {
-      'ko-KR': 'https://jjinsim.com',
-      'en-US': 'https://jjinsim.com/en',
+      'ko-KR': 'https://mysimli.com',
+      'en-US': 'https://mysimli.com/en',
     },
   },
   icons: {

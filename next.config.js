@@ -75,11 +75,7 @@ const nextConfig = {
     ];
   },
   output: 'standalone',
-  sentry: {
-    disableServerWebpackPlugin: true,
-    disableClientWebpackPlugin: true,
-  }
 };
 
-// Sentry 설정 비활성화
+// Sentry 설정 제거
 module.exports = nextConfig;

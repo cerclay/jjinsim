@@ -21,8 +21,8 @@ export function createMetadata(props: MetadataProps): Metadata {
     title,
     description,
     keywords,
-    image = '/images/og-image.png',
-    url = 'https://jjinsim.com',
+    image = 'https://www.mysimli.com/images/og-image.png',
+    url = 'https://www.mysimli.com',
     type = 'website',
   } = props;
   

@@ -2,10 +2,6 @@
 
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { Toaster } from 'sonner';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
-import Clarity from '@/third-parties/Clarity';
-import { ChannelIO } from '@/third-parties/Channelio';
 import { useEffect } from 'react';
 
 interface RootLayoutClientProps {
@@ -26,8 +22,6 @@ export function RootLayoutClient({ children }: RootLayoutClientProps) {
 
   return (
     <>
-      <ChannelIO />
-      <Clarity />
       <Toaster position="top-center" />
       {/* 언어 전환 버튼 */}
       <div className="fixed top-4 right-4 z-[9999]">
