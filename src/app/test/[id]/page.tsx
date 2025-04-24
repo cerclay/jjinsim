@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       description: test.description || "다양한 재미있는 온라인 심리 테스트를 즐겨보세요.",
       images: [
         {
-          url: test.thumbnail_url || 'https://mysimli.com/images/og-preview.jpg',
+          url: test.thumbnail_url || 'https://www.mysimli.com/images/og-image-new.png',
           width: 1200,
           height: 630,
           alt: test.title,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       card: 'summary_large_image',
       title: `${test.title} - 찐심(JJinSim)`,
       description: test.description || "다양한 재미있는 온라인 심리 테스트를 즐겨보세요.",
-      images: [test.thumbnail_url || 'https://mysimli.com/images/og-preview.jpg'],
+      images: [test.thumbnail_url || 'https://www.mysimli.com/images/og-image-new.png'],
     },
   };
 }

@@ -2,15 +2,12 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Share2 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { QUESTIONS, TIME_LIMIT_SECONDS, MEMORY_INDEX_RANGES, MEMORY_TEST_METADATA } from "../constants"
-import { Question, TestResult } from "../types"
+import { QUESTIONS, TIME_LIMIT_SECONDS, MEMORY_TEST_METADATA } from "../constants"
+import { Question } from "../types"
 import { incrementParticipantCount } from "@/features/test-cards/api"
-import Link from "next/link"
 
 export function MemoryTest() {
   const [isStarted, setIsStarted] = useState(false)
@@ -19,10 +16,10 @@ export function MemoryTest() {
   const [showQuestion, setShowQuestion] = useState(true)
   const [timeLeft, setTimeLeft] = useState(4) // 4초 타이머
   const [showQuestionText, setShowQuestionText] = useState(false) // 문제 텍스트 표시 여부
-  const [result, setResult] = useState<TestResult | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  const [copySuccess, setCopySuccess] = useState(false)
-  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const [startTime, setStartTime] = useState<number | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false) // 제출 중복 방지를 위한 상태
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(null)
+  const [showResultButton, setShowResultButton] = useState(false) // 결과 보기 버튼 표시
 
   useEffect(() => {
     let timer: NodeJS.Timeout
@@ -33,21 +30,16 @@ export function MemoryTest() {
     } else if (timeLeft === 0 && showQuestion) {
       setShowQuestion(false)
       setShowQuestionText(true)
-      setTimeLeft(4) // 타이머 리셋
+      
+      // 마지막 질문인 경우 충분한 시간 제공
+      if (currentQuestionIndex === QUESTIONS.length - 1) {
+        setTimeLeft(10) // 마지막 질문에는 더 긴 시간 제공
+      } else {
+        setTimeLeft(4) // 타이머 리셋
+      }
     }
     return () => clearInterval(timer)
-  }, [showQuestion, timeLeft])
-
-  // 복사 성공 메시지를 일정 시간 후 숨기는 효과
-  useEffect(() => {
-    if (copySuccess) {
-      const timer = setTimeout(() => {
-        setCopySuccess(false)
-      }, 3000)
-      
-      return () => clearTimeout(timer)
-    }
-  }, [copySuccess])
+  }, [showQuestion, timeLeft, currentQuestionIndex])
 
   const startTest = () => {
     setIsStarted(true)
@@ -56,99 +48,92 @@ export function MemoryTest() {
     setTimeLeft(4)
     setShowQuestion(true)
     setShowQuestionText(false)
-    setResult(null)
-    setShowResult(false)
+    setStartTime(Date.now())
+    setIsSubmitting(false)
+    setSelectedAnswerIndex(null) // 선택한 답변 초기화
+    setShowResultButton(false)
   }
 
+  // 결과 페이지로 이동하는 간단한 함수
+  const navigateToResultPage = (numCorrect: number) => {
+    const totalTimeSpent = Math.floor((Date.now() - (startTime || Date.now())) / 1000);
+    // 절대 URL 생성
+    const baseUrl = window.location.origin;
+    const resultUrl = `${baseUrl}/tests/memory-test/result?correct=${numCorrect}&total=${QUESTIONS.length}&time=${totalTimeSpent}`;
+    
+    console.log('결과 페이지로 이동 시도', resultUrl);
+    
+    // 직접 페이지 변경 (가장 기본적인 방법)
+    window.location.href = resultUrl;
+  };
+
   const handleAnswer = async (answerIndex: number) => {
-    const currentQuestion = QUESTIONS[currentQuestionIndex]
-    if (answerIndex === currentQuestion.answer_index) {
-      setCorrectAnswers((prev) => prev + 1)
+    // 중복 제출 방지
+    if (isSubmitting) {
+      console.log('이미 제출 중입니다.');
+      return;
     }
 
-    if (currentQuestionIndex < QUESTIONS.length - 1) {
+    const currentQuestion = QUESTIONS[currentQuestionIndex]
+    const isCorrect = answerIndex === currentQuestion.answer_index
+    
+    // 정답 여부에 따라 정답 개수 업데이트
+    let updatedCorrectAnswers = correctAnswers;
+    if (isCorrect) {
+      updatedCorrectAnswers = correctAnswers + 1;
+      setCorrectAnswers(updatedCorrectAnswers);
+    }
+
+    // 마지막 질문인지 확인 (인덱스는 0부터 시작하므로 length-1과 비교)
+    const isLastQuestion = currentQuestionIndex === QUESTIONS.length - 1
+    
+    if (!isLastQuestion) {
+      // 다음 문제로 이동
       setCurrentQuestionIndex((prev) => prev + 1)
       setShowQuestion(true)
       setShowQuestionText(false)
       setTimeLeft(4) // 타이머 리셋
+      setSelectedAnswerIndex(null) // 선택한 답변 초기화
     } else {
-      const range = MEMORY_INDEX_RANGES.find(
-        (r) => correctAnswers >= r.min_correct && correctAnswers <= r.max_correct
-      )!
-
-      setResult({
-        correctCount: correctAnswers,
-        totalQuestions: QUESTIONS.length,
-        memoryIndex: range.memory_index,
-        range,
-        timeSpent: TIME_LIMIT_SECONDS - timeLeft,
-      })
-      setShowResult(true)
-
+      // 마지막 문제일 경우
       try {
-        await incrementParticipantCount(MEMORY_TEST_METADATA.id)
+        setIsSubmitting(true); // 제출 중 상태로 변경
+        console.log('마지막 질문 답변 제출, 정답 개수:', updatedCorrectAnswers);
+        
+        // 참여자 수 증가 시도
+        try {
+          await incrementParticipantCount(MEMORY_TEST_METADATA.id);
+          console.log('참여자 수 증가 성공');
+        } catch (error) {
+          console.error('참여자 수 증가 실패, 결과로 이동 계속:', error);
+        }
+        
+        // 결과 버튼 표시
+        setShowResultButton(true);
+        
       } catch (error) {
-        console.error('Failed to increment participant count:', error)
+        console.error('결과 제출 중 오류 발생:', error);
+        setShowResultButton(true);
+        setIsSubmitting(false);
       }
     }
   }
 
-  const getShareText = () => {
-    if (!result) return ""
-
-    return `
-🧠 내 기억력 지수 테스트 결과:
-${result.range.title}
-기억력 지수: ${result.memoryIndex}점
-정답률: ${(result.correctCount / result.totalQuestions * 100).toFixed(1)}%
-
-${result.range.tags.join(" ")}
-
-테스트 해보기: ${window.location.origin}/tests/memory-test
-    `.trim()
-  }
-  
-  const shareResult = () => {
-    if (!result) return
+  const handleChoiceClick = (index: number) => {
+    if (isSubmitting) return;
     
-    // fallback 복사 방식
-    if (textAreaRef.current) {
-      textAreaRef.current.value = getShareText()
-      textAreaRef.current.select()
-      
-      try {
-        // 커맨드 실행 (복사)
-        document.execCommand('copy')
-        setCopySuccess(true)
-      } catch (err) {
-        console.error('복사 실패:', err)
-        alert('복사에 실패했습니다. 직접 선택하여 복사해주세요.')
-      }
-    }
-  }
-
-  // 모던 브라우저용 클립보드 API 사용
-  const copyToClipboard = async () => {
-    if (!result) return
-
-    const text = getShareText()
+    setSelectedAnswerIndex(index);
     
-    try {
-      // 우선 모던 API 시도
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(text)
-        setCopySuccess(true)
-        return
-      }
-      
-      // 폴백: 기존 방식 사용
-      shareResult()
-    } catch (err) {
-      console.error("클립보드 API 복사 실패:", err)
-      // 폴백: 기존 방식 사용
-      shareResult()
+    // 마지막 문제에서 시각적 피드백을 위해 0.3초 후 답변 처리
+    const isLastQuestion = currentQuestionIndex === QUESTIONS.length - 1;
+    if (isLastQuestion) {
+      setTimeout(() => {
+        handleAnswer(index);
+      }, 300);
+    } else {
+      handleAnswer(index);
     }
-  }
+  };
 
   const renderQuestion = (question: Question) => {
     if (question.type === 'image') {
@@ -173,83 +158,6 @@ ${result.range.tags.join(" ")}
   }
 
   const currentQuestion = QUESTIONS[currentQuestionIndex]
-
-  // 결과 화면 렌더링
-  const renderResult = () => {
-    if (!result) return null;
-    
-    return (
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6"
-        >
-          <Card className="p-6 shadow-lg rounded-xl overflow-hidden">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">{result.range.title}</h2>
-              
-              <div className="mb-4">
-                <img
-                  src={`https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGVmMjM5YTQtZDM4Ny00YjFkLWE5MDUtNmRiZjM5ZWY1YzRkMiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/3o7TKTDn976rzVgky4/giphy.gif`}
-                  alt="결과 이미지"
-                  className="w-full max-h-[300px] object-contain rounded-lg"
-                />
-              </div>
-              
-              <p className="text-2xl font-bold mb-2">기억력 지수: {result.memoryIndex}점</p>
-              <p className="text-gray-600 mb-6 text-lg">{result.range.description}</p>
-              
-              <div className="flex flex-wrap gap-2 justify-center mb-6">
-                {result.range.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              
-              {/* 숨겨진 텍스트 영역 (복사용) */}
-              <textarea
-                ref={textAreaRef}
-                className="opacity-0 absolute h-0"
-                tabIndex={-1}
-                readOnly
-                aria-hidden="true"
-              />
-              
-              <div className="mb-6">
-                <Button 
-                  onClick={copyToClipboard} 
-                  variant="outline" 
-                  className="w-full py-4 text-lg rounded-xl flex items-center justify-center gap-2"
-                >
-                  <Share2 className="w-5 h-5" />
-                  {copySuccess ? "복사 완료!" : "결과 공유하기"}
-                </Button>
-                {copySuccess && (
-                  <p className="text-green-600 mt-2 text-sm">결과가 클립보드에 복사되었습니다!</p>
-                )}
-              </div>
-              
-              <div className="flex flex-col gap-3">
-                <Button onClick={startTest} className="w-full py-4 text-lg rounded-xl">
-                  다시 테스트하기
-                </Button>
-                <Link href="/" className="w-full">
-                  <Button variant="outline" className="w-full py-4 text-lg rounded-xl">
-                    다른 문제 풀러가기
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </Card>
-        </motion.div>
-      </AnimatePresence>
-    );
-  };
 
   return (
     <div className="max-w-[500px] mx-auto px-4 pt-20 pb-8">
@@ -276,8 +184,6 @@ ${result.range.tags.join(" ")}
             테스트 시작하기
           </Button>
         </motion.div>
-      ) : showResult ? (
-        renderResult()
       ) : (
         <AnimatePresence mode="wait">
           <motion.div
@@ -318,14 +224,30 @@ ${result.range.tags.join(" ")}
                     {currentQuestion.choices.map((choice, index) => (
                       <Button
                         key={index}
-                        onClick={() => handleAnswer(index)}
-                        variant="outline"
-                        className="w-full py-4 text-base font-medium rounded-lg hover:bg-primary hover:text-white transition-colors"
+                        onClick={() => handleChoiceClick(index)}
+                        variant={selectedAnswerIndex === index ? "default" : "outline"}
+                        disabled={isSubmitting && !showResultButton}
+                        className={`w-full py-4 text-base font-medium rounded-lg hover:bg-primary hover:text-white transition-colors focus:ring-2 focus:ring-primary ${
+                          currentQuestionIndex === QUESTIONS.length - 1 
+                            ? "last-question-button border-2" 
+                            : ""
+                        }`}
                       >
                         {choice}
                       </Button>
                     ))}
                   </div>
+                  
+                  {showResultButton && (
+                    <div className="mt-6">
+                      <Button 
+                        onClick={() => navigateToResultPage(correctAnswers)}
+                        className="w-full py-4 text-lg bg-green-600 hover:bg-green-700 rounded-xl font-bold text-white"
+                      >
+                        결과 보기
+                      </Button>
+                    </div>
+                  )}
                 </>
               )}
             </Card>
@@ -334,4 +256,4 @@ ${result.range.tags.join(" ")}
       )}
     </div>
   )
-} 
+}

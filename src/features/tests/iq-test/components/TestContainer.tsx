@@ -77,7 +77,10 @@ export const TestContainer: React.FC = () => {
   if (state.isCompleted && state.result) {
     return (
       <div className="w-full max-w-[500px] mx-auto">
-        <ResultCard result={state.result} onRestart={restartTest} />
+        <ResultCard 
+          result={state.result} 
+          onRestart={restartTest} 
+        />
       </div>
     );
   }

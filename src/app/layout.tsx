@@ -68,6 +68,14 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="ko" className="light">
       <head>
         <meta name="naver-site-verification" content="68df3cca1368ab0533c08b01ae13d42b63bfc12a" />
+        {/* 캐시 제어 및 업데이트 강제 메타 태그 */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        
+        {/* 오픈그래프 이미지 미리 로드 */}
+        <link rel="preload" as="image" href="https://www.mysimli.com/images/og-share.png" />
+        
         {/* 환경변수 설정 스크립트 - Next.js 15 호환성 */}
         <script
           dangerouslySetInnerHTML={{
@@ -79,6 +87,26 @@ export default function RootLayout({
             `
           }}
         />
+        
+        {/* 오픈그래프 메타태그 직접 추가 */}
+        <meta property="og:title" content="찐심(JJinSim) - 당신의 내면을 비추는 심리테스트" />
+        <meta property="og:description" content="찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.mysimli.com" />
+        <meta property="og:image" content="https://www.mysimli.com/images/og-share.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="찐심 심리테스트" />
+        <meta property="og:locale" content="ko_KR" />
+        
+        {/* 트위터 카드 메타태그 */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="찐심(JJinSim) - 당신의 내면을 비추는 심리테스트" />
+        <meta name="twitter:description" content="찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!" />
+        <meta name="twitter:image" content="https://www.mysimli.com/images/og-share.png" />
+        
+        {/* canonical URL 설정 */}
+        <link rel="canonical" href="https://www.mysimli.com" />
         
         <link 
           rel="icon" 
@@ -94,6 +122,16 @@ export default function RootLayout({
           rel="apple-touch-icon"
           href="/favicon.png"
         />
+        
+        {/* Paperlogy 폰트 추가 */}
+        <link 
+          rel="preload" 
+          href="https://pcbdobocfcxhwpgfgydh.supabase.co/storage/v1/object/public/pont//Paperlogy-6SemiBold.ttf" 
+          as="font" 
+          type="font/ttf" 
+          crossOrigin="anonymous" 
+        />
+        
         {/* 카카오톡 공유 SDK */}
         <script 
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
@@ -104,14 +142,48 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.addEventListener('load', () => {
+              document.addEventListener('DOMContentLoaded', () => {
                 if (window.Kakao) {
                   // 카카오 SDK 초기화
                   if (!window.Kakao.isInitialized()) {
-                    // Next.js 15 이상에서는 process.env 직접 접근 불가
-                    const kakaoAppKey = window.__ENV__?.NEXT_PUBLIC_KAKAO_CLIENT_ID || '';
-                    window.Kakao.init(kakaoAppKey);
-                    console.log('Kakao SDK initialized');
+                    try {
+                      // Next.js 15 이상에서는 process.env 직접 접근 불가
+                      const kakaoAppKey = window.__ENV__?.NEXT_PUBLIC_KAKAO_CLIENT_ID || '';
+                      if (kakaoAppKey) {
+                        window.Kakao.init(kakaoAppKey);
+                        console.log('Kakao SDK initialized');
+                        
+                        // 카카오톡 디폴트 공유 설정
+                        if (document.getElementById('kakao-share-btn')) {
+                          window.Kakao.Share.createDefaultButton({
+                            container: '#kakao-share-btn',
+                            objectType: 'feed',
+                            content: {
+                              title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
+                              description: '찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요.',
+                              imageUrl: 'https://www.mysimli.com/images/og-share.png',
+                              link: {
+                                mobileWebUrl: 'https://www.mysimli.com',
+                                webUrl: 'https://www.mysimli.com'
+                              }
+                            },
+                            buttons: [
+                              {
+                                title: '웹으로 보기',
+                                link: {
+                                  mobileWebUrl: 'https://www.mysimli.com',
+                                  webUrl: 'https://www.mysimli.com'
+                                }
+                              }
+                            ]
+                          });
+                        }
+                      } else {
+                        console.warn('카카오 App Key가 설정되지 않았습니다.');
+                      }
+                    } catch (error) {
+                      console.error('카카오 SDK 초기화 중 오류 발생:', error);
+                    }
                   }
                 }
               });
@@ -125,7 +197,7 @@ export default function RootLayout({
               (async () => {
                 try {
                   // 애플리케이션이 로드된 후 실행
-                  window.addEventListener('load', async () => {
+                  document.addEventListener('DOMContentLoaded', async () => {
                     try {
                       // 페이지 로드 후 바로 API 호출
                       setTimeout(async () => {
@@ -240,7 +312,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'min-h-screen font-sans antialiased',
+          'min-h-screen font-sans antialiased font-paperlogy',
           inter.variable,
           notoSansKr.variable,
           roboto.variable,

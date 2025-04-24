@@ -9,12 +9,11 @@ export const size = {
 export const contentType = 'image/png';
 
 // MBTI 페이지용 OG 이미지 컴포넌트
-export default async function MbtiOgImage() {
+export default function MbtiOgImage() {
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: 128,
           background: 'linear-gradient(to bottom, #feebc8, #fed7aa)',
           width: '100%',
           height: '100%',
@@ -27,7 +26,6 @@ export default async function MbtiOgImage() {
       >
         <div
           style={{
-            display: 'flex',
             fontSize: 60,
             fontWeight: 'bold',
             color: '#333',
@@ -38,11 +36,9 @@ export default async function MbtiOgImage() {
         </div>
         <div 
           style={{
-            display: 'flex',
             fontSize: 32,
             color: '#555',
             textAlign: 'center',
-            maxWidth: '80%',
           }}
         >
           당신의 진짜 MBTI 유형을 알아보세요

@@ -51,6 +51,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'k.kakaocdn.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.mysimli.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'mysimli.com'
       }
     ],
     domains: [
@@ -58,7 +66,9 @@ const nextConfig = {
       'images.unsplash.com',
       'picsum.photos',
       'img.youtube.com',
-      'k.kakaocdn.net'
+      'k.kakaocdn.net',
+      'www.mysimli.com',
+      'mysimli.com'
     ],
   },
   env: {

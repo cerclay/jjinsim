@@ -3,63 +3,45 @@ import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    
-    // 요청 파라미터에서 정보를 가져옵니다
-    const title = searchParams.get('title') || '찐심(JJinSim)';
-    const description = searchParams.get('description') || '당신의 내면을 비추는 심리테스트';
-    const type = searchParams.get('type') || 'default';
-    
-    // 배경 색상 설정
-    let backgroundColor = 'linear-gradient(to bottom, #ffffff, #f0f0f0)';
-    if (type === 'mbti') {
-      backgroundColor = 'linear-gradient(to bottom, #feebc8, #fed7aa)';
-    } else if (type === 'personality') {
-      backgroundColor = 'linear-gradient(to bottom, #e9d5ff, #d8b4fe)';
-    } else if (type === 'love') {
-      backgroundColor = 'linear-gradient(to bottom, #fee2e2, #fecaca)';
-    }
-    
-    // 이미지 반환
+    // 간소화된 OG 이미지 생성
     return new ImageResponse(
       (
         <div
           style={{
-            fontSize: 128,
-            background: backgroundColor,
-            width: '100%',
-            height: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #4F46E5 0%, #8B5CF6 100%)',
             padding: '40px',
+            fontFamily: 'sans-serif',
+            color: 'white',
           }}
         >
           <div
             style={{
-              display: 'flex',
-              fontSize: 60,
+              fontSize: '72px',
               fontWeight: 'bold',
-              color: '#333',
-              marginBottom: 30,
               textAlign: 'center',
+              lineHeight: 1.2,
+              marginBottom: '20px',
             }}
           >
-            {title}
+            찐심테스트
           </div>
-          <div 
+          <div
             style={{
-              display: 'flex',
-              fontSize: 32,
-              color: '#555',
+              fontSize: '42px',
               textAlign: 'center',
-              maxWidth: '80%',
+              lineHeight: 1.4,
+              maxWidth: '90%',
             }}
           >
-            {description}
+            당신의 내면을 비추는 심리테스트
           </div>
         </div>
       ),
@@ -68,8 +50,10 @@ export async function GET(request: NextRequest) {
         height: 630,
       }
     );
-  } catch (error) {
-    console.error('OG 이미지 생성 에러:', error);
-    return new Response('OG 이미지 생성 중 오류가 발생했습니다', { status: 500 });
+  } catch (e: any) {
+    console.log(`OG 이미지 생성 에러: ${e.message}`);
+    return new Response(`OG 이미지 생성 실패: ${e.message}`, {
+      status: 500,
+    });
   }
 } 

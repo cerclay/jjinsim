@@ -9,12 +9,11 @@ export const size = {
 export const contentType = 'image/png';
 
 // OG 이미지 컴포넌트
-export default async function OgImage() {
+export default function OgImage() {
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: 128,
           background: 'linear-gradient(to bottom, #ffffff, #f0f0f0)',
           width: '100%',
           height: '100%',
@@ -27,7 +26,6 @@ export default async function OgImage() {
       >
         <div
           style={{
-            display: 'flex',
             fontSize: 60,
             fontWeight: 'bold',
             color: '#333',
@@ -38,11 +36,9 @@ export default async function OgImage() {
         </div>
         <div 
           style={{
-            display: 'flex',
             fontSize: 32,
             color: '#555',
             textAlign: 'center',
-            maxWidth: '80%',
           }}
         >
           당신의 내면을 비추는 심리테스트

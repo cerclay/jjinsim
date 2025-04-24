@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Share2 } from "lucide-react"
 import { Card } from "@/components/ui/card"
@@ -25,6 +25,7 @@ export function BoomerTest() {
   const { toast } = useToast()
   const [_, copy] = useCopyToClipboard()
   const { data: session } = useSession()
+  const resultCardRef = useRef<HTMLDivElement>(null)
 
   const [isStarted, setIsStarted] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -32,6 +33,7 @@ export function BoomerTest() {
   const [result, setResult] = useState<BoomerTestResult | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [isSharing, setIsSharing] = useState(false)
+  const [isSavingImage, setIsSavingImage] = useState(false)
 
   const startTest = () => {
     setIsStarted(true)
@@ -104,38 +106,19 @@ export function BoomerTest() {
     if (!result) return
     setIsSharing(true)
 
-    const text = `
-🔍 꼰대력 테스트 결과:
-${result.scoreRange.resultTitle}
-총점: ${result.totalScore}점 / 24점
-
-${result.scoreRange.resultDescription}
-${result.scoreRange.resultTags.join(" ")}
-
-🎬 나의 유형 GIF: ${result.scoreRange.resultGifUrl}
-
-📢 재미로 보는 심리 테스트, JJINSIM에서!
-${window.location.href}
-    `.trim()
-
     try {
-      if (navigator.share) {
-        await navigator.share({
-          title: '나의 꼰대력 테스트 결과',
-          text: text,
-        })
-      } else {
-        await copy(text)
-        toast({
-          title: "공유 텍스트가 복사되었습니다",
-          description: "원하는 곳에 붙여넣기 하세요",
-        })
-      }
-    } catch (error) {
-      console.error('공유 오류:', error)
+      const testUrl = window.location.href
+      await copy(testUrl)
+      
+      toast({
+        title: "공유 링크가 복사되었습니다",
+        description: "SNS나 메신저에 붙여넣기 하세요",
+      })
+    } catch (err) {
+      console.error('공유 오류:', err)
       toast({
         title: "공유하기 실패",
-        description: "텍스트를 복사할 수 없습니다.",
+        description: "링크를 복사할 수 없습니다.",
         variant: "destructive",
       })
     } finally {
@@ -146,6 +129,40 @@ ${window.location.href}
   // GIF 경로 결정 함수
   const getResultGifUrl = (range: BoomerScoreRange) => {
     return range.resultGifUrl;
+  }
+
+  // 이미지로 저장하기 함수
+  const saveAsImage = async () => {
+    if (!result || !resultCardRef.current) return
+    setIsSavingImage(true)
+    
+    try {
+      const { default: html2canvas } = await import('html2canvas')
+      const canvas = await html2canvas(resultCardRef.current)
+      const link = document.createElement('a')
+      link.download = `꼰대력테스트-결과-${result.totalScore}점.png`
+      link.href = canvas.toDataURL('image/png')
+      link.click()
+      
+      toast({
+        title: "이미지 저장 완료",
+        description: "결과 이미지가 다운로드되었습니다.",
+      })
+    } catch (error) {
+      console.error('이미지 저장 오류:', error)
+      toast({
+        title: "이미지 저장 실패",
+        description: "이미지를 저장할 수 없습니다.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSavingImage(false)
+    }
+  }
+
+  // 다른 테스트 페이지로 이동
+  const goToOtherTests = () => {
+    router.push('/tests')
   }
 
   const currentQuestion = QUESTIONS[currentQuestionIndex]
@@ -174,9 +191,9 @@ ${window.location.href}
             <h2 className="text-2xl font-bold mb-6 text-amber-600">나의 꼰대력은?!</h2>
             <div className="mb-6">
               <img 
-                src="https://media.giphy.com/media/5nbGv5nJrH7cdMWBEm/giphy.gif" 
-                alt="대표 이미지" 
-                className="rounded-lg mx-auto mb-4"
+                src="https://media.giphy.com/media/X7Y0QsivnxhHa/giphy.gif" 
+                alt="꼰대 움직이는 이미지" 
+                className="rounded-lg mx-auto mb-4 w-full max-w-[300px]"
               />
               <p className="text-gray-700 text-sm mb-6 italic">
                 ※ "요즘 것들은 왜 이런지 모르겠어..."라고 생각해본 적 있으신가요?
@@ -199,7 +216,10 @@ ${window.location.href}
             className="flex flex-col items-center"
           >
             {/* 프레임 - 회전 효과와 테이프 추가 */}
-            <div className="relative w-full max-w-[350px] sm:max-w-[400px] mb-6 transform rotate-1">
+            <div 
+              ref={resultCardRef}
+              className="relative w-full max-w-[350px] sm:max-w-[400px] mb-6 transform rotate-1 result-card"
+            >
               {/* 테이프 효과 */}
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-14 h-5 bg-amber-100 opacity-80 z-10 rotate-1"></div>
               
@@ -278,15 +298,32 @@ ${window.location.href}
               className="w-full space-y-3"
             >
               <Button
-                variant="outline"
-                className="w-full py-5 border-2 border-amber-300 text-amber-700 font-medium rounded-xl hover:bg-amber-50"
-                onClick={startTest}
+                className="w-full py-5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-xl flex items-center justify-center gap-2"
+                onClick={saveAsImage}
+                disabled={isSavingImage}
               >
-                다시 테스트하기
+                {isSavingImage ? '저장 중...' : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    이미지로 저장하기
+                  </>
+                )}
               </Button>
               
               <Button
-                className="w-full py-5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium rounded-xl flex items-center justify-center gap-2"
+                className="w-full py-5 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-medium rounded-xl flex items-center justify-center gap-2"
+                onClick={goToOtherTests}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m-6-8h6M5 8h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2z" />
+                </svg>
+                다른 테스트 보기
+              </Button>
+              
+              <Button
+                className="w-full py-5 bg-gradient-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700 text-white font-medium rounded-xl flex items-center justify-center gap-2"
                 onClick={shareResult}
                 disabled={isSharing}
               >
@@ -296,14 +333,6 @@ ${window.location.href}
                     결과 공유하기
                   </>
                 )}
-              </Button>
-              
-              <Button
-                variant="secondary"
-                className="w-full py-5 mt-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl"
-                onClick={() => window.location.href = "/tests"}
-              >
-                다른 테스트 하러가기
               </Button>
             </motion.div>
           </motion.div>

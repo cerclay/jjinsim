@@ -348,48 +348,47 @@ export default function ColorBlindnessTest() {
 
   // 격자 클릭 처리
   const handleGridClick = (rowIndex: number, colIndex: number) => {
-    // 피드백 중에는 클릭 무시
-    if (showFeedback) return;
-    
-    const [targetRow, targetCol] = targetPosition;
-    const isCorrect = rowIndex === targetRow && colIndex === targetCol;
+    const isTarget = rowIndex === targetPosition[0] && colIndex === targetPosition[1];
 
-    if (isCorrect) {
-      // 정답 처리
-      const level = levels[currentLevel];
-      setScore(prev => prev + level.pointsForCorrect);
-      setFoundItems(prev => prev + 1);
+    if (isTarget) {
+      // 정답 클릭
       setFeedback('correct');
-      updateLevelResult(true);
-    } else {
-      // 오답 처리
-      const level = levels[currentLevel];
-      setScore(prev => Math.max(0, prev - level.penaltyForWrong));
-      setWrongClicks(prev => prev + 1);
-      setFeedback('incorrect');
-    }
-    
-    // 피드백 표시
-    setShowFeedback(true);
-    
-    // 타이머로 다음 단계 진행
-    setTimeout(() => {
-      setShowFeedback(false);
-      setFeedback(null);
+      setShowFeedback(true);
       
-      if (isCorrect) {
-      if (currentLevel < levels.length - 1) {
-          // 다음 레벨로 이동
-          moveToNextLevel();
-        } else {
-          // 테스트 종료
-          finishTest();
-        }
-      } else {
-        // 오답인 경우 같은 레벨에서 새 그리드 생성
-        generateTargetPosition(levels[currentLevel].gridSize);
-      }
-    }, 1000);
+      const currentLevelData = levels[currentLevel];
+      const newScore = score + currentLevelData.pointsForCorrect;
+      
+      setScore(newScore);
+      setFoundItems(foundItems + 1);
+      
+      // 결과 업데이트
+      updateLevelResult(true);
+      
+      // 피드백 후 다음 단계로
+      setTimeout(() => {
+        setShowFeedback(false);
+        moveToNextLevel();
+      }, 800);
+      
+    } else {
+      // 오답 클릭
+      setFeedback('incorrect');
+      setShowFeedback(true);
+      
+      const currentLevelData = levels[currentLevel];
+      const newScore = Math.max(0, score - currentLevelData.penaltyForWrong);
+      
+      setScore(newScore);
+      setWrongClicks(wrongClicks + 1);
+      
+      // 시간에서 5초 차감
+      setTimeLeft(Math.max(1, timeLeft - 5));
+      
+      // 일정 시간 후 피드백 숨기기
+      setTimeout(() => {
+        setShowFeedback(false);
+      }, 500);
+    }
   };
 
   // 테스트 결과 분석
@@ -486,12 +485,7 @@ export default function ColorBlindnessTest() {
     startTest();
   };
 
-  // 홈으로 돌아가기
-  const goHome = () => {
-    window.location.href = '/';
-  };
-
-  // 결과 공유하기
+  // 테스트 공유하기
   const shareResult = () => {
     if (!testResult) return;
     
@@ -508,6 +502,36 @@ export default function ColorBlindnessTest() {
     } catch (err) {
       alert('결과 공유에 실패했습니다.');
     }
+  };
+
+  // 이미지 저장 함수 추가
+  const saveAsImage = () => {
+    if (!testResult) return;
+    
+    try {
+      const resultCard = document.querySelector('.result-card') as HTMLElement;
+      
+      if (!resultCard) {
+        alert('결과 카드를 찾을 수 없습니다.');
+        return;
+      }
+      
+      import('html2canvas').then((html2canvas) => {
+        html2canvas.default(resultCard).then((canvas) => {
+          const link = document.createElement('a');
+          link.download = `${userName}-색맹테스트-결과.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        });
+      });
+    } catch (err) {
+      alert('이미지 저장에 실패했습니다.');
+    }
+  };
+  
+  // 다른 테스트 목록 페이지로 이동
+  const viewOtherTests = () => {
+    window.location.href = '/tests';
   };
 
   // 애니메이션 효과
@@ -750,7 +774,7 @@ export default function ColorBlindnessTest() {
             exit="exit"
           >
             <motion.div 
-                className="bg-white rounded-3xl shadow-lg p-8 text-center"
+                className="bg-white rounded-3xl shadow-lg p-8 text-center result-card"
               variants={itemVariants}
               >
                 <div className={`w-20 h-20 rounded-full ${testResult.color} flex items-center justify-center text-3xl mx-auto mb-4`}>
@@ -858,36 +882,40 @@ export default function ColorBlindnessTest() {
                   </div>
               </div>
                 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   <Button 
                     className="bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-xl font-medium shadow-md transition-transform hover:scale-105"
-                    onClick={restartTest}
+                    onClick={saveAsImage}
                   >
                     <div className="flex items-center justify-center">
-                      <RefreshCcw className="mr-2 h-4 w-4" />
-                      <span>다시 도전!</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span>이미지 저장</span>
                     </div>
                   </Button>
-              <Button 
+                  <Button 
                     className="bg-purple-600 hover:bg-purple-700 text-white py-5 rounded-xl font-medium shadow-md transition-transform hover:scale-105"
+                    onClick={viewOtherTests}
+                  >
+                    <div className="flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m-6-8h6M5 8h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2z" />
+                      </svg>
+                      <span>다른 테스트</span>
+                    </div>
+                  </Button>
+                  <Button 
+                    className="bg-pink-600 hover:bg-pink-700 text-white py-5 rounded-xl font-medium shadow-md transition-transform hover:scale-105"
                     onClick={shareResult}
-              >
+                  >
                     <div className="flex items-center justify-center">
                       <Share2 className="mr-2 h-4 w-4" />
-                      <span>자랑하기</span>
+                      <span>공유하기</span>
                     </div>
-              </Button>
+                  </Button>
                 </div>
               </motion.div>
-              
-              <Button 
-                variant="outline"
-                className="w-full border-gray-200 text-gray-600 py-4 rounded-xl font-medium"
-                onClick={goHome}
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                홈으로 돌아가기
-              </Button>
           </motion.div>
         )}
         </AnimatePresence>

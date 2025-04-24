@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TestResult } from '../types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Share2, RefreshCw, Brain, Star, Lightbulb, Smile, Trophy, Award, Party } from 'lucide-react';
+import { Download, Brain, Star, Lightbulb, Smile, Trophy, RefreshCw, Grid, Copy, Check } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import confetti from 'canvas-confetti';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
+import html2canvas from 'html2canvas';
+import Link from 'next/link';
+import { useToast } from '@/components/ui/use-toast';
 
 interface ResultCardProps {
   result: TestResult;
@@ -16,8 +18,11 @@ interface ResultCardProps {
 }
 
 export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => {
-  const [showShare, setShowShare] = useState(false);
-  const [shareSuccess, setShareSuccess] = useState(false);
+  const [showRestartConfirm, setShowRestartConfirm] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const resultCardRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   // 결과가 표시될 때 색종이 효과
   useEffect(() => {
@@ -54,6 +59,35 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
     return () => clearInterval(interval);
   }, []);
 
+  // 다시 테스트하기 버튼 토글 기능
+  const handleRestartHover = () => {
+    setShowRestartConfirm(true);
+  };
+
+  const handleRestartLeave = () => {
+    setShowRestartConfirm(false);
+  };
+
+  // 결과 카드 우측 하단에 마우스 올리면 다시 테스트하기 버튼이 표시되도록 함
+  useEffect(() => {
+    const cardElement = resultCardRef.current;
+    if (!cardElement) return;
+    
+    cardElement.addEventListener('mouseenter', handleRestartHover);
+    cardElement.addEventListener('mouseleave', handleRestartLeave);
+    
+    // 모바일 환경에서는 항상 다시 테스트 버튼 표시
+    const isMobile = window.innerWidth < 640;
+    if (isMobile) {
+      setShowRestartConfirm(true);
+    }
+    
+    return () => {
+      cardElement.removeEventListener('mouseenter', handleRestartHover);
+      cardElement.removeEventListener('mouseleave', handleRestartLeave);
+    };
+  }, [resultCardRef.current]);
+
   // IQ 점수에 따른 재미있는 분석글 생성
   const getAnalysisText = () => {
     if (result.iqScore < 90) {
@@ -81,36 +115,88 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
   // 재미있는 밈 이미지 URL (IQ 점수에 따라 다른 이미지)
   const getMemeImageUrl = () => {
     if (result.iqScore < 90) {
-      return "https://media2.giphy.com/media/fwbZnTftCXVocKzfxR/giphy.gif"; // 감자형 뇌 - 귀여운 감자 캐릭터
+      return "https://media.giphy.com/media/H4DjXQXamtTiIuCcRU/giphy.gif"; // 순둥이 강아지
     } else if (result.iqScore < 105) {
-      return "https://media3.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif"; // 느림의 미학형 - 느리게 생각하는 모습
+      return "https://media.giphy.com/media/jRlP4zbERYW5HoCLvX/giphy.gif"; // 천천히 움직이는 거북이
     } else if (result.iqScore < 120) {
-      return "https://media2.giphy.com/media/l0IyjsRmJnWxpZOOk/giphy.gif"; // 밸런스 브레인 - 밸런스 있게 균형잡힌 모습
+      return "https://media.giphy.com/media/3oKIPuMqYfRsyJTWfu/giphy.gif"; // 균형 잡힌 체조선수
     } else if (result.iqScore < 135) {
-      return "https://media4.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif"; // 숨은 천재형 - 갑자기 번뜩이는 아이디어
+      return "https://media.giphy.com/media/fwoOoDZpEpdQewQdRR/giphy.gif"; // 번쩍이는 전구
     } else {
-      return "https://media0.giphy.com/media/xuXzcHMkuwvf2/giphy.gif"; // 지적 우주인형 - 머리가 폭발하는 모습
+      return "https://media.giphy.com/media/l46CyJmS9KUbokzsI/giphy.gif"; // 우주와 은하수
     }
   };
 
-  const handleShareResult = async () => {
+  // 결과 이미지 저장 기능
+  const handleDownloadImage = async () => {
+    if (!resultCardRef.current) return;
+    
     try {
-      const shareText = `내 IQ 테스트 결과: ${result.resultTitle} (${result.iqScore}점)\n${result.resultDescription}\n${result.tags.join(' ')}\n지금 도전해보세요: https://example.com/tests/iq-test`;
+      setIsDownloading(true);
       
-      if (navigator.share) {
-        await navigator.share({
-          title: '나의 진짜 IQ 테스트 결과',
-          text: shareText,
-        });
-        setShareSuccess(true);
-      } else {
-        await navigator.clipboard.writeText(shareText);
-        setShowShare(true);
-        setTimeout(() => setShowShare(false), 3000);
-      }
+      // 다운로드 버튼 숨기기 (이미지에 포함되지 않게)
+      const buttonsContainer = resultCardRef.current.querySelector('.card-buttons');
+      if (buttonsContainer) buttonsContainer.classList.add('opacity-0');
+      
+      // 워터마크 추가
+      const watermark = document.createElement('div');
+      watermark.classList.add('absolute', 'bottom-2', 'right-4', 'text-xs', 'text-gray-400', 'font-medium');
+      watermark.textContent = 'jjinsim.com';
+      resultCardRef.current.appendChild(watermark);
+      
+      // 이미지 생성
+      const canvas = await html2canvas(resultCardRef.current, {
+        scale: 2, // 해상도 향상
+        backgroundColor: null,
+        logging: false,
+        useCORS: true, // 외부 이미지 허용
+      });
+      
+      // 워터마크 제거
+      resultCardRef.current.removeChild(watermark);
+      
+      // 버튼 다시 표시
+      if (buttonsContainer) buttonsContainer.classList.remove('opacity-0');
+      
+      // 이미지 다운로드
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `IQ테스트_결과_${result.iqScore}점.png`;
+      link.click();
+      
     } catch (error) {
-      console.error('공유 실패:', error);
+      console.error('이미지 저장 실패:', error);
+    } finally {
+      setIsDownloading(false);
     }
+  };
+
+  // 게임 링크 복사 기능
+  const handleCopyGameLink = () => {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+    const gameUrl = `${baseUrl}/tests/iq-test`;
+    
+    navigator.clipboard.writeText(gameUrl)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+        
+        toast({
+          title: "테스트 링크가 복사되었습니다",
+          description: "친구에게 공유해보세요!",
+          duration: 3000,
+        });
+      })
+      .catch((err) => {
+        console.error('클립보드 복사 실패:', err);
+        toast({
+          title: "링크 복사 실패",
+          description: "다시 시도해주세요",
+          variant: "destructive",
+          duration: 3000,
+        });
+      });
   };
 
   return (
@@ -119,7 +205,10 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-[500px] mx-auto bg-white shadow-xl border-t-4 border-blue-500 overflow-hidden">
+      <Card 
+        ref={resultCardRef}
+        className="w-full max-w-[500px] mx-auto bg-white shadow-xl border-t-4 border-blue-500 overflow-hidden relative"
+      >
         <CardHeader className="text-center bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 pb-6">
           <motion.div
             initial={{ scale: 0 }}
@@ -155,6 +244,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
                 src={getMemeImageUrl()} 
                 alt={`IQ ${result.iqScore}점 결과에 대한 재미있는 밈 이미지`}
                 className="w-full h-full object-cover"
+                crossOrigin="anonymous"
               />
             </div>
           </motion.div>
@@ -209,38 +299,54 @@ export const ResultCard: React.FC<ResultCardProps> = ({ result, onRestart }) => 
           </motion.div>
         </CardContent>
         
-        <CardFooter className="flex gap-3 justify-between p-6 bg-gradient-to-r from-gray-50 to-gray-100">
-          <Button 
-            variant="outline" 
-            className="flex-1 gap-2 bg-white text-black border-2 border-purple-500 hover:bg-purple-50"
-            onClick={handleShareResult}
+        <CardFooter className="flex flex-col gap-3 p-6 bg-gradient-to-r from-gray-50 to-gray-100 card-buttons transition-opacity duration-200">
+          {/* 상단 버튼 영역 */}
+          <div className="flex w-full gap-3">
+            <Button 
+              variant="outline" 
+              className="flex-1 gap-2 bg-white text-black border-2 border-purple-500 hover:bg-purple-50 h-11"
+              onClick={handleDownloadImage}
+              disabled={isDownloading}
+            >
+              <Download size={16} />
+              {isDownloading ? '저장 중...' : '이미지 저장'}
+            </Button>
+            
+            <Link href="/tests" className="flex-1">
+              <Button 
+                className="w-full gap-2 bg-blue-600 hover:bg-blue-700 h-11" 
+              >
+                <Grid size={16} />
+                다른 테스트 보기
+              </Button>
+            </Link>
+          </div>
+          
+          {/* 테스트 공유하기 버튼 */}
+          <Button
+            variant="secondary"
+            className="w-full gap-2 bg-gradient-to-r from-green-100 to-green-200 text-green-800 border border-green-300 hover:bg-green-200 h-11"
+            onClick={handleCopyGameLink}
           >
-            <Share2 size={16} />
-            결과 공유하기
+            {isCopied ? <Check size={16} /> : <Copy size={16} />}
+            테스트 공유하기
           </Button>
-          <Button 
-            className="flex-1 gap-2 bg-blue-600 hover:bg-blue-700" 
-            onClick={onRestart}
-          >
-            <RefreshCw size={16} />
-            다시 테스트하기
-          </Button>
+          
+          {/* 다시 테스트하기 버튼 */}
+          {showRestartConfirm && (
+            <Button 
+              className="absolute -bottom-2 sm:bottom-1 right-1 h-8 sm:h-9 min-w-0 px-2 sm:px-3 bg-gray-600 hover:bg-gray-700 opacity-60 hover:opacity-100 rounded-full" 
+              onClick={onRestart}
+              size="sm"
+              title="다시 테스트하기"
+              aria-label="다시 테스트하기"
+            >
+              <RefreshCw size={14} />
+              <span className="sr-only sm:not-sr-only sm:ml-1">다시하기</span>
+            </Button>
+          )}
         </CardFooter>
       </Card>
-      
-      {/* 클립보드 복사 알림 */}
-      <AnimatePresence>
-        {showShare && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-md shadow-lg"
-          >
-            결과가 클립보드에 복사되었습니다!
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }; 

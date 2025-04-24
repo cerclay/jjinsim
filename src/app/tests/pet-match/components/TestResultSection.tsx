@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Share, Twitter, Facebook, Copy, Repeat } from 'lucide-react';
+import { Share2, Image, BookOpen } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 type ResultType = {
   type: string;
@@ -21,7 +23,11 @@ type TestResultSectionProps = {
 };
 
 export const TestResultSection = ({ result, onRestart }: TestResultSectionProps) => {
-  const [isCopied, setIsCopied] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
+  const resultCardRef = useRef<HTMLDivElement>(null);
+  const [isSavingImage, setIsSavingImage] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   // 컴포넌트가 마운트되면 축하 이펙트 표시
   useEffect(() => {
@@ -44,25 +50,62 @@ export const TestResultSection = ({ result, onRestart }: TestResultSectionProps)
     return () => clearTimeout(timer);
   }, []);
 
-  // 결과 공유하기 기능
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: '나랑 찰떡인 반려동물은?',
-        text: `나는 '${result.title}'이라는 결과가 나왔어요! 내 성격과 딱 맞는 반려동물은 ${result.emoji}입니다. 당신도 테스트 해보세요!`,
-        url: window.location.href,
+  // 이미지로 저장하기 함수
+  const saveAsImage = async () => {
+    if (!resultCardRef.current) return;
+    setIsSavingImage(true);
+    
+    try {
+      const { default: html2canvas } = await import('html2canvas');
+      const canvas = await html2canvas(resultCardRef.current);
+      const link = document.createElement('a');
+      link.download = `나랑-찰떡인-반려동물-${result.type}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      
+      toast({
+        title: "이미지 저장 완료",
+        description: "결과 이미지가 다운로드되었습니다.",
       });
+    } catch (error) {
+      console.error('이미지 저장 오류:', error);
+      toast({
+        title: "이미지 저장 실패",
+        description: "이미지를 저장할 수 없습니다.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSavingImage(false);
     }
   };
 
-  // 결과 URL 복사
-  const handleCopyLink = () => {
-    const shareText = `나는 '${result.title}'이라는 결과가 나왔어요! 내 성격과 딱 맞는 반려동물은 ${result.emoji}입니다. 당신도 테스트 해보세요! ${window.location.href}`;
+  // 다른 테스트 페이지로 이동
+  const goToOtherTests = () => {
+    router.push('/tests');
+  };
+
+  // 테스트 URL 공유 함수
+  const shareTestUrl = async () => {
+    setIsSharing(true);
     
-    navigator.clipboard.writeText(shareText).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    });
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      
+      toast({
+        title: "공유 링크가 복사되었습니다",
+        description: "SNS나 메신저에 붙여넣기 하세요",
+      });
+    } catch (error) {
+      console.error('공유 오류:', error);
+      toast({
+        title: "공유하기 실패",
+        description: "링크를 복사할 수 없습니다.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSharing(false);
+    }
   };
 
   return (
@@ -84,6 +127,7 @@ export const TestResultSection = ({ result, onRestart }: TestResultSectionProps)
 
       {/* 결과 카드 */}
       <motion.div
+        ref={resultCardRef}
         className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-purple-100"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -127,7 +171,7 @@ export const TestResultSection = ({ result, onRestart }: TestResultSectionProps)
         </div>
       </motion.div>
 
-      {/* 공유 버튼 섹션 */}
+      {/* 버튼 섹션 */}
       <motion.div
         className="mb-8"
         initial={{ opacity: 0, y: 20 }}
@@ -136,32 +180,38 @@ export const TestResultSection = ({ result, onRestart }: TestResultSectionProps)
       >
         <div className="flex flex-col gap-3">
           <Button
-            onClick={handleShare}
+            onClick={saveAsImage}
+            disabled={isSavingImage}
             className="bg-purple-600 hover:bg-purple-700 text-white w-full py-5 font-medium rounded-xl flex items-center justify-center gap-2"
           >
-            <Share size={18} />
-            결과 공유하기
+            {isSavingImage ? '저장 중...' : (
+              <>
+                <Image className="h-5 w-5" />
+                이미지로 저장하기
+              </>
+            )}
           </Button>
           
-          <div className="flex gap-3">
-            <Button
-              onClick={handleCopyLink}
-              variant="outline"
-              className="flex-1 py-5 rounded-xl font-medium border-purple-200 flex items-center justify-center gap-2"
-            >
-              <Copy size={18} />
-              {isCopied ? '복사 완료!' : '링크 복사'}
-            </Button>
-            
-            <Button
-              onClick={onRestart}
-              variant="outline"
-              className="flex-1 py-5 rounded-xl font-medium border-purple-200 flex items-center justify-center gap-2"
-            >
-              <Repeat size={18} />
-              다시 테스트
-            </Button>
-          </div>
+          <Button
+            onClick={goToOtherTests}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white w-full py-5 font-medium rounded-xl flex items-center justify-center gap-2"
+          >
+            <BookOpen className="h-5 w-5" />
+            다른 테스트 보기
+          </Button>
+          
+          <Button
+            onClick={shareTestUrl}
+            disabled={isSharing}
+            className="bg-pink-600 hover:bg-pink-700 text-white w-full py-5 font-medium rounded-xl flex items-center justify-center gap-2"
+          >
+            {isSharing ? '공유 중...' : (
+              <>
+                <Share2 className="h-5 w-5" />
+                결과 공유하기
+              </>
+            )}
+          </Button>
         </div>
       </motion.div>
 

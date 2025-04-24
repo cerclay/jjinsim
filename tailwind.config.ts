@@ -13,6 +13,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-paperlogy)', 'var(--font-gmarket-sans)', 'sans-serif'],
+        paperlogy: ['var(--font-paperlogy)', 'sans-serif'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
