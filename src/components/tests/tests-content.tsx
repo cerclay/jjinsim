@@ -434,30 +434,17 @@ export const TestsContent = () => {
           // 두 데이터를 합친 후 정렬
           const allTests = [...formattedTests, ...uniqueDirectoryTests];
           
-          // 인기 테스트 순서 정의
+          // 인기 순서로 정렬된 테스트
           const popularOrder = [
             'iq-test',
             'dementia-test',
             'memory-test',
             'color-blindness',
-            'polsok-character',
+            'pet-match',
+            'travel-match-new',
             'boomer-test',
-            'pet-match',
-            'past-life-character',
-            'attachment-style',
-            't-power'
-          ];
-          
-          // 신규 테스트 순서 정의
-          const newOrder = [
-            'pet-match',
-            'past-life-character',
             'stress-check',
-            'multiple-personality',
-            'life-genre',
-            'adhd-test',
-            'boomer-test',
-            'travel-match-new'
+            'multiple-personality'
           ];
           
           // 인기 테스트 순서에 따라 정렬
@@ -490,8 +477,8 @@ export const TestsContent = () => {
           
           // 정의된 순서에 따라 신규 테스트 정렬
           const sortedNewTests = [...newTestsData].sort((a, b) => {
-            const aIndex = newOrder.indexOf(a.id);
-            const bIndex = newOrder.indexOf(b.id);
+            const aIndex = popularOrder.indexOf(a.id);
+            const bIndex = popularOrder.indexOf(b.id);
             
             // 둘 다 순서 목록에 있으면 순서대로 정렬
             if (aIndex !== -1 && bIndex !== -1) {
@@ -520,55 +507,8 @@ export const TestsContent = () => {
         } else {
           // API 데이터 없을 경우 디렉토리 기반 데이터만 사용
           
-          // 인기 테스트 순서 정의
-          const popularOrder = [
-            'iq-test',
-            'dementia-test',
-            'memory-test',
-            'color-blindness',
-            'polsok-character',
-            'boomer-test',
-            'pet-match',
-            'past-life-character',
-            'attachment-style',
-            't-power'
-          ];
-          
-          // 신규 테스트 순서 정의
-          const newOrder = [
-            'pet-match',
-            'past-life-character',
-            'stress-check',
-            'multiple-personality',
-            'life-genre',
-            'adhd-test',
-            'boomer-test',
-            'travel-match-new'
-          ];
-          
-          // 인기 테스트 순서에 따라 정렬
-          const sortedTests = [...directoryTests].sort((a, b) => {
-            const aIndex = popularOrder.indexOf(a.id);
-            const bIndex = popularOrder.indexOf(b.id);
-            
-            // 둘 다 순서 목록에 있으면 순서대로 정렬
-            if (aIndex !== -1 && bIndex !== -1) {
-              return aIndex - bIndex;
-            }
-            // a만 목록에 있으면 a 우선
-            else if (aIndex !== -1) {
-              return -1;
-            }
-            // b만 목록에 있으면 b 우선
-            else if (bIndex !== -1) {
-              return 1;
-            }
-            // 둘 다 없으면 참여자 수로 정렬
-            else {
-              return b.participants - a.participants;
-            }
-          });
-          
+          // 인기 순서로 정렬된 테스트
+          const sortedTests = directoryTests.sort((a, b) => b.participants - a.participants);
           setPopularTests(sortedTests);
           
           // 신규 테스트는 isNew가 true인 테스트만 필터링하여 사용
@@ -576,8 +516,8 @@ export const TestsContent = () => {
           
           // 정의된 순서에 따라 신규 테스트 정렬
           const sortedNewTests = [...newTestsData].sort((a, b) => {
-            const aIndex = newOrder.indexOf(a.id);
-            const bIndex = newOrder.indexOf(b.id);
+            const aIndex = popularOrder.indexOf(a.id);
+            const bIndex = popularOrder.indexOf(b.id);
             
             // 둘 다 순서 목록에 있으면 순서대로 정렬
             if (aIndex !== -1 && bIndex !== -1) {
@@ -606,88 +546,42 @@ export const TestsContent = () => {
       } catch (error) {
         console.error("테스트 데이터 로딩 오류:", error instanceof Error ? error.message : JSON.stringify(error));
         
-        // 오류 발생 시 디렉토리 기반 테스트 데이터 생성
-        const testDirectories = [
+        // 인기 테스트 순서 정의
+        const popularOrder = [
           'iq-test',
           'dementia-test',
           'memory-test',
           'color-blindness',
-          'polsok-character',
-          'boomer-test',
           'pet-match',
-          'past-life-character',
-          'stress-check',
-          'multiple-personality',
-          'life-genre',
-          'adhd-test',
           'travel-match-new',
-          'personal-color',
-          'attachment-style',
-          't-power',
-          'marriage-type',
-          'mbti',
-          'tarot-consultation',
-          'social-character',
-          'healing-moment',
-          'flirting-style',
-          'dog-compatibility',
+          'boomer-test',
+          'stress-check',
+          'multiple-personality'
         ];
-
-        // 테스트 제목 보정
-        const mapTitleOverrides = (id) => {
-          const titleMap = {
-            'boomer-test': '나의 꼰대력은?!',
-            'memory-test': '기억력 지수 테스트',
-            'past-life-character': '나의 전생 케릭터는?',
-            'marriage-type': '나의 결혼 이상형은?',
-            'iq-test': '나의 진짜 IQ테스트 - 유머버전',
-            'mbti': 'MBTI 빠르고 정확하게!',
-            'stress-check': '스트레스 지수 체크 - 나 지금 멘탈 몇 % 남았지?',
-            'social-character': '나의 사회 생활 케릭터는?!',
-            'multiple-personality': '다중인격 테스트',
-            'healing-moment': '내가 가장 힐링 되는 순간은?!',
-            'flirting-style': '나의 썸탈때 유형은?',
-            'pet-match': '나랑 찰떡인 반려동물은?',
-            'dog-compatibility': '나랑 잘 맞는 강아지는?',
-            'tarot-consultation': '타로 상담가',
-            'polsok-character': '내가 폭싹 속았수다 속 케릭터라면?',
-            'attachment-style': '나의 애착 유형은?',
-            'life-genre': '내 인생 장르는 뭘까?',
-            't-power': '나의 T발력 수치는?',
-            'personal-color': '퍼스널컬러 테스트',
-            'color-blindness': '색맹 테스트',
-            'travel-match-new': '나랑 잘 맞는 여행지는?',
-            'adhd-test': '당신의 ADHD 성향 테스트'
-          };
-          return titleMap[id] || generateTitle(id);
-        };
-
-        // 폴더 이름에서 테스트 제목 생성
-        const generateTitle = (id) => {
-          const words = id.split('-');
-          return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + ' 테스트';
-        };
-
-        // 디렉토리 기반 테스트 데이터 생성
-        const directoryTests = testDirectories.map((dir, index) => {
-          // 기본 테스트 데이터에서 해당 ID의 테스트를 찾음
-          const existingTest = defaultTests.find(test => test.id === dir);
+        
+        // 인기 테스트 순서에 따라 정렬
+        const sortedTests = [...directoryTests].sort((a, b) => {
+          const aIndex = popularOrder.indexOf(a.id);
+          const bIndex = popularOrder.indexOf(b.id);
           
-          // 기존 데이터가 있으면 사용하고, 없으면 새로 생성
-          return existingTest || {
-            id: dir,
-            title: mapTitleOverrides(dir),
-            imageUrl: `https://picsum.photos/seed/${dir}/400/200`,
-            participants: 8000 - (index * 200), // 임의의 참여자 수 (0명이 되지 않도록 수정)
-            likes: 750 - (index * 30), // 임의의 좋아요 수
-            isPopular: index < 8 || dir === 'adhd-test', // 상위 8개와 ADHD 테스트는 인기 테스트로 표시
-            isNew: index < 5 || dir === 'adhd-test', // 상위 5개와 ADHD 테스트는 새로운 테스트로 표시
-            category: getCategoryForTest(dir)
-          };
+          // 둘 다 순서 목록에 있으면 순서대로 정렬
+          if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+          }
+          // a만 목록에 있으면 a 우선
+          else if (aIndex !== -1) {
+            return -1;
+          }
+          // b만 목록에 있으면 b 우선
+          else if (bIndex !== -1) {
+            return 1;
+          }
+          // 둘 다 없으면 참여자 수로 정렬
+          else {
+            return b.participants - a.participants;
+          }
         });
-
-        // 인기 순서로 정렬된 테스트
-        const sortedTests = directoryTests.sort((a, b) => b.participants - a.participants);
+        
         setPopularTests(sortedTests);
         
         // 신규 테스트

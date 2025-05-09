@@ -6,4 +6,4 @@ Allow: /
 Host: https://www.mysimli.com/
 
 # Sitemaps
-Sitemap: https://www.mysimli.com/sitemap.xml
+Sitemap: https://mysimli.com/sitemap.xml

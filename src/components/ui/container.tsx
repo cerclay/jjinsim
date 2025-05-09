@@ -8,7 +8,7 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Container({ children, className, ...props }: ContainerProps) {
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen bg-white">
       <div 
         className={cn(
           "w-full max-w-[500px] mx-auto bg-white min-h-screen relative",

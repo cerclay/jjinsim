@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://jjinsim.com';
+  const baseUrl = 'https://mysimli.com';
   
   // 테스트 페이지 목록 (실제 프로젝트에서는 DB나 파일에서 동적으로 가져오는 것이 좋습니다)
   const tests = [
@@ -31,11 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 기본 페이지 목록
   const basePages = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-    { url: `${baseUrl}/tests`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/dementia-test`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/dementia-test/videos`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
+    { url: `${baseUrl}/tests`, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/dementia-test`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${baseUrl}/dementia-test/videos`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
   ];
 
   // 테스트 페이지 목록 생성

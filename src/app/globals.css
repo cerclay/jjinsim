@@ -78,16 +78,18 @@
   html {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: white;
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-foreground;
     font-family: var(--font-paperlogy), var(--font-gmarket-sans), sans-serif;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: white;
   }
   
   /* 찐심 로고 심플한 스타일 */

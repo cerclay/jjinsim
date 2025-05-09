@@ -73,17 +73,21 @@ export default function RootLayout({
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
         
+        {/* Google AdSense는 컴포넌트로만 사용 */}
+        
         {/* 오픈그래프 이미지 미리 로드 */}
-        <link rel="preload" as="image" href="https://www.mysimli.com/images/og-share.png" />
+        <link rel="preload" as="image" href="/images/og-share.png" />
         
         {/* 환경변수 설정 스크립트 - Next.js 15 호환성 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.__ENV__ = {
-                NEXT_PUBLIC_KAKAO_CLIENT_ID: '${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID || ''}',
-                NEXT_PUBLIC_NEXTAUTH_URL: '${process.env.NEXT_PUBLIC_NEXTAUTH_URL || ''}'
-              };
+              if (typeof window !== 'undefined') {
+                window.__ENV__ = {
+                  NEXT_PUBLIC_KAKAO_CLIENT_ID: '${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID || ''}',
+                  NEXT_PUBLIC_NEXTAUTH_URL: '${process.env.NEXT_PUBLIC_NEXTAUTH_URL || ''}'
+                };
+              }
             `
           }}
         />
@@ -93,7 +97,7 @@ export default function RootLayout({
         <meta property="og:description" content="찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.mysimli.com" />
-        <meta property="og:image" content="https://www.mysimli.com/images/og-share.png" />
+        <meta property="og:image" content="/images/og-share.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="찐심 심리테스트" />
@@ -103,7 +107,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="찐심(JJinSim) - 당신의 내면을 비추는 심리테스트" />
         <meta name="twitter:description" content="찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!" />
-        <meta name="twitter:image" content="https://www.mysimli.com/images/og-share.png" />
+        <meta name="twitter:image" content="/images/og-share.png" />
         
         {/* canonical URL 설정 */}
         <link rel="canonical" href="https://www.mysimli.com" />
@@ -143,7 +147,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener('DOMContentLoaded', () => {
-                if (window.Kakao) {
+                if (typeof window !== 'undefined' && window.Kakao) {
                   // 카카오 SDK 초기화
                   if (!window.Kakao.isInitialized()) {
                     try {
@@ -161,7 +165,7 @@ export default function RootLayout({
                             content: {
                               title: '찐심(JJinSim) - 당신의 내면을 비추는 심리테스트',
                               description: '찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요.',
-                              imageUrl: 'https://www.mysimli.com/images/og-share.png',
+                              imageUrl: '/images/og-share.png',
                               link: {
                                 mobileWebUrl: 'https://www.mysimli.com',
                                 webUrl: 'https://www.mysimli.com'
@@ -197,6 +201,8 @@ export default function RootLayout({
               (async () => {
                 try {
                   // 애플리케이션이 로드된 후 실행
+                  if (typeof window === 'undefined') return;
+                  
                   document.addEventListener('DOMContentLoaded', async () => {
                     try {
                       // 페이지 로드 후 바로 API 호출
@@ -233,7 +239,7 @@ export default function RootLayout({
                               console.log('IQ 테스트 데이터를 클라이언트 측에서 초기화합니다...');
                               
                               // 클라이언트에서 Supabase 객체를 사용할 수 있는지 확인
-                              if (window.supabase && typeof window.supabase.from === 'function') {
+                              if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.from === 'function') {
                                 await addIQTestCardLocally();
                               } else {
                                 console.log('Supabase 클라이언트를 사용할 수 없어 폴백 실행을 건너뜁니다.');
@@ -244,7 +250,7 @@ export default function RootLayout({
                             
                             // 네트워크 오류 등의 경우 로컬 폴백 실행
                             console.log('IQ 테스트 데이터를 클라이언트 측에서 초기화합니다...');
-                            if (window.supabase && typeof window.supabase.from === 'function') {
+                            if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.from === 'function') {
                               await addIQTestCardLocally();
                             }
                           }
@@ -322,7 +328,6 @@ export default function RootLayout({
       >
         <ClientLayout>{children}</ClientLayout>
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
-        <AdSense />
       </body>
     </html>
   );

@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { TestCard } from '@/components/home/test-card';
 import { DementiaTestCard } from "@/features/dementia-test/components/DementiaTestCard";
 import { Button } from "@/components/ui/button";
+import AdInContent from "@/components/ads/AdInContent";
 
 // 인기 테스트 데이터
 const popularTests = [
@@ -501,144 +502,130 @@ export default function Home() {
   const [displayNewTests] = React.useState(() => newTests);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-[500px] mx-auto px-4 py-8 space-y-8">
-        <HeroSection />
-        
-        {/* 인기 테스트 섹션 */}
-        <section className="py-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">인기 테스트</h2>
-            <Link href="/tests" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
-              더보기 <ChevronRight className="h-4 w-4 ml-1" />
-            </Link>
-          </div>
-          
-          <div className="space-y-4">
-            {displayPopularTests.slice(0, 10).map((test) => (
-              <TestCard
-                key={test.id}
-                id={test.id}
-                title={test.title}
-                imageUrl={test.imageUrl}
-                participants={test.participants}
-                isPopular={test.isPopular}
-                isNew={test.isNew}
-              />
-            ))}
-          </div>
-        </section>
-        
-        {/* 신규 테스트 섹션 */}
-        <section className="py-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">새로운 테스트</h2>
-            <Link href="/tests" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
-              더보기 <ChevronRight className="h-4 w-4 ml-1" />
-            </Link>
-          </div>
-          
-          <div className="space-y-4">
-            {displayNewTests.slice(0, 6).map((test) => (
-              <TestCard
-                key={test.id}
-                id={test.id}
-                title={test.title}
-                imageUrl={test.imageUrl}
-                participants={test.participants}
-                isNew={test.isNew}
-                isPopular={test.isPopular}
-              />
-            ))}
-          </div>
-        </section>
-        
-        {/* 치매 테스트 섹션 */}
-        <section className="py-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">치매 테스트</h2>
-            <Link href="/dementia-test" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
-              더보기 <ChevronRight className="h-4 w-4 ml-1" />
-            </Link>
-          </div>
-          
-          <div className="space-y-6">
-            <DementiaTestCard />
-          </div>
-        </section>
-
-        {/* 두뇌 훈련 영상 섹션 */}
-        <section className="py-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">두뇌 훈련 영상</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-6">
-            {/* 첫 번째 영상 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className="relative w-[280px] mx-auto">
-                <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
-                  <iframe
-                    src="https://www.youtube.com/embed/0HhL46yuqdA"
-                    title="단기 기억력 테스트"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                  ></iframe>
-                </div>
-              </div>
-              <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
-                <h3 className="font-semibold text-gray-900 mb-2 text-lg">단기 기억력 테스트</h3>
-                <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
-                  <Youtube className="w-4 h-4 mr-1.5" />
-                  <span className="text-sm font-medium">YouTube</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 두 번째 영상 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className="relative w-[280px] mx-auto">
-                <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
-                  <iframe
-                    src="https://www.youtube.com/embed/myWRuZFZGVk"
-                    title="직관력 테스트"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                  ></iframe>
-                </div>
-              </div>
-              <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
-                <h3 className="font-semibold text-gray-900 mb-2 text-lg">직관력 테스트</h3>
-                <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
-                  <Youtube className="w-4 h-4 mr-1.5" />
-                  <span className="text-sm font-medium">YouTube</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <Link 
-              href="https://www.youtube.com/@todayohquiz/shorts" 
-              className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl hover:from-purple-700 hover:to-blue-700 focus:ring-4 focus:ring-purple-300 transition-all duration-300 shadow-md hover:shadow-lg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              모든 영상 보기
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </div>
-        </section>
-
-        {/* 푸터 영역 */}
-        <footer className="text-center text-gray-500 text-sm mt-8">
-          <Link href="/admin/login" className="hover:text-gray-700">
-            관리자 로그인
-          </Link>
-          <p>© 2024 진심테스트. All rights reserved.</p>
-        </footer>
+    <div className="max-w-[500px] mx-auto px-4 py-8 space-y-8">
+      <HeroSection />
+      
+      {/* 최상단 광고 */}
+      <AdInContent />
+      
+      {/* 인기 테스트 섹션 */}
+      <TestSection
+        title="인기 테스트"
+        description="많은 사람들이 참여한 인기 심리 테스트를 만나보세요"
+        tests={popularTests}
+        seeMoreHref="/tests/popular"
+      />
+      
+      {/* 중간 광고 */}
+      <AdInContent />
+      
+      {/* 카테고리 섹션 */}
+      <CategorySection />
+      
+      {/* 중간 광고 */}
+      <AdInContent />
+      
+      {/* 새로운 테스트 섹션 */}
+      <TestSection
+        title="새로운 테스트"
+        description="따끈따끈한 신규 테스트를 한번 체험해보세요"
+        tests={newTests}
+        seeMoreHref="/tests/new"
+      />
+      
+      {/* 하단 광고 */}
+      <AdInContent />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 my-16">
+        <FeaturedColorBlindness />
+        <FeaturedPersonalColor />
       </div>
+      
+      {/* 치매 테스트 섹션 */}
+      <section className="py-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-gray-900">치매 테스트</h2>
+          <Link href="/dementia-test" className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
+            더보기 <ChevronRight className="h-4 w-4 ml-1" />
+          </Link>
+        </div>
+        
+        <div className="space-y-6">
+          <DementiaTestCard />
+        </div>
+      </section>
+
+      {/* 두뇌 훈련 영상 섹션 */}
+      <section className="py-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-gray-900">두뇌 훈련 영상</h2>
+        </div>
+        <div className="grid grid-cols-1 gap-6">
+          {/* 첫 번째 영상 */}
+          <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="relative w-[280px] mx-auto">
+              <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
+                <iframe
+                  src="https://www.youtube.com/embed/0HhL46yuqdA"
+                  title="단기 기억력 테스트"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+            <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">단기 기억력 테스트</h3>
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
+                <Youtube className="w-4 h-4 mr-1.5" />
+                <span className="text-sm font-medium">YouTube</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 두 번째 영상 */}
+          <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="relative w-[280px] mx-auto">
+              <div className="aspect-[9/16] rounded-t-xl overflow-hidden">
+                <iframe
+                  src="https://www.youtube.com/embed/myWRuZFZGVk"
+                  title="직관력 테스트"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+            <div className="p-4 text-center bg-gradient-to-b from-purple-50 to-white">
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">직관력 테스트</h3>
+              <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-purple-100 text-purple-600">
+                <Youtube className="w-4 h-4 mr-1.5" />
+                <span className="text-sm font-medium">YouTube</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <Link 
+            href="https://www.youtube.com/@todayohquiz/shorts" 
+            className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl hover:from-purple-700 hover:to-blue-700 focus:ring-4 focus:ring-purple-300 transition-all duration-300 shadow-md hover:shadow-lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            모든 영상 보기
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </div>
+      </section>
+
+      {/* 푸터 영역 */}
+      <footer className="text-center text-gray-500 text-sm mt-8">
+        <Link href="/admin/login" className="hover:text-gray-700">
+          관리자 로그인
+        </Link>
+        <p>© 2024 진심테스트. All rights reserved.</p>
+      </footer>
     </div>
   );
 } 

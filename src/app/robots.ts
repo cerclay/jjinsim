@@ -9,9 +9,9 @@ export default function robots(): MetadataRoute.Robots {
         '/admin/',
         '/admin-login/',
         '/api/',
-        '/auth/'
       ],
     },
-    sitemap: 'https://jjinsim.com/sitemap.xml',
+    // 구글 애드센스 크롤러를 명시적으로 허용
+    sitemap: 'https://www.mysimli.com/sitemap.xml',
   };
 } 

@@ -27,7 +27,9 @@ export function RootLayoutClient({ children }: RootLayoutClientProps) {
       <div className="fixed top-4 right-4 z-[9999]">
         <LanguageSwitcher />
       </div>
-      {children}
+      <div className="bg-white min-h-screen w-full">
+        {children}
+      </div>
     </>
   );
 } 

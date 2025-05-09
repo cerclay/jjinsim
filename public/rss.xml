@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>찐심(JJinSim) - 당신의 내면을 비추는 심리테스트</title>
+    <link>https://mysimli.com</link>
+    <description>찐심 테스트로 당신의 성격, 심리, 적성, MBTI 등을 무료로 알아보세요. 재미있고 정확한 심리테스트로 자신을 발견하는 시간!</description>
+    <language>ko-kr</language>
+    <pubDate>Wed, 19 Jun 2024 00:00:00 GMT</pubDate>
+    <lastBuildDate>Wed, 19 Jun 2024 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://mysimli.com/rss.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copyright 2024, 찐심(JJinSim)</copyright>
+    <webMaster>contact@mysimli.com</webMaster>
+    <category>심리테스트</category>
+    <category>MBTI</category>
+    <category>성격테스트</category>
+    <category>적성검사</category>
+    <image>
+      <url>https://mysimli.com/favicon.png</url>
+      <title>찐심(JJinSim) - 당신의 내면을 비추는 심리테스트</title>
+      <link>https://mysimli.com</link>
+    </image>
+    
+    <item>
+      <title>MBTI 테스트 - 당신의 성격 유형은?</title>
+      <link>https://mysimli.com/tests/mbti</link>
+      <description>MBTI 유형 검사로 당신의 성격 특성을 알아보세요. 16가지 성격 유형 중 당신은 어떤 유형인지 확인해보세요.</description>
+      <pubDate>Wed, 19 Jun 2024 00:00:00 GMT</pubDate>
+      <guid>https://mysimli.com/tests/mbti</guid>
+      <category>MBTI</category>
+      <category>성격테스트</category>
+    </item>
+    
+    <item>
+      <title>기억력 테스트 - 당신의 기억력은 어떤가요?</title>
+      <link>https://mysimli.com/tests/memory-test</link>
+      <description>간단한 테스트를 통해 당신의 기억력을 확인해보세요.</description>
+      <pubDate>Wed, 19 Jun 2024 00:00:00 GMT</pubDate>
+      <guid>https://mysimli.com/tests/memory-test</guid>
+      <category>심리테스트</category>
+      <category>기억력</category>
+    </item>
+    
+    <item>
+      <title>색맹 테스트 - 당신의 색각은 어떤가요?</title>
+      <link>https://mysimli.com/tests/color-blindness</link>
+      <description>색각이상을 확인할 수 있는 테스트입니다.</description>
+      <pubDate>Wed, 19 Jun 2024 00:00:00 GMT</pubDate>
+      <guid>https://mysimli.com/tests/color-blindness</guid>
+      <category>심리테스트</category>
+      <category>색맹테스트</category>
+    </item>
+    
+    <item>
+      <title>스트레스 체크 - 당신의 스트레스 지수는?</title>
+      <link>https://mysimli.com/tests/stress-check</link>
+      <description>일상 생활에서 느끼는 스트레스 수준을 확인해보세요.</description>
+      <pubDate>Wed, 19 Jun 2024 00:00:00 GMT</pubDate>
+      <guid>https://mysimli.com/tests/stress-check</guid>
+      <category>심리테스트</category>
+      <category>스트레스</category>
+      <category>자가진단</category>
+    </item>
+  </channel>
+</rss> 

@@ -7,6 +7,8 @@ import { MbtiTest } from "@/features/mbti/components/MbtiTest";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import AdInContent from "@/components/ads/AdInContent";
+import AdSidebar from "@/components/ads/AdSidebar";
 
 const mbtiQuestions = [
   {
@@ -120,86 +122,105 @@ export default function MbtiPage() {
 
   return (
     <main className="py-8 px-4 bg-white text-black">
-      <div className="max-w-[500px] mx-auto space-y-8">
-        {!showTest ? (
-          <>
-            <div className="mb-10 text-center">
-              <Link 
-                href="/" 
-                className="inline-flex items-center text-gray-700 hover:text-rose-600 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                <span className="text-sm">홈으로 돌아가기</span>
-              </Link>
-              
-              <motion.h1
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-4xl font-extrabold mt-6 mb-2 text-black relative"
-              >
-                MBTI 성격 유형 검사
-                <div className="h-1 w-28 bg-gradient-to-r from-rose-500 to-orange-500 absolute -bottom-2 left-1/2 transform -translate-x-1/2 rounded-full"></div>
-              </motion.h1>
-              
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-lg mt-6 text-gray-700"
-              >
-                자신의 성격 유형을 알아보고 더 나은 자기 이해의 시간을 가져보세요.
-              </motion.p>
+      <div className="max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="lg:w-3/4">
+            <div className="max-w-[500px] mx-auto space-y-8">
+              {!showTest ? (
+                <>
+                  <div className="mb-10 text-center">
+                    <Link 
+                      href="/" 
+                      className="inline-flex items-center text-gray-700 hover:text-rose-600 transition-colors"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-1" />
+                      <span className="text-sm">홈으로 돌아가기</span>
+                    </Link>
+                    
+                    <motion.h1
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-4xl font-extrabold mt-6 mb-2 text-black relative"
+                    >
+                      MBTI 성격 유형 검사
+                      <div className="h-1 w-28 bg-gradient-to-r from-rose-500 to-orange-500 absolute -bottom-2 left-1/2 transform -translate-x-1/2 rounded-full"></div>
+                    </motion.h1>
+                    
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
+                      className="text-lg mt-6 text-gray-700"
+                    >
+                      자신의 성격 유형을 알아보고 더 나은 자기 이해의 시간을 가져보세요.
+                    </motion.p>
+                  </div>
+                  
+                  <AdInContent />
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    whileHover={{ scale: 1.02 }}
+                    className="cursor-pointer"
+                    onClick={handleStartTest}
+                  >
+                    <MbtiCard />
+                  </motion.div>
+                  
+                  <AdInContent />
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.5 }}
+                  >
+                    <Card className="p-6 border-none shadow-lg bg-white">
+                      <h2 className="text-2xl font-bold mb-4 text-black drop-shadow-sm flex items-center">
+                        <span className="mr-2 text-2xl">💡</span>
+                        <span className="text-black">테스트 알고리즘</span>
+                      </h2>
+                      <div className="space-y-3 text-black">
+                        <div className="flex items-start gap-2">
+                          <div className="rounded-full text-xs font-bold bg-rose-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">1</div>
+                          <p className="text-black">12개의 질문에 답변하면 당신의 성격 성향을 분석합니다. 🧠✨</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="rounded-full text-xs font-bold bg-pink-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">2</div>
+                          <p className="text-black">각 질문은 MBTI의 4가지 지표를 측정하는 데 사용됩니다. 📊</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="rounded-full text-xs font-bold bg-orange-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">3</div>
+                          <p className="text-black">당신의 답변을 바탕으로 가장 가까운 16가지 MBTI 유형 중 하나를 찾아드립니다! 🎯</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="rounded-full text-xs font-bold bg-amber-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">4</div>
+                          <p className="text-black">결과를 통해 당신의 성격 특성과 장점을 알아보세요. 🌟</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                  
+                  <AdInContent />
+                </>
+              ) : (
+                <>
+                  <MbtiTest 
+                    questions={mbtiQuestions}
+                    onBack={handleBackToIntro}
+                  />
+                  <AdInContent />
+                </>
+              )}
             </div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              whileHover={{ scale: 1.02 }}
-              className="cursor-pointer"
-              onClick={handleStartTest}
-            >
-              <MbtiCard />
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
-              <Card className="p-6 border-none shadow-lg bg-white">
-                <h2 className="text-2xl font-bold mb-4 text-black drop-shadow-sm flex items-center">
-                  <span className="mr-2 text-2xl">💡</span>
-                  <span className="text-black">테스트 알고리즘</span>
-                </h2>
-                <div className="space-y-3 text-black">
-                  <div className="flex items-start gap-2">
-                    <div className="rounded-full text-xs font-bold bg-rose-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">1</div>
-                    <p className="text-black">12개의 질문에 답변하면 당신의 성격 성향을 분석합니다. 🧠✨</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <div className="rounded-full text-xs font-bold bg-pink-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">2</div>
-                    <p className="text-black">각 질문은 MBTI의 4가지 지표를 측정하는 데 사용됩니다. 📊</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <div className="rounded-full text-xs font-bold bg-orange-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">3</div>
-                    <p className="text-black">당신의 답변을 바탕으로 가장 가까운 16가지 MBTI 유형 중 하나를 찾아드립니다! 🎯</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <div className="rounded-full text-xs font-bold bg-amber-500 text-white w-5 h-5 flex items-center justify-center mt-0.5">4</div>
-                    <p className="text-black">결과를 통해 당신의 성격 특성과 장점을 알아보세요. 🌟</p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          </>
-        ) : (
-          <MbtiTest 
-            questions={mbtiQuestions}
-            onBack={handleBackToIntro}
-          />
-        )}
+          </div>
+          
+          <div className="lg:w-1/4">
+            <AdSidebar />
+          </div>
+        </div>
       </div>
     </main>
   );

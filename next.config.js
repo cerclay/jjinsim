@@ -85,6 +85,27 @@ const nextConfig = {
     ];
   },
   output: 'standalone',
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' *.kakao.com *.kakao.co.kr;
+              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+              img-src 'self' data: blob: https://*.googleusercontent.com https://k.kakaocdn.net https://*.kakao.com https://*.kakao.co.kr;
+              font-src 'self' https://fonts.gstatic.com;
+              frame-src 'self' https://*.kakao.com https://*.kakao.co.kr;
+              connect-src 'self' https://*.kakao.com https://*.kakao.co.kr https://kauth.kakao.com;
+            `.replace(/\s+/g, ' ').trim()
+          }
+        ]
+      }
+    ];
+  },
 };
 
 // Sentry 설정 제거
